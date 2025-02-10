@@ -200,7 +200,7 @@ public class MangeProduct extends HttpServlet {
             } catch (Exception e) {
                 LOGGER.log(Level.SEVERE, "Error adding product", e);
                 request.setAttribute("errorMessage", "Failed to add product: " + e.getMessage());
-                request.getRequestDispatcher("Views/AddProduct.jsp").forward(request, response);
+               response.sendRedirect("MangeProduct?success=true");
             }
         }
         else {

@@ -120,7 +120,7 @@
                             <div class="product-form-container">
                                 <form id="productForm" class="product-form" method="post" action="MangeProduct" enctype="multipart/form-data">
                                 <c:set value="${product}" var="p"></c:set>
-                                 <input type="text" id="productName" name="productID" value="${p.product.product_ID}" required>
+                                <input   type="hidden" id="productName" name="productID" value="${p.product.product_ID}" required>
                                     <div class="input-group">
                                         <label for="productName">Tên sản phẩm:</label>
                                         <input type="text" id="productName" name="productName" value="${p.product.product_name}" required>
