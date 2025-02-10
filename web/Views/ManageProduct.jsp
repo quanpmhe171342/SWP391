@@ -411,7 +411,7 @@
                                               <td style="display: flex; justify-content: space-evenly">                                                  
                                                     <button type="button" class="btn-sm btn-success" onclick="#">Xem Chi Tiết</button>
                                                     <button type="button" class="btn-sm btn-secondary" onclick="location.href='MangeProduct?action=editproduct&pid=<c:out value="${p.product.product_ID}"/>'">Chỉnh Sửa</button>
-                                                    <button type="button" class="btn-sm btn-danger" onclick="location.href='MangeProduct?action=deleteproduct&pid=<c:out value="${p.product.product_ID}"/>'">Xóa</button>
+                                                    <button type="button" class="btn-sm btn-danger" onclick="if (window.confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')) { location.href='MangeProduct?action=deleteproduct&pid=${p.product.product_ID}'; }"/>>Xóa</button>
                                                 </td>
                                         </tr>
                                          </c:forEach>
