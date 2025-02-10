@@ -16,11 +16,12 @@ public class Product {
     Double sale_price;
     String product_description;
     String brief_information;
-    CategoryProduct ct;
+    CategoryVariant ct;
 
       public Product(){
       };
-    public Product(int product_ID, String product_name, Double original_Price, Double sale_price, String product_description, String brief_information, CategoryProduct ct) {
+
+    public Product(int product_ID, String product_name, Double original_Price, Double sale_price, String product_description, String brief_information, CategoryVariant ct) {
         this.product_ID = product_ID;
         this.product_name = product_name;
         this.original_Price = original_Price;
@@ -78,11 +79,11 @@ public class Product {
         this.brief_information = brief_information;
     }
 
-    public CategoryProduct getCt() {
+    public CategoryVariant getCt() {
         return ct;
     }
 
-    public void setCt(CategoryProduct ct) {
+    public void setCt(CategoryVariant ct) {
         this.ct = ct;
     }
 
@@ -90,6 +91,7 @@ public class Product {
     public String toString() {
         return "Product{" + "product_ID=" + product_ID + ", product_name=" + product_name + ", original_Price=" + original_Price + ", sale_price=" + sale_price + ", product_description=" + product_description + ", brief_information=" + brief_information + ", ct=" + ct + '}';
     }
+   
 
    
 

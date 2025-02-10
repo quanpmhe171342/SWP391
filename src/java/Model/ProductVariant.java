@@ -15,16 +15,16 @@ public class ProductVariant {
     Product product;
     Size size;
     Color color;
-    int Stock;
+    int stock;
     String image;
     public  ProductVariant(){};
-    
-    public ProductVariant(int VariantID, Product product, Size size, Color color, int Stock, String image) {
+
+    public ProductVariant(int VariantID, Product product, Size size, Color color, int stock, String image) {
         this.VariantID = VariantID;
         this.product = product;
         this.size = size;
         this.color = color;
-        this.Stock = Stock;
+        this.stock = stock;
         this.image = image;
     }
 
@@ -61,11 +61,11 @@ public class ProductVariant {
     }
 
     public int getStock() {
-        return Stock;
+        return stock;
     }
 
-    public void setStock(int Stock) {
-        this.Stock = Stock;
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 
     public String getImage() {
@@ -78,7 +78,8 @@ public class ProductVariant {
 
     @Override
     public String toString() {
-        return "ProductVariant{" + "VariantID=" + VariantID + ", product=" + product + ", size=" + size + ", color=" + color + ", Stock=" + Stock + ", image=" + image + '}';
+        return "ProductVariant{" + "VariantID=" + VariantID + ", product=" + product + ", size=" + size + ", color=" + color + ", stock=" + stock + ", image=" + image + '}';
     }
+    
     
 }
