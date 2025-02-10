@@ -21,6 +21,9 @@ public class CategoryProduct {
         this.image = image;
     }
 
+    public CategoryProduct() {
+    }
+
     public int getCategory_productID() {
         return category_productID;
     }

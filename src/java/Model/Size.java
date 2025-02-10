@@ -35,5 +35,11 @@ public class Size {
     public void setSize_name(String size_name) {
         this.size_name = size_name;
     }
+
+    @Override
+    public String toString() {
+        return "Size{" + "size_id=" + size_id + ", size_name=" + size_name + '}';
+    }
+    
     
 }

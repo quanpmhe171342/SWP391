@@ -275,7 +275,7 @@
                                     <div class="product__item">
                                         <div class="product__item__pic set-bg" data-setbg="${p.image}">
                                             <ul class="product__hover">
-                                                <li><a href=""><img src="img/icon/search.png" alt=""></a></li>
+                                                <li><a href="ProductDetails?pid=${p.product.product_ID}"><img src="img/icon/search.png" alt=""></a></li>
                                             </ul>
                                         </div>
                                         <div class="product__item__text">

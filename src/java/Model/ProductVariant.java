@@ -9,13 +9,16 @@ package Model;
  * @author phuan
  */
 public class ProductVariant {
+
+
     int VariantID;
     Product product;
     Size size;
     Color color;
     int Stock;
     String image;
-
+    public  ProductVariant(){};
+    
     public ProductVariant(int VariantID, Product product, Size size, Color color, int Stock, String image) {
         this.VariantID = VariantID;
         this.product = product;
@@ -71,6 +74,11 @@ public class ProductVariant {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    @Override
+    public String toString() {
+        return "ProductVariant{" + "VariantID=" + VariantID + ", product=" + product + ", size=" + size + ", color=" + color + ", Stock=" + Stock + ", image=" + image + '}';
     }
     
 }

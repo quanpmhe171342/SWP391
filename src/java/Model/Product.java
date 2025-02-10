@@ -9,30 +9,33 @@ package Model;
  * @author phuan
  */
 public class Product {
-    int ProductID;
+
+    int product_ID;
     String product_name;
     Double original_Price;
     Double sale_price;
-    String Product_description;
+    String product_description;
     String brief_information;
     CategoryProduct ct;
 
-    public Product(int ProductID, String product_name, Double original_Price, Double sale_price, String Product_description, String brief_information, CategoryProduct ct) {
-        this.ProductID = ProductID;
+      public Product(){
+      };
+    public Product(int product_ID, String product_name, Double original_Price, Double sale_price, String product_description, String brief_information, CategoryProduct ct) {
+        this.product_ID = product_ID;
         this.product_name = product_name;
         this.original_Price = original_Price;
         this.sale_price = sale_price;
-        this.Product_description = Product_description;
+        this.product_description = product_description;
         this.brief_information = brief_information;
         this.ct = ct;
     }
 
-    public int getProductID() {
-        return ProductID;
+    public int getProduct_ID() {
+        return product_ID;
     }
 
-    public void setProductID(int ProductID) {
-        this.ProductID = ProductID;
+    public void setProduct_ID(int product_ID) {
+        this.product_ID = product_ID;
     }
 
     public String getProduct_name() {
@@ -60,11 +63,11 @@ public class Product {
     }
 
     public String getProduct_description() {
-        return Product_description;
+        return product_description;
     }
 
-    public void setProduct_description(String Product_description) {
-        this.Product_description = Product_description;
+    public void setProduct_description(String product_description) {
+        this.product_description = product_description;
     }
 
     public String getBrief_information() {
@@ -83,6 +86,11 @@ public class Product {
         this.ct = ct;
     }
 
+    @Override
+    public String toString() {
+        return "Product{" + "product_ID=" + product_ID + ", product_name=" + product_name + ", original_Price=" + original_Price + ", sale_price=" + sale_price + ", product_description=" + product_description + ", brief_information=" + brief_information + ", ct=" + ct + '}';
+    }
+
    
-    
+
 }
