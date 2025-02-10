@@ -31,6 +31,43 @@
         <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
         <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
         <link rel="stylesheet" href="css/style.css" type="text/css">
+        <style>
+            .product__details__option__siz {
+                display: inline-block;
+                margin-right: 50px;
+            }
+
+            .product__details__option__siz span {
+                color: #111111;
+                display: inline-block;
+                margin-right: 10px;
+            }
+
+            .product__details__option__siz label {
+                color: #111111;
+                font-size: 15px;
+                font-weight: 700;
+                text-transform: uppercase;
+                display: inline-block;
+                border: 1px solid #e5e5e5;
+                padding: 6px 15px;
+                margin-bottom: 0;
+                margin-right: 5px;
+                cursor: pointer;
+            }
+
+            .product__details__option__siz label.active {
+                background: #111111;
+                color: #ffffff;
+                border-color: #111111;
+            }
+
+            .product__details__option__siz label input {
+                position: absolute;
+                visibility: hidden;/* Thêm khoảng cách giữa input và text */
+            }
+
+        </style>
     </head>
 
     <body>
@@ -206,10 +243,10 @@
                                             </label>
                                         </c:forEach>
                                     </div>
-                                    <div class="product__details__option__size">
+                                    <div class="product__details__option__siz">
                                         <span>Màu Sắc:</span>
                                         <c:forEach items="${Color}" var="c">
-                                            <label for="${c.color.color_Name}">
+                                            <label for="${c.color.color_Name}" id="a">
                                                 <input type="radio" id="${c.color.color_Name}" name="color" value="${c.color.color_Name}">${c.color.color_Name}
                                             </label>
                                         </c:forEach>
@@ -417,7 +454,22 @@
             </div>
         </div>
         <!-- Search End -->
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+    const sizeLabels = document.querySelectorAll(".product__details__option__siz label");
 
+    sizeLabels.forEach(label => {
+        label.addEventListener("click", function () {
+            // Xóa class active khỏi tất cả label
+            sizeLabels.forEach(lbl => lbl.classList.remove("active"));
+            
+            // Thêm class active vào label được chọn
+            this.classList.add("active");
+        });
+    });
+});
+
+        </script>
         <!-- Js Plugins -->
         <script src="js/jquery-3.3.1.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
