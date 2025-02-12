@@ -266,7 +266,7 @@
                                     <h5><span>Guaranteed Safe Checkout</span></h5>
                                     <img src="img/shop-details/details-payment.png" alt="">
                                     <ul>
-                                        <li><span>Loại: </span> ${p.product.ct.cp.category_name}</li>
+                                        <li><span>Loại: </span> ${p.product.ct.category_name}</li>
                                     </ul>
                                 </div>
                             </div>

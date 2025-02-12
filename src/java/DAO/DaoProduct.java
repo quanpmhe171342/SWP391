@@ -24,8 +24,7 @@ import java.util.Map;
  */
 public class DaoProduct extends DBContext {
 
-    
-      public void DeleteProduct(int id) {
+    public void DeleteProduct(int id) {
         try {
             String query = " DELETE FROM Product\n"
                     + "      WHERE ProductId = ?";
@@ -36,7 +35,8 @@ public class DaoProduct extends DBContext {
             ex.printStackTrace();
         }
     }
-      public void DeleteProductV(int id) {
+
+    public void DeleteProductV(int id) {
         try {
             String query = " DELETE FROM [ProductVariant]\n"
                     + "      WHERE [ProductID] = ?";
@@ -47,6 +47,7 @@ public class DaoProduct extends DBContext {
             ex.printStackTrace();
         }
     }
+
     public ProductVariant getProductById(int id) {
         ProductVariant pv = new ProductVariant();
         try {
@@ -68,9 +69,9 @@ public class DaoProduct extends DBContext {
             stm.setInt(1, id);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
-                    CategoryProduct cp = new CategoryProduct(rs.getInt("CategoryID"),
+                CategoryProduct cp = new CategoryProduct(rs.getInt("CategoryID"),
                         rs.getString("category_name"), rs.getString("category_description"), rs.getString("image"));
-               
+
                 Product p = new Product(rs.getInt("ProductID"),
                         rs.getString("ProductName"),
                         rs.getDouble("original_price"),
@@ -95,25 +96,80 @@ public class DaoProduct extends DBContext {
         }
         return null;
     }
-    
-    public void updateProduct(int product_id,String product_name, double original_price, double sale_price, String product_description, String brief_information ) {
+
+    public void updateProduct(int product_id, String product_name, double original_price, double sale_price, String product_description, String brief_information, int CategoryProductID) {
         try {
             String query = "UPDATE Product SET ProductName = ?, original_price = ?, sale_price = ?, product_description = ?, "
-                    + "brief_information = ? WHERE ProductID = ?";
+                    + "brief_information = ? , CategoryProductID = ? WHERE ProductID = ?";
             PreparedStatement stm = conn.prepareStatement(query);
             stm.setString(1, product_name);
-           stm.setFloat(2, (float) original_price);
+            stm.setFloat(2, (float) original_price);
             stm.setFloat(3, (float) sale_price);
             stm.setString(4, product_description);
             stm.setString(5, brief_information);
-             stm.setInt(6, product_id);
+            stm.setInt(6, CategoryProductID);
+            stm.setInt(7, product_id);
             stm.executeUpdate();
         } catch (Exception e) {
         }
     }
-    
-    
-     public void addProduct( String product_name, double original_price, double sale_price, String product_description, String brief_information, int CategoryVariantID) {
+
+    public void updateProduct1(int product_id, int SizeId, int Color_id, int Stock, String ImageURL) {
+        try {
+            String query = "UPDATE ProductVariant SET  SizeID = ?, ColorID = ?, Stock = ?, "
+                    + " ImageURL = ? WHERE ProductID = ? and SizeID = ? and  ColorID = ?";
+            PreparedStatement stm = conn.prepareStatement(query);
+            stm.setInt(1, SizeId);
+            stm.setInt(2, Color_id);
+            stm.setInt(3, Stock);
+            stm.setString(4, ImageURL);
+            stm.setInt(5, product_id);
+            stm.setInt(6, SizeId);
+            stm.setInt(7, Color_id);
+
+            stm.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public boolean Check1(int product_id, int SizeId, int Color_id) {
+        String query = "SELECT * FROM ProductVariant WHERE ProductID = ? AND SizeID = ? AND ColorID = ? ";
+        try (PreparedStatement stm = conn.prepareStatement(query)) {
+            stm.setInt(1, product_id);
+            stm.setInt(2, SizeId);
+            stm.setInt(3, Color_id);
+            try (ResultSet rs = stm.executeQuery()) {
+                return rs.next(); // Nếu có dữ liệu, trả về true
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // Hiển thị lỗi
+            return false; // Xử lý lỗi bằng cách trả về false
+        }
+    }
+
+    public List<Map<String, String>> getProductImages(int product_id) {
+        String query = "SELECT ColorID, MIN(ImageURL) AS ImageURL FROM ProductVariant WHERE ProductID = ? GROUP BY ColorID ";
+    List<Map<String, String>> images = new ArrayList<>();
+
+        try (PreparedStatement stm = conn.prepareStatement(query)) {
+            stm.setInt(1, product_id);
+            try (ResultSet rs = stm.executeQuery()) {
+                while (rs.next()) {
+                    Map<String, String> imageData = new HashMap<>();
+                    imageData.put("ImageURL", rs.getString("ImageURL"));
+                    imageData.put("ColorID", String.valueOf(rs.getInt("ColorID")));
+                    images.add(imageData);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // Ghi log lỗi
+        }
+
+        return images; // Trả về danh sách ảnh và màu
+    }
+
+    public void addProduct(String product_name, double original_price, double sale_price, String product_description, String brief_information, int CategoryVariantID) {
         try {
             String query = "INSERT INTO Product(\n"
                     + "    ProductName,\n"
@@ -135,9 +191,8 @@ public class DaoProduct extends DBContext {
             e.printStackTrace();
         }
     }
-      
-     
-      public void addProductVariant( int ProductID, int SizeID, int ColorID, int  Stock, String ImageURL) {
+
+    public void addProductVariant(int ProductID, int SizeID, int ColorID, int Stock, String ImageURL) {
         try {
             String query = "INSERT INTO ProductVariant(\n"
                     + "    ProductID,\n"
@@ -145,11 +200,10 @@ public class DaoProduct extends DBContext {
                     + "    ColorID,\n"
                     + "    Stock,\n"
                     + "    ImageURL\n"
-
                     + ") VALUES (?, ?, ?, ?, ?);\n";
             PreparedStatement stm = conn.prepareStatement(query);
             stm.setInt(1, ProductID);
-            stm.setInt(2,  SizeID);
+            stm.setInt(2, SizeID);
             stm.setInt(3, ColorID);
             stm.setInt(4, Stock);
             stm.setString(5, ImageURL);
@@ -158,6 +212,7 @@ public class DaoProduct extends DBContext {
             e.printStackTrace();
         }
     }
+
     public List<ProductVariant> getSizeProduct(int id) {
         List<ProductVariant> pv = new ArrayList<>();
         try {
@@ -187,7 +242,8 @@ public class DaoProduct extends DBContext {
         return pv;
 
     }
- public List<ProductVariant> getSizeColorStockProduct(int id) {
+
+    public List<ProductVariant> getSizeColorStockProduct(int id) {
         List<ProductVariant> pv = new ArrayList<>();
         try {
             String query = "select ColorID, SizeID, Stock from ProductVariant where ProductID = ?";
@@ -197,8 +253,8 @@ public class DaoProduct extends DBContext {
             while (rs.next()) {
                 CategoryProduct cp = new CategoryProduct();
                 Product p = new Product();
-                Size s = new Size(rs.getInt("SizeID"),null,cp);
-                Color c = new Color(rs.getInt("ColorID"),null);
+                Size s = new Size(rs.getInt("SizeID"), null, cp);
+                Color c = new Color(rs.getInt("ColorID"), null);
                 ProductVariant pv1 = new ProductVariant(
                         0,
                         p,
@@ -319,13 +375,13 @@ public class DaoProduct extends DBContext {
     public List<Product> getProductReleted(int pid) {
         List<Product> product = new ArrayList();
         try {
-            String query = "Select p.ProductID,p.ProductName,p.original_price,p.sale_price,p.product_description,p.brief_information \n" +
-"                                     from Product p\n" +
-"                                inner join \n" +
-"\n" +
-"                                        CategoryProduct cp on p.CategoryProductID = cp.CategoryID \n" +
-"                                        where p.CategoryProductID = (SELECT CategoryProductID From Product where ProductID =?)\n" +
-"                                        AND p.ProductID <>  " + pid;
+            String query = "Select p.ProductID,p.ProductName,p.original_price,p.sale_price,p.product_description,p.brief_information \n"
+                    + "                                     from Product p\n"
+                    + "                                inner join \n"
+                    + "\n"
+                    + "                                        CategoryProduct cp on p.CategoryProductID = cp.CategoryID \n"
+                    + "                                        where p.CategoryProductID = (SELECT CategoryProductID From Product where ProductID =?)\n"
+                    + "                                        AND p.ProductID <>  " + pid;
             PreparedStatement stm = conn.prepareStatement(query);
             System.out.println(query);
             stm.setInt(1, pid);
@@ -376,7 +432,7 @@ public class DaoProduct extends DBContext {
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 CategoryProduct cp = new CategoryProduct(rs.getInt("CategoryID"),
-                        rs.getString("category_name"), rs.getString("category_description"), rs.getString("image"));                
+                        rs.getString("category_name"), rs.getString("category_description"), rs.getString("image"));
                 Product p = new Product(rs.getInt("ProductID"),
                         rs.getString("ProductName"),
                         rs.getDouble("original_price"),
@@ -401,9 +457,8 @@ public class DaoProduct extends DBContext {
         return product;
     }
 
-    
     public List<Product> getProduct1() {
-          List<Product> product = new ArrayList();
+        List<Product> product = new ArrayList();
         try {
             String query = "Select * from Product";
 
@@ -411,14 +466,14 @@ public class DaoProduct extends DBContext {
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 CategoryProduct cp = new CategoryProduct();
-                
+
                 Product p = new Product(rs.getInt("ProductID"),
                         rs.getString("ProductName"),
                         rs.getDouble("original_price"),
                         rs.getDouble("sale_price"),
                         rs.getString("product_description"),
                         rs.getString("brief_information"), cp);
-               
+
                 product.add(p);
             }
         } catch (SQLException e) {
@@ -426,8 +481,9 @@ public class DaoProduct extends DBContext {
         }
         return product;
     }
+
     public static void main(String[] args) {
         DaoProduct pv = new DaoProduct();
-        System.out.println(pv.getSizeColorStockProduct(63));
+        System.out.println(pv.getProductImages(66));
     }
 }

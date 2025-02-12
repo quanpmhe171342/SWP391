@@ -52,6 +52,7 @@ public class MangeProduct extends HttpServlet {
                 request.setAttribute("color", colorDao.getColor());
                 request.getRequestDispatcher("Views/AddProduct.jsp").forward(request, response);
             } else if (action.equalsIgnoreCase("editproduct")) {
+                request.setAttribute("img", productDao.getProductImages(Integer.parseInt(request.getParameter("pid"))));
                 request.setAttribute("product", productDao.getProductById(Integer.parseInt(request.getParameter("pid"))));
                 request.setAttribute("cate", categoryDao.getCateProduct());
                 request.setAttribute("sizes", sizeDao.getSize(1));
@@ -93,13 +94,13 @@ public class MangeProduct extends HttpServlet {
                 String[] colors = request.getParameterValues("color");
                 System.out.println(colors);
                 String[] sizes = request.getParameterValues("sizes");
-            String[] uniqueSizesArray = null ;
+                String[] uniqueSizesArray = null;
                 if (sizes != null) {
                     // Dùng LinkedHashSet để giữ nguyên thứ tự nhập vào
                     Set<String> uniqueSizes = new LinkedHashSet<>(Arrays.asList(sizes));
 
                     // Chuyển Set thành mảng
-                   uniqueSizesArray = uniqueSizes.toArray(new String[0]);
+                    uniqueSizesArray = uniqueSizes.toArray(new String[0]);
 
                     // In kết quả
                     System.out.println(Arrays.toString(uniqueSizesArray));
@@ -165,17 +166,17 @@ public class MangeProduct extends HttpServlet {
                 String categoryId = request.getParameter("category");
                 double originalPrice = Double.parseDouble(request.getParameter("originalPrice"));
                 double salePrice = Double.parseDouble(request.getParameter("salePrice"));
-
+               
                 // Add base product
-                productDao.updateProduct(Integer.parseInt(request.getParameter("productID")), productName, originalPrice, salePrice, description, brief);
+                productDao.updateProduct(Integer.parseInt(request.getParameter("productID")), productName, originalPrice, salePrice, description, brief, Integer.parseInt(categoryId));
                 String[] sizes = request.getParameterValues("sizes");
-                 String[] uniqueSizesArray = null ;
+                String[] uniqueSizesArray = null;
                 if (sizes != null) {
                     // Dùng LinkedHashSet để giữ nguyên thứ tự nhập vào
                     Set<String> uniqueSizes = new LinkedHashSet<>(Arrays.asList(sizes));
 
                     // Chuyển Set thành mảng
-                   uniqueSizesArray = uniqueSizes.toArray(new String[0]);
+                    uniqueSizesArray = uniqueSizes.toArray(new String[0]);
 
                     // In kết quả
                     System.out.println(Arrays.toString(uniqueSizesArray));
@@ -183,11 +184,12 @@ public class MangeProduct extends HttpServlet {
                 // Process color and size variants
                 String[] colors = request.getParameterValues("color");
                 if (colors != null) {
+                                    
+
                     for (String colorId : colors) {
                         // Sizes could be dynamically fetched from database
-
+                         System.out.println(colorId);
                         for (String sizeId : uniqueSizesArray) {
-                            System.out.println(sizeId);
                             String quantityParam = "quantity-" + colorId + "-" + sizeId;
                             String quantityValue = request.getParameter(quantityParam);
 
@@ -195,21 +197,44 @@ public class MangeProduct extends HttpServlet {
                                 try {
                                     int quantity = Integer.parseInt(quantityValue);
                                     if (quantity > 0) {
+                                        System.out.println("");
                                         // Upload image for this color-size combination
                                         String imageUrl = uploadProductImage(
                                                 request.getPart("image-" + colorId),
                                                 productName,
                                                 colorId
                                         );
-                                      productDao.getSizeColorStockProduct(Integer.parseInt(request.getParameter("productID")));
-                                        // Add product variant
-                                        productDao.addProductVariant(
-                                                Integer.parseInt(request.getParameter("productID")),
-                                                Integer.parseInt(sizeId),
-                                                Integer.parseInt(colorId),
-                                                quantity,
-                                                imageUrl
-                                        );
+                                        if(imageUrl.length() == 0){
+                                            for (Map<String, String> product :  productDao.getProductImages(Integer.parseInt(request.getParameter("productID")))) {
+                                           if(product.get("ColorID").equalsIgnoreCase(colorId)){
+                                               imageUrl = product.get("ImageURL");
+                                               System.out.println(product.get("ImageURL") + "ccc");
+                                           }
+                                        }
+                                        }
+                                        Boolean a = false;
+                                        List<ProductVariant> pv = productDao.getSizeColorStockProduct(Integer.parseInt(request.getParameter("productID")));
+                                        for (ProductVariant p : pv) {
+                                            if (p.getSize().getSize_id() == Integer.parseInt(sizeId) && p.getColor().getColor_id() == Integer.parseInt(colorId)) {
+                                                productDao.updateProduct1(Integer.parseInt(request.getParameter("productID")), Integer.parseInt(sizeId), Integer.parseInt(colorId), quantity, imageUrl);
+                                                a = true;
+                                            }
+                                        }
+                                        if (a == false) {
+                                            productDao.addProductVariant(
+                                                    Integer.parseInt(request.getParameter("productID")),
+                                                    Integer.parseInt(sizeId),
+                                                    Integer.parseInt(colorId),
+                                                    quantity,
+                                                    imageUrl
+                                            );
+                                        }
+                                        System.out.println(a);
+
+                                    } else {
+                                        if (productDao.Check1(Integer.parseInt(request.getParameter("productID")), Integer.parseInt(sizeId), Integer.parseInt(colorId)) == true) {
+                                            productDao.DeleteProductV(Integer.parseInt(request.getParameter("pid")));
+                                        }
                                     }
                                 } catch (NumberFormatException e) {
                                     LOGGER.log(Level.SEVERE, "Error parsing quantity", e);

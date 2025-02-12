@@ -31,5 +31,5 @@
     <servlet-mapping>
         <servlet-name>HomePage</servlet-name>
         <url-pattern>/HomePage</url-pattern>
-    </servlet-mapping>
+    </servlet-mapping>  
 </web-app>

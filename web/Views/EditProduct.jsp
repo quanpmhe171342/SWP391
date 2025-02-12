@@ -121,9 +121,9 @@
                                 <form id="productForm" class="product-form" method="post" action="MangeProduct" enctype="multipart/form-data">
                                 <c:set value="${product}" var="p"></c:set>
                                 <input type="hidden" id="productName" name="productID" value="${p.product.product_ID}" required>
-                                    <div class="input-group">
-                                        <label for="productName">Tên sản phẩm:</label>
-                                        <input type="text" id="productName" name="productName" value="${p.product.product_name}" required>
+                                <div class="input-group">
+                                    <label for="productName">Tên sản phẩm:</label>
+                                    <input type="text" id="productName" name="productName" value="${p.product.product_name}" required>
                                 </div>
 
                                 <div class="input-group">
@@ -188,7 +188,7 @@
                                                                     </c:if>
 
                                                                 </c:forEach>
-                                                               <input type="hidden" value="${size.size_id}" name="sizes">
+                                                                <input type="hidden" value="${size.size_id}" name="sizes">
                                                                 <input type="number" id="qty-${c.color_id}-${size.size_id}" 
                                                                        name="quantity-${c.color_id}-${size.size_id}" 
                                                                        min="0" value="${stockValue}" disabled>
@@ -197,16 +197,32 @@
 
                                                     </div>
                                                 </div>
+                                                <%-- Tạo biến lưu ảnh để sử dụng sau vòng lặp --%>
+                                                <c:set var="imageURL" value=""/>
+                                                <c:forEach items="${img}" var="image">
+                                                    <c:if test="${image.ColorID == c.color_id}">
+                                                        <c:set var="imageURL" value="${image.ImageURL}"/>
+                                                    </c:if>
+                                                </c:forEach>
+
+                                                <%-- Nếu có ảnh, hiển thị. Nếu không, bật input file --%>
+                                                <c:choose>
+                                                    <c:when test="${not empty imageURL}">
+                                                        <img src="${imageURL}" alt="Ảnh sản phẩm" width="100">
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <span>Chưa có ảnh</span>
+                                                    </c:otherwise>
+                                                </c:choose>
 
                                                 <input type="file" id="img-${c.color_id}" 
                                                        name="image-${c.color_id}" 
-                                                       accept="image/*"  disabled>
-                                            </div>
-                                        </c:forEach>
+                                                       accept="image/*">
+                                            </c:forEach>
+                                        </div>
                                     </div>
-                                </div>
-                                <input type="hidden" name="action" value="editProduct">
-                                <button type="submit" class="submit-btn">Sửa sản phẩm</button>
+                                    <input type="hidden" name="action" value="editProduct">
+                                    <button type="submit" class="submit-btn">Sửa sản phẩm</button>
                             </form>
                         </div>
                     </div>
@@ -215,20 +231,38 @@
         </div>
 
         <script>
+            // Initialize quantity inputs based on pre-checked colors when page loads
+            document.addEventListener("DOMContentLoaded", function () {
+                document.querySelectorAll("input[name='color']:checked").forEach(checkbox => {
+                    const colorSection = checkbox.closest('.color-section');
+                    const qtyInputs = colorSection.querySelectorAll("input[type='number']");
+                    const fileInput = colorSection.querySelector("input[type='file']");
+
+                    qtyInputs.forEach(input => {
+                        input.disabled = false;  // Enable quantity inputs for pre-checked colors
+                    });
+
+                    if (fileInput) {
+                        fileInput.disabled = false;
+                    }
+                });
+            });
+
+// Handle category change
             document.getElementById('category').addEventListener('change', function () {
                 const categoryId = this.value;
-                console.log('Sending categoryId:', categoryId); // Debugging log
+                console.log('Sending categoryId:', categoryId);
 
                 if (!categoryId) {
                     console.warn('No category selected.');
                     return;
                 }
 
-                // Gửi request đến Servlet
+// Send request to Servlet
                 fetch('MangeProduct', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                    body: new URLSearchParams({categoryId: categoryId}) // Đảm bảo gửi đúng format
+                    body: new URLSearchParams({categoryId: categoryId})
                 })
                         .then(response => {
                             console.log('Response status:', response.status);
@@ -251,7 +285,7 @@
                                 const colorSection = container.closest('.color-section');
                                 const colorId = colorSection ? colorSection.getAttribute('data-color-id') : "unknown";
 
-                                // Xóa nội dung cũ
+// Clear old content
                                 container.innerHTML = '';
                                 console.log("Sizes array:", sizes);
                                 sizes.map(size => console.log("Processing size:", size.size_name));
@@ -259,9 +293,11 @@
                                 sizes.map(size => {
                                     const div = document.createElement("div");
                                     div.classList.add("size-group");
+
                                     const label = document.createElement("label");
                                     label.setAttribute("for", `qty-${colorId}-${size.size_id}`);
                                     label.textContent = "Size: " + size.size_name;
+
                                     const input = document.createElement("input");
                                     input.type = "number";
                                     input.id = `qty-${colorId}-${size.size_id}`;
@@ -269,22 +305,19 @@
                                     input.min = "0";
                                     input.value = "0";
                                     input.disabled = true;
+
                                     div.appendChild(label);
                                     div.appendChild(input);
                                     container.appendChild(div);
                                 });
                             });
-
                         })
                         .catch(error => {
                             console.error('Full error:', error);
                         });
-
-                console.log(document.querySelectorAll('.size-options'));
             });
 
-
-// Xử lý checkbox màu sắc
+// Handle color checkbox changes
             document.querySelectorAll("input[name='color']").forEach(checkbox => {
                 checkbox.addEventListener("change", function () {
                     const colorSection = this.closest('.color-section');
@@ -301,23 +334,27 @@
                 });
             });
 
-// Xử lý sự kiện submit form
+// Handle form submission
             document.getElementById("productForm").addEventListener("submit", function (e) {
-
+// Validate prices
                 const originalPrice = parseFloat(document.getElementById("originalPrice").value);
                 const salePrice = parseFloat(document.getElementById("salePrice").value);
 
                 if (salePrice > originalPrice) {
+                    e.preventDefault();
                     alert("Giá sale không thể cao hơn giá gốc!");
                     return;
                 }
 
+// Validate color selection
                 const selectedColors = document.querySelectorAll("input[name='color']:checked");
                 if (selectedColors.length === 0) {
+                    e.preventDefault();
                     alert("Vui lòng chọn ít nhất một màu sắc!");
                     return;
                 }
 
+// Validate quantities and files for selected colors
                 let formValid = true;
                 selectedColors.forEach(colorCheckbox => {
                     const colorSection = colorCheckbox.closest('.color-section');
@@ -325,15 +362,27 @@
                     const qtyInputs = colorSection.querySelectorAll("input[type='number']");
                     const fileInput = colorSection.querySelector("input[type='file']");
 
+// Check if at least one size has a quantity for each selected color
+                    let hasQuantity = false;
+                    qtyInputs.forEach(input => {
+                        if (parseInt(input.value) > 0) {
+                            hasQuantity = true;
+                        }
+                    });
 
-                    
+                    if (!hasQuantity) {
+                        formValid = false;
+                        alert(`Vui lòng nhập số lượng cho ít nhất một kích thước của màu ${colorName}`);
+                        e.preventDefault();
+                        return;
+                    }
                 });
 
+// Show success message if form is valid
                 if (formValid) {
                     alert("Sản phẩm đã được sửa thành công!");
                 }
             });
-
         </script>
     </body>
 </html>
