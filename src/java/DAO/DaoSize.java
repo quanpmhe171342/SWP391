@@ -5,7 +5,6 @@
 package DAO;
 
 import Model.CategoryProduct;
-import Model.CategoryVariant;
 import Model.Size;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

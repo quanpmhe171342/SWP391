@@ -12,6 +12,10 @@
         <servlet-name>MangeProduct</servlet-name>
         <servlet-class>Controller.MangeProduct</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>HomePage</servlet-name>
+        <servlet-class>Controller.HomePage</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProductList</servlet-name>
         <url-pattern>/ProductList</url-pattern>
@@ -23,5 +27,9 @@
     <servlet-mapping>
         <servlet-name>MangeProduct</servlet-name>
         <url-pattern>/MangeProduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HomePage</servlet-name>
+        <url-pattern>/HomePage</url-pattern>
     </servlet-mapping>
 </web-app>

@@ -111,7 +111,7 @@
                             </div>
 
                             <div class="product-form-container">
-                                <form id="productForm" class="product-form" method="post" action="MangeProduct" enctype="multipart/form-data">
+                                <form id="productForm" class="product-form" method="POST" action="MangeProduct" enctype="multipart/form-data">
                                     <div class="input-group">
                                         <label for="productName">Tên sản phẩm:</label>
                                         <input type="text" id="productName" name="productName" required>
@@ -160,6 +160,7 @@
                                                         <c:forEach items="${sizes}" var="size">
                                                             <div class="size-group">
                                                                 <label for="qty-${c.color_id}-${size.size_id}">Size ${size.size_name}:</label>
+                                                                <input type="hidden" value="${size.size_id}" name="sizes">
                                                                 <input type="number" id="qty-${c.color_id}-${size.size_id}" 
                                                                        name="quantity-${c.color_id}-${size.size_id}" 
                                                                        min="0" value="0" disabled>

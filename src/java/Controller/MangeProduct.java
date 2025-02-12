@@ -4,6 +4,7 @@ import DAO.DaoCategoryProduct;
 import DAO.DaoColor;
 import DAO.DaoProduct;
 import DAO.DaoSize;
+import Model.Product;
 import Model.ProductVariant;
 import Model.Size;
 import com.google.gson.Gson;
@@ -16,9 +17,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import java.io.*;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -47,24 +51,20 @@ public class MangeProduct extends HttpServlet {
                 request.setAttribute("sizes", sizeDao.getSize(1));
                 request.setAttribute("color", colorDao.getColor());
                 request.getRequestDispatcher("Views/AddProduct.jsp").forward(request, response);
-            }
-            else if (action.equalsIgnoreCase("editproduct")) {
-            request.setAttribute("product", productDao.getProductById(Integer.parseInt(request.getParameter("pid"))));
-            request.setAttribute("cate", categoryDao.getCateProduct());
-            request.setAttribute("sizes", sizeDao.getSize(1));
-            request.setAttribute("colorProduct", productDao.getColorProduct(Integer.parseInt(request.getParameter("pid"))));
-            request.setAttribute("color", colorDao.getColor());
-            
-            request.getRequestDispatcher("Views/EditProduct.jsp").forward(request, response);
-        } 
-             else if (action.equalsIgnoreCase("deleteproduct")) {
-                  productDao.DeleteProductV(Integer.parseInt(request.getParameter("pid")));
-               productDao.DeleteProduct(Integer.parseInt(request.getParameter("pid")));
-           response.sendRedirect("MangeProduct");
+            } else if (action.equalsIgnoreCase("editproduct")) {
+                request.setAttribute("product", productDao.getProductById(Integer.parseInt(request.getParameter("pid"))));
+                request.setAttribute("cate", categoryDao.getCateProduct());
+                request.setAttribute("sizes", sizeDao.getSize(1));
+                request.setAttribute("colorProduct", productDao.getColorProduct(Integer.parseInt(request.getParameter("pid"))));
+                request.setAttribute("color", colorDao.getColor());
+                request.getRequestDispatcher("Views/EditProduct.jsp").forward(request, response);
+            } else if (action.equalsIgnoreCase("deleteproduct")) {
+                productDao.DeleteProductV(Integer.parseInt(request.getParameter("pid")));
+                productDao.DeleteProduct(Integer.parseInt(request.getParameter("pid")));
+                response.sendRedirect("MangeProduct");
 
-             }
-        }
-        else {
+            }
+        } else {
             request.setAttribute("Products", productDao.getProduct());
             request.getRequestDispatcher("Views/ManageProduct.jsp").forward(request, response);
         }
@@ -87,16 +87,30 @@ public class MangeProduct extends HttpServlet {
                 double salePrice = Double.parseDouble(request.getParameter("salePrice"));
 
                 // Add base product
-                productDao.addProduct(productName, originalPrice, salePrice, description, brief, 1);
+                productDao.addProduct(productName, originalPrice, salePrice, description, brief, Integer.parseInt(categoryId));
 
                 // Process color and size variants
                 String[] colors = request.getParameterValues("color");
+                System.out.println(colors);
+                String[] sizes = request.getParameterValues("sizes");
+            String[] uniqueSizesArray = null ;
+                if (sizes != null) {
+                    // Dùng LinkedHashSet để giữ nguyên thứ tự nhập vào
+                    Set<String> uniqueSizes = new LinkedHashSet<>(Arrays.asList(sizes));
+
+                    // Chuyển Set thành mảng
+                   uniqueSizesArray = uniqueSizes.toArray(new String[0]);
+
+                    // In kết quả
+                    System.out.println(Arrays.toString(uniqueSizesArray));
+                }
                 if (colors != null) {
                     for (String colorId : colors) {
                         // Sizes could be dynamically fetched from database
-                        String[] sizes = {"1", "2", "3", "4", "5"};
-
                         for (String sizeId : sizes) {
+                            System.out.println(sizeId);
+                        }
+                        for (String sizeId : uniqueSizesArray) {
                             String quantityParam = "quantity-" + colorId + "-" + sizeId;
                             String quantityValue = request.getParameter(quantityParam);
 
@@ -110,16 +124,16 @@ public class MangeProduct extends HttpServlet {
                                                 productName,
                                                 colorId
                                         );
-                                        List<ProductVariant> products = productDao.getProduct();
+                                        List<Product> products = productDao.getProduct1();
                                         int maxProductId = 0;
 
-                                        for (ProductVariant product : products) {
-                                            if (product.getProduct().getProduct_ID() > maxProductId) {
-                                                maxProductId = product.getProduct().getProduct_ID();
+                                        for (Product product : products) {
+                                            if (product.getProduct_ID() > maxProductId) {
+                                                maxProductId = product.getProduct_ID();
                                             }
-                                        }                                        // Add product variant
+                                        }
                                         productDao.addProductVariant(
-                                                maxProductId + 1,
+                                                maxProductId,
                                                 Integer.parseInt(sizeId),
                                                 Integer.parseInt(colorId),
                                                 quantity,
@@ -142,9 +156,8 @@ public class MangeProduct extends HttpServlet {
                 request.setAttribute("errorMessage", "Failed to add product: " + e.getMessage());
                 request.getRequestDispatcher("Views/AddProduct.jsp").forward(request, response);
             }
-        } 
-        else if(action != null && action.equalsIgnoreCase("editProduct")){
-             try {
+        } else if (action != null && action.equalsIgnoreCase("editProduct")) {
+            try {
                 // Parse product details
                 String productName = request.getParameter("productName");
                 String description = request.getParameter("description");
@@ -154,16 +167,27 @@ public class MangeProduct extends HttpServlet {
                 double salePrice = Double.parseDouble(request.getParameter("salePrice"));
 
                 // Add base product
-                productDao.updateProduct(Integer.parseInt(request.getParameter("productID")),productName, originalPrice, salePrice, description, brief);
+                productDao.updateProduct(Integer.parseInt(request.getParameter("productID")), productName, originalPrice, salePrice, description, brief);
+                String[] sizes = request.getParameterValues("sizes");
+                 String[] uniqueSizesArray = null ;
+                if (sizes != null) {
+                    // Dùng LinkedHashSet để giữ nguyên thứ tự nhập vào
+                    Set<String> uniqueSizes = new LinkedHashSet<>(Arrays.asList(sizes));
 
+                    // Chuyển Set thành mảng
+                   uniqueSizesArray = uniqueSizes.toArray(new String[0]);
+
+                    // In kết quả
+                    System.out.println(Arrays.toString(uniqueSizesArray));
+                }
                 // Process color and size variants
                 String[] colors = request.getParameterValues("color");
                 if (colors != null) {
                     for (String colorId : colors) {
                         // Sizes could be dynamically fetched from database
-                        String[] sizes = {"1", "2", "3", "4", "5"};
 
-                        for (String sizeId : sizes) {
+                        for (String sizeId : uniqueSizesArray) {
+                            System.out.println(sizeId);
                             String quantityParam = "quantity-" + colorId + "-" + sizeId;
                             String quantityValue = request.getParameter(quantityParam);
 
@@ -177,7 +201,8 @@ public class MangeProduct extends HttpServlet {
                                                 productName,
                                                 colorId
                                         );
-                                                                            // Add product variant
+                                      productDao.getSizeColorStockProduct(Integer.parseInt(request.getParameter("productID")));
+                                        // Add product variant
                                         productDao.addProductVariant(
                                                 Integer.parseInt(request.getParameter("productID")),
                                                 Integer.parseInt(sizeId),
@@ -200,10 +225,9 @@ public class MangeProduct extends HttpServlet {
             } catch (Exception e) {
                 LOGGER.log(Level.SEVERE, "Error adding product", e);
                 request.setAttribute("errorMessage", "Failed to add product: " + e.getMessage());
-               response.sendRedirect("MangeProduct?success=true");
+                response.sendRedirect("MangeProduct?success=true");
             }
-        }
-        else {
+        } else {
             // Handle size retrieval for dynamic size loading
             handleSizeRetrieval(request, response);
         }

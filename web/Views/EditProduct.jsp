@@ -120,7 +120,7 @@
                             <div class="product-form-container">
                                 <form id="productForm" class="product-form" method="post" action="MangeProduct" enctype="multipart/form-data">
                                 <c:set value="${product}" var="p"></c:set>
-                                <input   type="hidden" id="productName" name="productID" value="${p.product.product_ID}" required>
+                                <input type="hidden" id="productName" name="productID" value="${p.product.product_ID}" required>
                                     <div class="input-group">
                                         <label for="productName">Tên sản phẩm:</label>
                                         <input type="text" id="productName" name="productName" value="${p.product.product_name}" required>
@@ -130,7 +130,7 @@
                                     <label for="category">Loại sản phẩm:</label>
                                     <select id="category" name="category">
                                         <c:forEach items="${cate}" var="c">
-                                            <option value="${c.category_productID}" ${c.category_productID == p.product.ct.cp.category_productID ? 'selected' : ''}>${c.category_name}</option>
+                                            <option value="${c.category_productID}" ${c.category_productID == p.product.ct.category_productID ? 'selected' : ''}>${c.category_name}</option>
                                         </c:forEach>
 
                                     </select>
@@ -188,6 +188,7 @@
                                                                     </c:if>
 
                                                                 </c:forEach>
+                                                               <input type="hidden" value="${size.size_id}" name="sizes">
                                                                 <input type="number" id="qty-${c.color_id}-${size.size_id}" 
                                                                        name="quantity-${c.color_id}-${size.size_id}" 
                                                                        min="0" value="${stockValue}" disabled>

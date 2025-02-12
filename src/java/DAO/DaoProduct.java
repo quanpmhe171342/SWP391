@@ -5,7 +5,6 @@
 package DAO;
 
 import Model.CategoryProduct;
-import Model.CategoryVariant;
 import Model.Color;
 import Model.Product;
 import Model.ProductVariant;
@@ -63,8 +62,7 @@ public class DaoProduct extends DBContext {
                     + "       pv.ImageURL      \n"
                     + "FROM Product p \n"
                     + "INNER JOIN ProductVariantRanked pv ON pv.ProductID = p.ProductID AND pv.rn = 1\n"
-                    + "INNER JOIN CategoryVariant ca on ca.CategoryVariantID = p.CategoryVariantID\n"
-                    + "INNER JOIN CategoryProduct cp ON cp.CategoryID = ca.CategoryVariantID\n"
+                    + "INNER JOIN CategoryProduct cp ON cp.CategoryID = p.CategoryProductID\n"
                     + "WHERE p.ProductID = ?";
             PreparedStatement stm = conn.prepareStatement(query);
             stm.setInt(1, id);
@@ -72,14 +70,13 @@ public class DaoProduct extends DBContext {
             while (rs.next()) {
                     CategoryProduct cp = new CategoryProduct(rs.getInt("CategoryID"),
                         rs.getString("category_name"), rs.getString("category_description"), rs.getString("image"));
-                CategoryVariant cv = new CategoryVariant(1,cp,null);
                
                 Product p = new Product(rs.getInt("ProductID"),
                         rs.getString("ProductName"),
                         rs.getDouble("original_price"),
                         rs.getDouble("sale_price"),
                         rs.getString("product_description"),
-                        rs.getString("brief_information"), cv);
+                        rs.getString("brief_information"), cp);
                 Size s = new Size();
                 Color c = new Color();
                 pv = new ProductVariant(
@@ -124,7 +121,7 @@ public class DaoProduct extends DBContext {
                     + "    sale_price,\n"
                     + "    product_description,\n"
                     + "    brief_information,\n"
-                    + "    CategoryVariantID\n"
+                    + "    CategoryProductID\n"
                     + ") VALUES (?, ?, ?, ?, ?, ?);\n";
             PreparedStatement stm = conn.prepareStatement(query);
             stm.setString(1, product_name);
@@ -174,6 +171,34 @@ public class DaoProduct extends DBContext {
                 Product p = new Product();
                 Size s = new Size(0, rs.getString("SizeName"), cp);
                 Color c = new Color();
+                ProductVariant pv1 = new ProductVariant(
+                        0,
+                        p,
+                        s,
+                        c,
+                        rs.getInt("Stock"),
+                        null
+                );
+                pv.add(pv1);
+            }
+        } catch (SQLException e) {
+            System.out.print(e);
+        }
+        return pv;
+
+    }
+ public List<ProductVariant> getSizeColorStockProduct(int id) {
+        List<ProductVariant> pv = new ArrayList<>();
+        try {
+            String query = "select ColorID, SizeID, Stock from ProductVariant where ProductID = ?";
+            PreparedStatement stm = conn.prepareStatement(query);
+            stm.setInt(1, id);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                CategoryProduct cp = new CategoryProduct();
+                Product p = new Product();
+                Size s = new Size(rs.getInt("SizeID"),null,cp);
+                Color c = new Color(rs.getInt("ColorID"),null);
                 ProductVariant pv1 = new ProductVariant(
                         0,
                         p,
@@ -254,8 +279,7 @@ public class DaoProduct extends DBContext {
                     + "       pv.ImageURL      \n"
                     + "FROM Product p \n"
                     + "INNER JOIN ProductVariantRanked pv ON pv.ProductID = p.ProductID AND pv.rn = 1\n"
-                    + "INNER JOIN CategoryVariant ca on ca.CategoryVariantID = p.CategoryVariantID\n"
-                    + "INNER JOIN CategoryProduct cp ON cp.CategoryID = ca.CategoryVariantID\n";
+                    + "INNER JOIN CategoryProduct cp ON cp.CategoryID = p.CategoryProductID\n";
             //                    + "ORDER BY p.original_price " +"  " + FILTER;
             if (!filter.isEmpty()) {
                 for (Map.Entry<String, String> item : filter.entrySet()) {
@@ -266,7 +290,6 @@ public class DaoProduct extends DBContext {
             PreparedStatement stm = conn.prepareStatement(query);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
-                CategoryVariant cv = new CategoryVariant();
                 CategoryProduct cp = new CategoryProduct(rs.getInt("CategoryID"),
                         rs.getString("category_name"), rs.getString("category_description"), rs.getString("image"));
                 Product p = new Product(rs.getInt("ProductID"),
@@ -274,7 +297,7 @@ public class DaoProduct extends DBContext {
                         rs.getDouble("original_price"),
                         rs.getDouble("sale_price"),
                         rs.getString("product_description"),
-                        rs.getString("brief_information"), cv);
+                        rs.getString("brief_information"), cp);
                 Size s = new Size();
                 Color c = new Color();
                 ProductVariant pv = new ProductVariant(
@@ -296,27 +319,25 @@ public class DaoProduct extends DBContext {
     public List<Product> getProductReleted(int pid) {
         List<Product> product = new ArrayList();
         try {
-            String query = "Select p.ProductID,p.ProductName,p.original_price,p.sale_price,p.product_description,p.brief_information \n"
-                    + "                    from Product p\n"
-                    + "                    inner join \n"
-                    + "					CategoryVariant cv on cv.CategoryVariantID =p.CategoryVariantID\n"
-                    + "					inner join \n"
-                    + "                    CategoryProduct cp on cv.CategoryID = cp.CategoryID \n"
-                    + "                    where p.CategoryVariantID = (SELECT CategoryVariantID From Product where ProductID = ?)\n"
-                    + "                    AND p.ProductID <> " + pid;
+            String query = "Select p.ProductID,p.ProductName,p.original_price,p.sale_price,p.product_description,p.brief_information \n" +
+"                                     from Product p\n" +
+"                                inner join \n" +
+"\n" +
+"                                        CategoryProduct cp on p.CategoryProductID = cp.CategoryID \n" +
+"                                        where p.CategoryProductID = (SELECT CategoryProductID From Product where ProductID =?)\n" +
+"                                        AND p.ProductID <>  " + pid;
             PreparedStatement stm = conn.prepareStatement(query);
             System.out.println(query);
             stm.setInt(1, pid);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
-                CategoryVariant cv = new CategoryVariant();
                 CategoryProduct cp = new CategoryProduct();
                 Product p = new Product(rs.getInt("ProductID"),
                         rs.getString("ProductName"),
                         rs.getDouble("original_price"),
                         rs.getDouble("sale_price"),
                         rs.getString("product_description"),
-                        rs.getString("brief_information"), cv);
+                        rs.getString("brief_information"), cp);
 
                 product.add(p);
             }
@@ -349,22 +370,19 @@ public class DaoProduct extends DBContext {
                     + "       pv.ImageURL      \n"
                     + "FROM Product p \n"
                     + "INNER JOIN ProductVariantRanked pv ON pv.ProductID = p.ProductID AND pv.rn = 1\n"
-                    + "INNER JOIN CategoryVariant ca on ca.CategoryVariantID = p.CategoryVariantID\n"
-                    + "INNER JOIN CategoryProduct cp ON cp.CategoryID = ca.CategoryVariantID\n";
+                    + "INNER JOIN CategoryProduct cp ON cp.CategoryID = p.[CategoryProductID]\n";
 
             PreparedStatement stm = conn.prepareStatement(query);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 CategoryProduct cp = new CategoryProduct(rs.getInt("CategoryID"),
-                        rs.getString("category_name"), rs.getString("category_description"), rs.getString("image"));
-                CategoryVariant cv = new CategoryVariant(1,cp,null);
-                
+                        rs.getString("category_name"), rs.getString("category_description"), rs.getString("image"));                
                 Product p = new Product(rs.getInt("ProductID"),
                         rs.getString("ProductName"),
                         rs.getDouble("original_price"),
                         rs.getDouble("sale_price"),
                         rs.getString("product_description"),
-                        rs.getString("brief_information"), cv);
+                        rs.getString("brief_information"), cp);
                 Size s = new Size();
                 Color c = new Color();
                 ProductVariant pv = new ProductVariant(
@@ -383,8 +401,33 @@ public class DaoProduct extends DBContext {
         return product;
     }
 
+    
+    public List<Product> getProduct1() {
+          List<Product> product = new ArrayList();
+        try {
+            String query = "Select * from Product";
+
+            PreparedStatement stm = conn.prepareStatement(query);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                CategoryProduct cp = new CategoryProduct();
+                
+                Product p = new Product(rs.getInt("ProductID"),
+                        rs.getString("ProductName"),
+                        rs.getDouble("original_price"),
+                        rs.getDouble("sale_price"),
+                        rs.getString("product_description"),
+                        rs.getString("brief_information"), cp);
+               
+                product.add(p);
+            }
+        } catch (SQLException e) {
+            System.out.print(e);
+        }
+        return product;
+    }
     public static void main(String[] args) {
         DaoProduct pv = new DaoProduct();
-        System.out.println(pv.getColorProduct(3));
+        System.out.println(pv.getSizeColorStockProduct(63));
     }
 }
