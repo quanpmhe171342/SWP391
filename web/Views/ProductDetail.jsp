@@ -146,7 +146,7 @@
                         <nav class="header__menu mobile-menu">
                             <ul>
                                 <li><a href="./inex.html">Home</a></li>
-                                <li class="active"><a href="./shop.html">Shop</a></li>
+                                <li class="active"><a href="./ProductList">Shop</a></li>
                                 <li><a href="#">Pages</a>
                                     <ul class="dropdown">
                                         <li><a href="./about.html">About Us</a></li>

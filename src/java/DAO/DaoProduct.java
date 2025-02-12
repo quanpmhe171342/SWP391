@@ -275,8 +275,7 @@ public class DaoProduct extends DBContext {
     public List<ProductVariant> getColorProduct(int id) {
         List<ProductVariant> pv = new ArrayList<>();
         try {
-            String query = "select pv.ProductID, pv.ColorID, c.ColorName,pv.SizeID, pv.Stock from ProductVariant pv "
-                    + "inner join Color c on pv.ColorID = c.ColorID where pv.ProductID = ?";
+            String query = "SELECT DISTINCT pv.ColorID, c.ColorName, pv.SizeID, pv.Stock FROM ProductVariant pv INNER JOIN Color c ON pv.ColorID = c.ColorID WHERE pv.ProductID = ?";
             PreparedStatement stm = conn.prepareStatement(query);
             stm.setInt(1, id);
             ResultSet rs = stm.executeQuery();
@@ -484,6 +483,6 @@ public class DaoProduct extends DBContext {
 
     public static void main(String[] args) {
         DaoProduct pv = new DaoProduct();
-        System.out.println(pv.getProductImages(66));
+        System.out.println(pv.getColorProduct(66));
     }
 }
