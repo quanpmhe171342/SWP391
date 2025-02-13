@@ -1,7 +1,7 @@
 <%-- 
     Document   : header.jsp
     Created on : Feb 13, 2025, 12:06:54 PM
-    Author     : phuan
+    Author     : NV200
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -18,16 +18,8 @@
                             <div class="header__top__right">
                                 <div class="header__top__links">
                                     <a href="#">Đăng kí / Đăng nhập</a>
-                                    <a href="#">FAQs</a>
                                 </div>
-                                <div class="header__top__hover">
-                                    <span>Usd <i class="arrow_carrot-down"></i></span>
-                                    <ul>
-                                        <li>USD</li>
-                                        <li>EUR</li>
-                                        <li>USD</li>
-                                    </ul>
-                                </div>
+                               
                             </div>
                         </div>
                     </div>
