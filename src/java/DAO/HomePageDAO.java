@@ -179,9 +179,9 @@ public class HomePageDAO extends DBContext{
                             cp.category_name,
                             cp.category_description,
                             cp.image
-                        FROM [SWP391].[dbo].[Product] p
-                        JOIN [SWP391].[dbo].[ProductVariant] pv ON p.[ProductID] = pv.[ProductID]
-                        JOIN [SWP391].[dbo].[CategoryProduct] cp ON p.[CategoryProductID] = cp.[CategoryID]
+                        FROM [Product] p
+                        JOIN [ProductVariant] pv ON p.[ProductID] = pv.[ProductID]
+                        JOIN [CategoryProduct] cp ON p.[CategoryProductID] = cp.[CategoryID]
                         ORDER BY p.ProductID DESC;
     """;
 
@@ -227,7 +227,7 @@ public class HomePageDAO extends DBContext{
     
          public static void main(String[] args) {
          HomePageDAO db = new HomePageDAO();
-             System.out.println(db.TopBlogNew());
+             System.out.println(db.NewProduct());
         
     }
 }
