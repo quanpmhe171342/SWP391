@@ -128,11 +128,9 @@
 
                                 <div class="input-group">
                                     <label for="category">Loại sản phẩm:</label>
-                                    <select id="category" name="category">
-                                        <c:forEach items="${cate}" var="c">
-                                            <option value="${c.category_productID}" ${c.category_productID == p.product.ct.category_productID ? 'selected' : ''}>${c.category_name}</option>
-                                        </c:forEach>
-
+                                  
+                                    <input type="text" name="category" value="${p.product.ct.category_productID}"disabled="">
+                                      
                                     </select>
                                 </div>
 
