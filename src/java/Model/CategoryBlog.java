@@ -6,35 +6,34 @@ package Model;
 
 /**
  *
- * @author Admin
+ * @author admin
  */
 public class CategoryBlog {
-    int categoryBlogID;
-    String categoryBlogName;
+    int CategoryBlogID;
+    String CategoryName;
 
     public CategoryBlog() {
     }
 
-    public CategoryBlog(int categoryBlogID, String categoryBlogName) {
-        this.categoryBlogID = categoryBlogID;
-        this.categoryBlogName = categoryBlogName;
+    public CategoryBlog(int CategoryBlogID, String CategoryName) {
+        this.CategoryBlogID = CategoryBlogID;
+        this.CategoryName = CategoryName;
     }
 
     public int getCategoryBlogID() {
-        return categoryBlogID;
+        return CategoryBlogID;
     }
 
-    public void setCategoryBlogID(int categoryBlogID) {
-        this.categoryBlogID = categoryBlogID;
+    public void setCategoryBlogID(int CategoryBlogID) {
+        this.CategoryBlogID = CategoryBlogID;
     }
 
-    public String getCategoryBlogName() {
-        return categoryBlogName;
+    public String getCategoryName() {
+        return CategoryName;
     }
 
-    public void setCategoryBlogName(String categoryBlogName) {
-        this.categoryBlogName = categoryBlogName;
+    public void setCategoryName(String CategoryName) {
+        this.CategoryName = CategoryName;
     }
-    
     
 }

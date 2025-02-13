@@ -70,72 +70,8 @@
         <!-- Offcanvas Menu End -->
 
         <!-- Header Section Begin -->
-        <header class="header">
-            <div class="header__top">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-7">
-                            <div class="header__top__left">
-                                <p>Free shipping, 30-day return or refund guarantee.</p>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-5">
-                            <div class="header__top__right">
-                                <div class="header__top__links">
-                                    <a href="#">Sign in</a>
-                                    <a href="#">FAQs</a>
-                                </div>
-                                <div class="header__top__hover">
-                                    <span>Usd <i class="arrow_carrot-down"></i></span>
-                                    <ul>
-                                        <li>USD</li>
-                                        <li>EUR</li>
-                                        <li>USD</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-3 col-md-3">
-                        <div class="header__logo">
-                            <a href="./index.html"><img src="img/logo.png" alt=""></a>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6">
-                        <nav class="header__menu mobile-menu">
-                            <ul>
-                                <li><a href="./index.html">Home</a></li>
-                                <li class="active"><a href="./shop.html">Shop</a></li>
-                                <li><a href="#">Pages</a>
-                                    <ul class="dropdown">
-                                        <li><a href="./about.html">About Us</a></li>
-                                        <li><a href="./shop-details.html">Shop Details</a></li>
-                                        <li><a href="./shopping-cart.html">Shopping Cart</a></li>
-                                        <li><a href="./checkout.html">Check Out</a></li>
-                                        <li><a href="./blog-details.html">Blog Details</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="./blog.html">Blog</a></li>
-                                <li><a href="./contact.html">Contacts</a></li>
-                            </ul>
-                        </nav>
-                    </div>
-                    <div class="col-lg-3 col-md-3">
-                        <div class="header__nav__option">
-                            <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""></a>
-                            <a href="#"><img src="img/icon/heart.png" alt=""></a>
-                            <a href="#"><img src="img/icon/cart.png" alt=""> <span>0</span></a>
-                            <div class="price">$0.00</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="canvas__open"><i class="fa fa-bars"></i></div>
-            </div>
-        </header>
+                <jsp:include page="header_1.jsp"></jsp:include>
+
         <!-- Header Section End -->
 
         <!-- Breadcrumb Section Begin -->
@@ -213,12 +149,12 @@
                                                     <ul>
                                                         <c:set var="cate" value="${param.cate}" />
 
-                                                        <li><a href="ProductList?priceRange=0-1200000${not empty cate ? '&cate=' : ''}${cate}">0đ - 1.200.000đ</a></li>
-                                                        <li><a href="ProductList?priceRange=1200000-2400000${not empty cate ? '&cate=' : ''}${cate}">1.200.000đ - 2.400.000đ</a></li>
-                                                        <li><a href="ProductList?priceRange=2400000-3600000${not empty cate ? '&cate=' : ''}${cate}">2.400.000đ - 3.600.000đ</a></li>
-                                                        <li><a href="ProductList?priceRange=3600000-4800000${not empty cate ? '&cate=' : ''}${cate}">3.600.000đ - 4.800.000đ</a></li>
-                                                        <li><a href="ProductList?priceRange=4800000-6000000${not empty cate ? '&cate=' : ''}${cate}">4.800.000đ - 6.000.000đ</a></li>
-                                                        <li><a href="ProductList?priceRange=Isc6000000${not empty cate ? '&cate=' : ''}${cate}">6.000.000đ+</a></li>
+                                                        <li><a href="ProductList?priceRange=0-1200000${not empty cate ? '&cate=' : ''}${cate}&priceFilter=${priceFilter}">0đ - 1.200.000đ</a></li>
+                                                        <li><a href="ProductList?priceRange=1200000-2400000${not empty cate ? '&cate=' : ''}${cate}&priceFilter=${priceFilter}">1.200.000đ - 2.400.000đ</a></li>
+                                                        <li><a href="ProductList?priceRange=2400000-3600000${not empty cate ? '&cate=' : ''}${cate}&priceFilter=${priceFilter}">2.400.000đ - 3.600.000đ</a></li>
+                                                        <li><a href="ProductList?priceRange=3600000-4800000${not empty cate ? '&cate=' : ''}${cate}&priceFilter=${priceFilter}">3.600.000đ - 4.800.000đ</a></li>
+                                                        <li><a href="ProductList?priceRange=4800000-6000000${not empty cate ? '&cate=' : ''}${cate}&priceFilter=${priceFilter}">4.800.000đ - 6.000.000đ</a></li>
+                                                        <li><a href="ProductList?priceRange=Isc6000000${not empty cate ? '&cate=' : ''}${cate}&priceFilter=${priceFilter}">6.000.000đ+</a></li>
 
                                                     </ul>
 
@@ -300,7 +236,7 @@
                                     <c:choose>
                                         <c:when test="${totalPages < 7}">
                                             <c:forEach begin="1" end="${totalPages}" var="i">
-                                                <a href="ProductList?page=${i}&cate=${cate}&priceRange=${priceRange}" class="${currentPage == i ? 'active' : ''}">${i}</a>
+                                                <a href="ProductList?page=${i}&cate=${cate}&priceRange=${priceRange}&priceFilter=${priceFilter}" class="${currentPage == i ? 'active' : ''}">${i}</a>
                                             </c:forEach>
                                         </c:when>
 
@@ -308,27 +244,27 @@
                                             <c:choose>
                                                 <c:when test="${currentPage <= 4}">
                                                     <c:forEach begin="1" end="5" var="i">
-                                                        <a href="ProductList?page=${i}" class="${currentPage == i ? 'active' : ''}">${i}</a>
+                                                        <a href="ProductList?page=${i}&cate=${cate}&priceRange=${priceRange}&priceFilter=${priceFilter}" class="${currentPage == i ? 'active' : ''}">${i}</a>
                                                     </c:forEach>
                                                     <span>...</span>
-                                                    <a href="ProductList?page=${totalPages}">${totalPages}</a>
+                                                    <a href="ProductList?page=${totalPages}&cate=${cate}&priceRange=${priceRange}&priceFilter=${priceFilter}">${totalPages}</a>
                                                 </c:when>
 
                                                 <c:when test="${currentPage > 4 && currentPage < totalPages - 3}">
-                                                    <a href="ProductList?page=1">1</a>
+                                                    <a href="ProductList?page=1&cate=${cate}&priceRange=${priceRange}&priceFilter=${priceFilter}">1</a>
                                                     <span>...</span>
                                                     <c:forEach begin="${currentPage - 2}" end="${currentPage + 2}" var="i">
-                                                        <a href="ProductList?page=${i}" class="${currentPage == i ? 'active' : ''}">${i}</a>
+                                                        <a href="ProductList?page=${i}&cate=${cate}&priceRange=${priceRange}&priceFilter=${priceFilter}" class="${currentPage == i ? 'active' : ''}">${i}</a>
                                                     </c:forEach>
                                                     <span>...</span>
-                                                    <a href="ProductList?page=${totalPages}">${totalPages}</a>
+                                                    <a href="ProductList?page=${totalPages}&cate=${cate}&priceRange=${priceRange}&priceFilter=${priceFilter}">${totalPages}</a>
                                                 </c:when>
 
                                                 <c:otherwise>
-                                                    <a href="ProductList?page=1">1</a>
+                                                    <a href="ProductList?page=1&cate=${cate}&priceRange=${priceRange}&priceFilter=${priceFilter}">1</a>
                                                     <span>...</span>
                                                     <c:forEach begin="${totalPages - 4}" end="${totalPages}" var="i">
-                                                        <a href="ProductList?page=${i}" class="${currentPage == i ? 'active' : ''}">${i}</a>
+                                                        <a href="ProductList?page=${i}&cate=${cate}&priceRange=${priceRange}&priceFilter=${priceFilter}" class="${currentPage == i ? 'active' : ''}">${i}</a>
                                                     </c:forEach>
                                                 </c:otherwise>
                                             </c:choose>

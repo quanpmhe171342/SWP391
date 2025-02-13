@@ -37,72 +37,7 @@
     
 
         <!-- Header Section Begin -->
-        <header class="header">
-            <div class="header__top">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-7">
-                            <div class="header__top__left">
-                                <p>Miễn phí vận chuyển, bảo đảm hoàn trả hoặc đổi hàng trong 30 ngày.</p>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-5">
-                            <div class="header__top__right">
-                                <div class="header__top__links">
-                                    <a href="#">Đăng kí / Đăng nhập</a>
-                                    <a href="#">FAQs</a>
-                                </div>
-                                <div class="header__top__hover">
-                                    <span>Usd <i class="arrow_carrot-down"></i></span>
-                                    <ul>
-                                        <li>USD</li>
-                                        <li>EUR</li>
-                                        <li>USD</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-3 col-md-3">
-                        <div class="header__logo">
-                            <a href="./index.html"><img src="img/logo.png" alt=""></a>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6">
-                        <nav class="header__menu mobile-menu">
-                            <ul>
-                                <li class="active"><a href="./index.html">Home</a></li>
-                                <li><a href="./shop.html">Sản phẩm</a></li>
-                                <li><a href="#">Pages</a>
-                                    <ul class="dropdown">
-                                        <li><a href="./about.html">About Us</a></li>
-                                        <li><a href="./shop-details.html">Shop Details</a></li>
-                                        <li><a href="./shopping-cart.html">Shopping Cart</a></li>
-                                        <li><a href="./checkout.html">Check Out</a></li>
-                                        <li><a href="./blog-details.html">Blog Details</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="./blog.html">Blog</a></li>
-                                <li><a href="./contact.html">Liên hệ</a></li>
-                            </ul>
-                        </nav>
-                    </div>
-                    <div class="col-lg-3 col-md-3">
-                        <div class="header__nav__option">
-                            <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""></a>
-                            <a href="#"><img src="img/icon/heart.png" alt=""></a>
-                            <a href="#"><img src="img/icon/cart.png" alt=""> <span>0</span></a>
-                            <div class="price">$0.00</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="canvas__open"><i class="fa fa-bars"></i></div>
-            </div>
-        </header>
+            <jsp:include page="header_1.jsp"></jsp:include>
         <!-- Header Section End -->
 
         <!-- Hero Section Begin -->
@@ -154,9 +89,7 @@
                             <div class="product__item">
                                 <div class="product__item__pic set-bg" data-setbg="${list.image}">                         
                                     <ul class="product__hover">
-                                        <li><a href="#"><img src="img/icon/heart.png" alt=""><span>Yêu thích</span></a></li>
-                                        <li><a href="#"><img src="img/icon/compare.png" alt=""> <span>So</span></a></li>
-                                        <li><a href="#"><img src="img/icon/search.png" alt=""><span>Tìm kiếm</span></a></li>
+                                        <li><a href="ProductDetails?pid=${list.product.product_ID}"><img src="img/icon/search.png" alt=""><span>Tìm kiếm</span></a></li>
                                     </ul>
                                 </div>
                                 <div class="product__item__text">
@@ -171,17 +104,7 @@
                                     </div>
                                     <h5>$${list.product.sale_price} &nbsp;&nbsp; <del>$${list.product.original_Price}</del></h5>
 
-                                    <div class="product__color__select">
-                                        <label for="pc-1">
-                                            <input type="radio" id="pc-1">
-                                        </label>
-                                        <label class="active black" for="pc-2">
-                                            <input type="radio" id="pc-2">
-                                        </label>
-                                        <label class="grey" for="pc-3">
-                                            <input type="radio" id="pc-3">
-                                        </label>
-                                    </div>
+                                  
                                 </div>
                             </div>
                         </div>
@@ -207,9 +130,8 @@
                             <div class="product__item">
                                 <div class="product__item__pic set-bg" data-setbg="${list.image}">                         
                                     <ul class="product__hover">
-                                        <li><a href="#"><img src="img/icon/heart.png" alt=""><span>Yêu thích</span></a></li>
-                                        <li><a href="#"><img src="img/icon/compare.png" alt=""> <span>So</span></a></li>
-                                        <li><a href="#"><img src="img/icon/search.png" alt=""><span>Tìm kiếm</span></a></li>
+                                       
+                                        <li><a href="ProductDetails?pid=${list.product.product_ID}"><img src="img/icon/search.png" alt=""><span>Tìm kiếm</span></a></li>
                                     </ul>
                                 </div>
                                 <div class="product__item__text">
@@ -223,17 +145,7 @@
                                         <i class="fa fa-star-o"></i>
                                     </div>
                                    <h5>$${list.product.sale_price} &nbsp;&nbsp; <del>$${list.product.original_Price}</del></h5>
-                                    <div class="product__color__select">
-                                        <label for="pc-1">
-                                            <input type="radio" id="pc-1">
-                                        </label>
-                                        <label class="active black" for="pc-2">
-                                            <input type="radio" id="pc-2">
-                                        </label>
-                                        <label class="grey" for="pc-3">
-                                            <input type="radio" id="pc-3">
-                                        </label>
-                                    </div>
+                                   
                                 </div>
                             </div>
                         </div>
@@ -289,7 +201,7 @@
                             <div class="blog__item">
                                 <div class="blog__item__pic set-bg" data-setbg="${listBlog.image}"></div>
                                 <div class="blog__item__text">
-                                    <span><img src="img/icon/calendar.png" alt=""> ${listBlog.createAt}</span>
+                                    <span><img src="img/icon/calendar.png" alt=""> ${listBlog.createdAt}</span>
                                     <h5>${listBlog.title}</h5>
                                     <a href="#">Read More</a>
                                 </div>

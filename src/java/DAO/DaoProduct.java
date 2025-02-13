@@ -216,7 +216,7 @@ public class DaoProduct extends DBContext {
     public List<ProductVariant> getSizeProduct(int id) {
         List<ProductVariant> pv = new ArrayList<>();
         try {
-            String query = "select pv.ProductID, pv.SizeID, s.SizeName, pv.Stock from ProductVariant pv "
+            String query = "select distinct pv.ProductID, pv.SizeID, s.SizeName from ProductVariant pv "
                     + "inner join Size s on pv.SizeID = s.SizeID where pv.ProductID = ?";
             PreparedStatement stm = conn.prepareStatement(query);
             stm.setInt(1, id);
@@ -231,7 +231,7 @@ public class DaoProduct extends DBContext {
                         p,
                         s,
                         c,
-                        rs.getInt("Stock"),
+                        0,
                         null
                 );
                 pv.add(pv1);
@@ -301,6 +301,33 @@ public class DaoProduct extends DBContext {
 
     }
 
+     public List<ProductVariant> getColorProduct1(int id) {
+           List<ProductVariant> pv = new ArrayList<>();
+        try {
+            String query = "SELECT DISTINCT pv.ColorID, c.ColorName FROM ProductVariant pv INNER JOIN Color c ON pv.ColorID = c.ColorID WHERE pv.ProductID = ?";
+            PreparedStatement stm = conn.prepareStatement(query);
+            stm.setInt(1, id);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                CategoryProduct cp = new CategoryProduct();
+                Product p = new Product();
+                Size s = new Size(1, null, cp);
+                Color c = new Color(rs.getInt("ColorID"), rs.getString("ColorName"));
+                ProductVariant pv1 = new ProductVariant(
+                        0,
+                        p,
+                        s,
+                        c,
+                        0,
+                        null
+                );
+                pv.add(pv1);
+            }
+        } catch (SQLException e) {
+            System.out.print(e);
+        }
+        return pv;
+     }
     public List<String> getImageProduct(int id) {
         List<String> pv = new ArrayList<>();
         try {

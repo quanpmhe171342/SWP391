@@ -1,35 +1,30 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Model;
 
+import Model.CategoryBlog;
 import java.util.Date;
 
-/**
- *
- * @author Admin
- */
 public class Blog {
-    int blogID;
-    String title;
-    String image;
-    String content;
-    CategoryBlog categoryBlogID;
-    Date createAt;
+    private int blogID;
+    private String title;
+    private String image;
+    private String content;
+    private CategoryBlog category;
+    private Date createdAt;
 
     public Blog() {
     }
 
-    public Blog(int blogID, String title, String image, String content, CategoryBlog categoryBlogID, Date createAt) {
+    // Constructor
+    public Blog(int blogID, String title, String image, String content, CategoryBlog category, Date createdAt) {
         this.blogID = blogID;
         this.title = title;
         this.image = image;
         this.content = content;
-        this.categoryBlogID = categoryBlogID;
-        this.createAt = createAt;
+        this.category = category;
+        this.createdAt = createdAt;
     }
 
+    // Getters and Setters
     public int getBlogID() {
         return blogID;
     }
@@ -62,28 +57,31 @@ public class Blog {
         this.content = content;
     }
 
-    public CategoryBlog getCategoryBlogID() {
-        return categoryBlogID;
+    public CategoryBlog getCategory() {
+        return category;
     }
 
-    public void setCategoryBlogID(CategoryBlog categoryBlogID) {
-        this.categoryBlogID = categoryBlogID;
+    public void setCategory(CategoryBlog category) {
+        this.category = category;
     }
 
-    public Date getCreateAt() {
-        return createAt;
+    public Date getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreateAt(Date createAt) {
-        this.createAt = createAt;
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
     @Override
     public String toString() {
-        return "Blog{" + "blogID=" + blogID + ", title=" + title + ", image=" + image + ", content=" + content + ", categoryBlogID=" + categoryBlogID + ", createAt=" + createAt + '}';
+        return "Blog{" +
+                "blogID=" + blogID +
+                ", title='" + title + '\'' +
+                ", image='" + image + '\'' +
+                ", content='" + content + '\'' +
+                ", category=" + category +
+                ", createdAt=" + createdAt +
+                '}';
     }
-
-    
-    
-    
 }

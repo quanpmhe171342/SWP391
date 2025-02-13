@@ -273,7 +273,7 @@ sizes.map(size => console.log("Processing size:", size.size_name));
 
 // Xử lý sự kiện submit form
             document.getElementById("productForm").addEventListener("submit", function (e) {
-
+ e.preventDefault();
                 const originalPrice = parseFloat(document.getElementById("originalPrice").value);
                 const salePrice = parseFloat(document.getElementById("salePrice").value);
 
@@ -304,6 +304,7 @@ sizes.map(size => console.log("Processing size:", size.size_name));
 
                 if (formValid) {
                     alert("Sản phẩm đã được thêm thành công!");
+                    this.submit();
                 }
             });
 

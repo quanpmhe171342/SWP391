@@ -227,7 +227,7 @@ public class HomePageDAO extends DBContext{
     
          public static void main(String[] args) {
          HomePageDAO db = new HomePageDAO();
-             System.out.println(db.BestSeller());
+             System.out.println(db.TopBlogNew());
         
     }
 }

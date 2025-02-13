@@ -16,6 +16,14 @@
         <servlet-name>HomePage</servlet-name>
         <servlet-class>Controller.HomePage</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>BlogList</servlet-name>
+        <servlet-class>Controller.BlogList</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BlogDetail</servlet-name>
+        <servlet-class>Controller.BlogDetail</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProductList</servlet-name>
         <url-pattern>/ProductList</url-pattern>
@@ -31,5 +39,13 @@
     <servlet-mapping>
         <servlet-name>HomePage</servlet-name>
         <url-pattern>/HomePage</url-pattern>
-    </servlet-mapping>  
+    </servlet-mapping> 
+     <servlet-mapping>
+        <servlet-name>BlogList</servlet-name>
+        <url-pattern>/BlogList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BlogDetail</servlet-name>
+        <url-pattern>/BlogDetail</url-pattern>
+    </servlet-mapping>
 </web-app>
