@@ -129,7 +129,7 @@
                     <c:forEach var="b" items="${listblog}">
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="blog__item">
-                                <div class="blog__item__pic set-bg" data-setbg="img/blog/blog-1.jpg"></div>
+                                <div class="blog__item__pic set-bg" data-setbg="${b.image}"></div>
                                 <div class="blog__item__text">
                                     <span><img src="img/icon/calendar.png" alt=""> ${b.createdAt}</span>
                                     <h5>${b.title}</h5>

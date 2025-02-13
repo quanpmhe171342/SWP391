@@ -178,7 +178,7 @@
                     <div class="col-lg-4 col-md-4 col-sm-4">
                         <a href="BlogDetail?blogID=${blognew.blogID}" class="blog__details__btns__item blog__details__btns__item--next">
                             <p>New Post <span class="arrow_right"></span></p>
-                            <img src="img/blog/blog-3.jpg" alt="">
+                            <img src="${blognew.image}" alt="">
 
                             <h5>${blognew.title}</h5>
                         </a>
