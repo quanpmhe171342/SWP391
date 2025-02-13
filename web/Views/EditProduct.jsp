@@ -127,9 +127,8 @@
                                 </div>
 
                                 <div class="input-group">
-                                    <label for="category">Loại sản phẩm:</label>
-                                  
-                                    <input type="text" name="category" value="${p.product.ct.category_productID}">
+                                    <label for="category">Loại sản phẩm:</label>                     
+                                    <input type="hidden" name="category" value="${p.product.ct.category_productID}">
                                       
                                     </select>
                                 </div>
