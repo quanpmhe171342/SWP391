@@ -156,7 +156,7 @@
                                         <div class="blog__details__tags">
                                             <a href="#">#Fashion</a>
                                             <a href="#">#Trending</a>
-                                            <a href="#">#2020</a>
+                                            <a href="#">#2025</a>
                                         </div>
                                     </div>
                                 </div>

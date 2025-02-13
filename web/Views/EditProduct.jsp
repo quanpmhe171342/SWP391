@@ -129,7 +129,7 @@
                                 <div class="input-group">
                                     <label for="category">Loại sản phẩm:</label>
                                   
-                                    <input type="text" name="category" value="${p.product.ct.category_productID}"disabled="">
+                                    <input type="text" name="category" value="${p.product.ct.category_productID}">
                                       
                                     </select>
                                 </div>
