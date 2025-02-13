@@ -150,7 +150,7 @@ public class DaoProduct extends DBContext {
 
     public List<Map<String, String>> getProductImages(int product_id) {
         String query = "SELECT ColorID, MIN(ImageURL) AS ImageURL FROM ProductVariant WHERE ProductID = ? GROUP BY ColorID ";
-    List<Map<String, String>> images = new ArrayList<>();
+        List<Map<String, String>> images = new ArrayList<>();
 
         try (PreparedStatement stm = conn.prepareStatement(query)) {
             stm.setInt(1, product_id);
@@ -301,8 +301,8 @@ public class DaoProduct extends DBContext {
 
     }
 
-     public List<ProductVariant> getColorProduct1(int id) {
-           List<ProductVariant> pv = new ArrayList<>();
+    public List<ProductVariant> getColorProduct1(int id) {
+        List<ProductVariant> pv = new ArrayList<>();
         try {
             String query = "SELECT DISTINCT pv.ColorID, c.ColorName FROM ProductVariant pv INNER JOIN Color c ON pv.ColorID = c.ColorID WHERE pv.ProductID = ?";
             PreparedStatement stm = conn.prepareStatement(query);
@@ -327,7 +327,8 @@ public class DaoProduct extends DBContext {
             System.out.print(e);
         }
         return pv;
-     }
+    }
+
     public List<String> getImageProduct(int id) {
         List<String> pv = new ArrayList<>();
         try {
@@ -398,16 +399,18 @@ public class DaoProduct extends DBContext {
         return product;
     }
 
-    public List<Product> getProductReleted(int pid) {
-        List<Product> product = new ArrayList();
+    public List<ProductVariant> getProductReleted(int pid) {
+        List<ProductVariant> product = new ArrayList();
         try {
-            String query = "Select p.ProductID,p.ProductName,p.original_price,p.sale_price,p.product_description,p.brief_information \n"
-                    + "                                     from Product p\n"
-                    + "                                inner join \n"
-                    + "\n"
-                    + "                                        CategoryProduct cp on p.CategoryProductID = cp.CategoryID \n"
-                    + "                                        where p.CategoryProductID = (SELECT CategoryProductID From Product where ProductID =?)\n"
-                    + "                                        AND p.ProductID <>  " + pid;
+            String query = "SELECT top 4 p.ProductID, p.ProductName, p.original_price, p.sale_price, \n"
+                    + "       p.product_description, p.brief_information, MIN(pv.ImageURL) AS ImageURL\n"
+                    + "FROM Product p\n"
+                    + "INNER JOIN CategoryProduct cp ON p.CategoryProductID = cp.CategoryID\n"
+                    + "INNER JOIN ProductVariant pv ON pv.ProductID = p.ProductID\n"
+                    + "WHERE p.CategoryProductID = (SELECT CategoryProductID FROM Product WHERE ProductID = ?)\n"
+                    + "AND p.ProductID <> " + pid + "\n"
+                    + "GROUP BY p.ProductID, p.ProductName, p.original_price, p.sale_price, \n"
+                    + "         p.product_description, p.brief_information;  ";
             PreparedStatement stm = conn.prepareStatement(query);
             System.out.println(query);
             stm.setInt(1, pid);
@@ -420,8 +423,17 @@ public class DaoProduct extends DBContext {
                         rs.getDouble("sale_price"),
                         rs.getString("product_description"),
                         rs.getString("brief_information"), cp);
-
-                product.add(p);
+                Size s = new Size();
+                Color c = new Color();
+                ProductVariant pv = new ProductVariant(
+                        1,
+                        p,
+                        s,
+                        c,
+                        0,
+                        rs.getString("ImageURL")
+                );
+                product.add(pv);
             }
         } catch (SQLException e) {
             System.out.print(e);
@@ -510,6 +522,6 @@ public class DaoProduct extends DBContext {
 
     public static void main(String[] args) {
         DaoProduct pv = new DaoProduct();
-        System.out.println(pv.getColorProduct(66));
+        System.out.println(pv.getProductReleted(66));
     }
 }
