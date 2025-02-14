@@ -73,7 +73,7 @@ public class ProductList extends HttpServlet {
         } catch (Exception e) {
             System.out.println(e);
         }
-        
+
         if (priceRange != null) {
             System.out.println(priceRange);
             request.setAttribute("priceRange", priceRange);
@@ -104,22 +104,22 @@ public class ProductList extends HttpServlet {
         if (request.getParameter("cate") != null) {
             request.setAttribute("cate", request.getParameter("cate"));
         }
-        
-            List<ProductVariant> list1 = db.getProduct1(Noicau);
 
-         int page = 0;
+        List<ProductVariant> list1 = db.getProduct1(Noicau);
+
+        int page = 0;
         int numberOfPage = 6;
         String xpage = request.getParameter("page");
         int size = list1.size();
         int num = (size % numberOfPage == 0 ? (size / numberOfPage) : ((size / numberOfPage) + 1));
-             if (xpage == null) {
+        if (xpage == null) {
             page = 1;
         } else {
             try {
                 page = Integer.parseInt(xpage);
-                
+
             } catch (NumberFormatException ex) {
-               response.sendRedirect("ProductsListPublic");
+                response.sendRedirect("ProductsListPublic");
                 return;
             }
         }
@@ -127,6 +127,7 @@ public class ProductList extends HttpServlet {
         start = (page - 1) * numberOfPage;
         end = Math.min(page * numberOfPage, list1.size());
         List<ProductVariant> list = db.getListByPage(list1, start, end);
+        request.setAttribute("priceFilter", priceFilter);
         request.setAttribute("totalPages", num);
         request.setAttribute("product", list);
         request.setAttribute("size", size);

@@ -6,6 +6,7 @@ package Model;
 
 /**
  *
+
  * @author hieum
  */
 public class Role {
@@ -34,12 +35,15 @@ public class Role {
 
     public void setRoleName(String roleName) {
         this.roleName = roleName;
+
     }
 
     @Override
     public String toString() {
+
         return super.toString(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
     }
+
 
     
 }

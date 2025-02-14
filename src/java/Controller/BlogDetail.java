@@ -4,7 +4,7 @@
  */
 package Controller;
 
-import DAO.DaoProduct;
+import DAO.DAOBlog;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,9 +14,9 @@ import jakarta.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author phuan
+ * @author admin
  */
-public class ProductDetails extends HttpServlet {
+public class BlogDetail extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,10 +35,10 @@ public class ProductDetails extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ProductDetails</title>");            
+            out.println("<title>Servlet BlogDetail</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ProductDetails at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet BlogDetail at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -56,15 +56,14 @@ public class ProductDetails extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-           DAO.DaoProduct db = new DaoProduct();
-            int pid = Integer.parseInt(request.getParameter("pid"));
-            request.setAttribute("Product",db.getProductById(pid));
-            request.setAttribute("Color",db.getColorProduct1(pid));
-            request.setAttribute("size1", db.getSizeProduct(pid));
-           request.setAttribute("productRelated", db.getProductReleted(pid));
-            request.setAttribute("image", db.getImageProduct(pid));
-            request.getRequestDispatcher("Views/ProductDetail.jsp").forward(request, response);
-       
+        int blogID = Integer.parseInt(request.getParameter("blogID")); // Get blogID from the request
+        DAO.DAOBlog daoblog = new DAOBlog();
+
+        request.setAttribute("blog", daoblog.getBlogByid(blogID));
+        request.setAttribute("fb", daoblog.getfBlogByid(blogID));
+
+        request.setAttribute("blognew", daoblog.getBlogNewest());
+        request.getRequestDispatcher("Views/BlogDetail.jsp").forward(request, response);
     }
 
     /**

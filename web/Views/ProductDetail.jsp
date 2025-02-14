@@ -107,72 +107,8 @@
         <!-- Offcanvas Menu End -->
 
         <!-- Header Section Begin -->
-        <header class="header">
-            <div class="header__top">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-7">
-                            <div class="header__top__left">
-                                <p>Free shipping, 30-day return or refund guarantee.</p>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-5">
-                            <div class="header__top__right">
-                                <div class="header__top__links">
-                                    <a href="#">Sign in</a>
-                                    <a href="#">FAQs</a>
-                                </div>
-                                <div class="header__top__hover">
-                                    <span>Usd <i class="arrow_carrot-down"></i></span>
-                                    <ul>
-                                        <li>USD</li>
-                                        <li>EUR</li>
-                                        <li>USD</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-3 col-md-3">
-                        <div class="header__logo">
-                            <a href="./inex.html"><img src="img/logo.png" alt=""></a>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6">
-                        <nav class="header__menu mobile-menu">
-                            <ul>
-                                <li><a href="./inex.html">Home</a></li>
-                                <li class="active"><a href="./shop.html">Shop</a></li>
-                                <li><a href="#">Pages</a>
-                                    <ul class="dropdown">
-                                        <li><a href="./about.html">About Us</a></li>
-                                        <li><a href="./shop-details.html">Shop Details</a></li>
-                                        <li><a href="./shopping-cart.html">Shopping Cart</a></li>
-                                        <li><a href="./checkout.html">Check Out</a></li>
-                                        <li><a href="./blog-details.html">Blog Details</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="./blog.html">Blog</a></li>
-                                <li><a href="./contact.html">Contacts</a></li>
-                            </ul>
-                        </nav>
-                    </div>
-                    <div class="col-lg-3 col-md-3">
-                        <div class="header__nav__option">
-                            <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""></a>
-                            <a href="#"><img src="img/icon/heart.png" alt=""></a>
-                            <a href="#"><img src="img/icon/cart.png" alt=""> <span>0</span></a>
-                            <div class="price">$0.00</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="canvas__open"><i class="fa fa-bars"></i></div>
-            </div>
-        </header>
+                  <jsp:include page="header_1.jsp"></jsp:include>
+
         <!-- Header Section End -->
 
         <!-- Shop Details Section Begin -->
@@ -266,7 +202,7 @@
                                     <h5><span>Guaranteed Safe Checkout</span></h5>
                                     <img src="img/shop-details/details-payment.png" alt="">
                                     <ul>
-                                        <li><span>Loại: </span> ${p.product.ct.cp.category_name}</li>
+                                        <li><span>Loại: </span> ${p.product.ct.category_name}</li>
                                     </ul>
                                 </div>
                             </div>
@@ -351,14 +287,14 @@
                     <c:forEach items="${productRelated}" var="pr" begin="1" end="4">
                         <div class="col-lg-3 col-md-6 col-sm-6 col-sm-6">
                             <div class="product__item">
-                                <div class="product__item__pic set-bg" data-setbg="img/product/product-1.jpg">
+                                <div class="product__item__pic set-bg" data-setbg="${pr.image}">
                                     <span class="label">New</span>
                                     <ul class="product__hover">
-                                        <li><a href="ProductDetails?pid=${pr.product_ID}"><img src="img/icon/search.png" alt=""></a></li>
+                                        <li><a href="ProductDetails?pid=${pr.product.product_ID}"><img src="" alt=""></a></li>
                                     </ul>
                                 </div>
                                 <div class="product__item__text">
-                                    <h6>${pr.product_name}</h6>
+                                    <h6>${pr.product.product_name}</h6>
                                     <a href="#" class="add-cart">+ Add To Cart</a>
                                     <div class="rating">
                                         <i class="fa fa-star-o"></i>
@@ -367,7 +303,7 @@
                                         <i class="fa fa-star-o"></i>
                                         <i class="fa fa-star-o"></i>
                                     </div>
-                                    <h5>${pr.sale_price} VNĐ</h5>
+                                    <h5>${pr.product.sale_price} VNĐ</h5>
                                 </div>
                             </div>
                         </div>  

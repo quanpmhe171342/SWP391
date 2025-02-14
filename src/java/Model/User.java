@@ -4,14 +4,19 @@
  */
 package Model;
 
+
+
+
 import java.util.Date;
 
 /**
  *
+
  * @author hieum
  */
 public class User {
     private int userId;
+
     private String firstName;
     private String lastName;
     private String phone;
@@ -19,6 +24,7 @@ public class User {
     private String username;
     private String password;
     private Date dob;
+
     private boolean gender;
     private String address;
     private String avatar;
@@ -32,6 +38,7 @@ public class User {
 
     public User(int userId, String firstName, String lastName, String phone, String email, String username, String password, Date dob, boolean gender, String address, String avatar, int roleId, boolean isActive, String token, String expiredToken) {
         this.userId = userId;
+
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
@@ -42,6 +49,7 @@ public class User {
         this.gender = gender;
         this.address = address;
         this.avatar = avatar;
+
         this.roleId = roleId;
         this.isActive = isActive;
         this.token = token;
@@ -54,6 +62,7 @@ public class User {
 
     public void setUserId(int userId) {
         this.userId = userId;
+
     }
 
     public String getFirstName() {
@@ -136,6 +145,7 @@ public class User {
         this.avatar = avatar;
     }
 
+
     public int getRoleId() {
         return roleId;
     }
@@ -166,10 +176,12 @@ public class User {
 
     public void setExpiredToken(String expiredToken) {
         this.expiredToken = expiredToken;
+
     }
 
     @Override
     public String toString() {
+
         return super.toString(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
     }
     
@@ -178,3 +190,4 @@ public class User {
     
     
 }
+

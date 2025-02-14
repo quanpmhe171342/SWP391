@@ -5,7 +5,6 @@
 package DAO;
 
 import Model.CategoryProduct;
-import Model.CategoryVariant;
 import Model.Size;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,7 +21,7 @@ public class DaoSize extends DBContext{
         List<Size> sizes = new ArrayList();
         try {
             String query = "Select s.SizeID, s.SizeName   \n"
-                    + "from Size s  inner join CategoryProduct c on s.Category_Id = s.Category_Id where c.CategoryID = ?\n";
+                    + "from Size s  inner join CategoryProduct c on s.Category_Id = c.CategoryID where s.Category_Id = ?\n";
             PreparedStatement stm = conn.prepareStatement(query);
             stm.setInt(1, cate);
             ResultSet rs = stm.executeQuery();

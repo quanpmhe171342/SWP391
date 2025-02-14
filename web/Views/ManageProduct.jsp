@@ -404,7 +404,7 @@
                                             <td>${p.product.product_ID}</td>  
                                               <td>${p.product.product_name}</td> 
                                               <td><img style="width: 40%" src="${p.image}"></td>
-                                              <td>${p.product.ct.cp.category_name}</td>
+                                              <td>${p.product.ct.category_name}</td>
                                               <td>${p.product.sale_price}</td> 
                                               <td>${p.product.original_Price}</td> 
                                               <td>Còn hàng</td> 

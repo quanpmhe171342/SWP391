@@ -4,19 +4,21 @@
  */
 package Controller;
 
-import DAO.DaoProduct;
+import DAO.DAOBlog;
+import Model.Blog;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  *
- * @author phuan
+ * @author admin
  */
-public class ProductDetails extends HttpServlet {
+public class BlogList extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,10 +37,10 @@ public class ProductDetails extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ProductDetails</title>");            
+            out.println("<title>Servlet BlogList</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ProductDetails at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet BlogList at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -55,17 +57,33 @@ public class ProductDetails extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-           DAO.DaoProduct db = new DaoProduct();
-            int pid = Integer.parseInt(request.getParameter("pid"));
-            request.setAttribute("Product",db.getProductById(pid));
-            request.setAttribute("Color",db.getColorProduct1(pid));
-            request.setAttribute("size1", db.getSizeProduct(pid));
-           request.setAttribute("productRelated", db.getProductReleted(pid));
-            request.setAttribute("image", db.getImageProduct(pid));
-            request.getRequestDispatcher("Views/ProductDetail.jsp").forward(request, response);
-       
+        throws ServletException, IOException {
+    DAOBlog dbBlog = new DAOBlog();
+    
+    // Set default page and page size
+    int page = 1;
+    int pageSize = 6; // Number of blogs per page
+    
+    // Get page number from request parameter
+    String pageParam = request.getParameter("page");
+    if (pageParam != null && !pageParam.isEmpty()) {
+        page = Integer.parseInt(pageParam);
     }
+    
+    // Get paginated blog list
+    List<Blog> list_blog = dbBlog.getBlogPaginated(page, pageSize);
+    
+    // Get total number of blogs to calculate total pages
+    int totalBlogs = dbBlog.getTotalBlogCount();
+    int totalPages = (int) Math.ceil((double) totalBlogs / pageSize);
+    
+    // Set attributes for JSP
+    request.setAttribute("listblog", list_blog);
+    request.setAttribute("currentPage", page);
+    request.setAttribute("totalPages", totalPages);
+    
+    request.getRequestDispatcher("Views/BlogList.jsp").forward(request, response);
+}
 
     /**
      * Handles the HTTP <code>POST</code> method.
