@@ -54,7 +54,7 @@ public class MangeProduct extends HttpServlet {
             } else if (action.equalsIgnoreCase("editproduct")) {
                 request.setAttribute("img", productDao.getProductImages(Integer.parseInt(request.getParameter("pid"))));
                 request.setAttribute("product", productDao.getProductById(Integer.parseInt(request.getParameter("pid"))));
-                request.setAttribute("cate", categoryDao.getCateProduct());
+                request.setAttribute("cate", productDao.getProductById(Integer.parseInt(request.getParameter("pid"))).getProduct().getCt().getCategory_productID());
                 request.setAttribute("sizes", sizeDao.getSize(1));
                 request.setAttribute("colorProduct", productDao.getColorProduct(Integer.parseInt(request.getParameter("pid"))));
                 request.setAttribute("color", colorDao.getColor());
