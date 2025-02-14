@@ -3,13 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/phuan/OneDrive/Documents/GitHubl/SWP391/web/Views/EditProduct.jsp</file>
-            <file>file:/C:/Users/phuan/OneDrive/Documents/GitHubl/SWP391/src/java/Model/Color.java</file>
-            <file>file:/C:/Users/phuan/OneDrive/Documents/GitHubl/SWP391/src/java/DAO/DaoProduct.java</file>
-            <file>file:/C:/Users/phuan/OneDrive/Documents/GitHubl/SWP391/src/java/Model/Product.java</file>
-            <file>file:/C:/Users/phuan/OneDrive/Documents/GitHubl/SWP391/web/Views/AddProduct.jsp</file>
-            <file>file:/C:/Users/phuan/OneDrive/Documents/GitHubl/SWP391/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/phuan/OneDrive/Documents/GitHubl/SWP391/src/java/Controller/MangeProduct.java</file>
+            <file>file:/D:/FPT%20University/SE.7/SWP391/Project/Group1/SWP391/src/java/UserController/ChangePasswordController.java</file>
+            <file>file:/D:/FPT%20University/SE.7/SWP391/Project/Group1/SWP391/src/java/Controller/ChangePasswordController.java</file>
+            <file>file:/D:/FPT%20University/SE.7/SWP391/Project/Group1/SWP391/src/java/UserController/LoginController.java</file>
+            <file>file:/D:/FPT%20University/SE.7/SWP391/Project/Group1/SWP391/web/auth/login.jsp</file>
+            <file>file:/D:/FPT%20University/SE.7/SWP391/Project/Group1/SWP391/web/WEB-INF/web.xml</file>
+            <file>file:/D:/FPT%20University/SE.7/SWP391/Project/Group1/SWP391/web/auth/changepassword.jsp</file>
+            <file>file:/D:/FPT%20University/SE.7/SWP391/Project/Group1/SWP391/web/auth/register.jsp</file>
+            <file>file:/D:/FPT%20University/SE.7/SWP391/Project/Group1/SWP391/src/java/Controller/RegisterController.java</file>
+            <file>file:/D:/FPT%20University/SE.7/SWP391/Project/Group1/SWP391/src/java/UserController/RegisterController.java</file>
         </group>
     </open-files>
 </project-private>
