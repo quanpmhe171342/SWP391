@@ -204,7 +204,7 @@
                                 <div class="blog__item__text">
                                     <span><img src="img/icon/calendar.png" alt=""> ${listBlog.createdAt}</span>
                                     <h5>${listBlog.title}</h5>
-                                    <a href="#">Read More</a>
+                                    <a href="BlogDetail?blogID=${listBlog.blogID}">Read More</a>
                                 </div>
                             </div>
                         </div>
