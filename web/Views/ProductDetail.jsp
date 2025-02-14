@@ -287,14 +287,14 @@
                     <c:forEach items="${productRelated}" var="pr" begin="1" end="4">
                         <div class="col-lg-3 col-md-6 col-sm-6 col-sm-6">
                             <div class="product__item">
-                                <div class="product__item__pic set-bg" data-setbg="img/product/product-1.jpg">
+                                <div class="product__item__pic set-bg" data-setbg="${pr.image}">
                                     <span class="label">New</span>
                                     <ul class="product__hover">
-                                        <li><a href="ProductDetails?pid=${pr.product_ID}"><img src="img/icon/search.png" alt=""></a></li>
+                                        <li><a href="ProductDetails?pid=${pr.product.product_ID}"><img src="" alt=""></a></li>
                                     </ul>
                                 </div>
                                 <div class="product__item__text">
-                                    <h6>${pr.product_name}</h6>
+                                    <h6>${pr.product.product_name}</h6>
                                     <a href="#" class="add-cart">+ Add To Cart</a>
                                     <div class="rating">
                                         <i class="fa fa-star-o"></i>
@@ -303,7 +303,7 @@
                                         <i class="fa fa-star-o"></i>
                                         <i class="fa fa-star-o"></i>
                                     </div>
-                                    <h5>${pr.sale_price} VNĐ</h5>
+                                    <h5>${pr.product.sale_price} VNĐ</h5>
                                 </div>
                             </div>
                         </div>  

@@ -130,7 +130,7 @@
                 <div class="row d-flex justify-content-center">
                     <div class="col-lg-12">
                         <div class="blog__details__pic">
-                            <img src="img/blog/details/blog-details.jpg" alt="">
+                            <img src="${blog.image}" alt="">
                         </div>
                     </div>
                     <div class="col-lg-8">
@@ -156,7 +156,7 @@
                                         <div class="blog__details__tags">
                                             <a href="#">#Fashion</a>
                                             <a href="#">#Trending</a>
-                                            <a href="#">#2020</a>
+                                            <a href="#">#2025</a>
                                         </div>
                                     </div>
                                 </div>
@@ -178,7 +178,7 @@
                     <div class="col-lg-4 col-md-4 col-sm-4">
                         <a href="BlogDetail?blogID=${blognew.blogID}" class="blog__details__btns__item blog__details__btns__item--next">
                             <p>New Post <span class="arrow_right"></span></p>
-                            <img src="img/blog/blog-3.jpg" alt="">
+                            <img src="${blognew.image}" alt="">
 
                             <h5>${blognew.title}</h5>
                         </a>

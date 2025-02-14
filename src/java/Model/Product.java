@@ -87,6 +87,11 @@ public class Product {
         this.ct = ct;
     }
 
+    @Override
+    public String toString() {
+        return "Product{" + "product_ID=" + product_ID + ", product_name=" + product_name + ", original_Price=" + original_Price + ", sale_price=" + sale_price + ", product_description=" + product_description + ", brief_information=" + brief_information + ", ct=" + ct + '}';
+    }
+
    
    
 
