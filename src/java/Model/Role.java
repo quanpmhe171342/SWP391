@@ -6,36 +6,44 @@ package Model;
 
 /**
  *
- * @author admin
+
+ * @author hieum
  */
 public class Role {
-    int id;
-    String name;
+    private int roleId;
+    private String roleName;
 
-    public Role(int id, String name) {
-        this.id = id;
-        this.name = name;
+    public Role() {
     }
 
-    public int getId() {
-        return id;
+    public Role(int roleId, String roleName) {
+        this.roleId = roleId;
+        this.roleName = roleName;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public int getRoleId() {
+        return roleId;
     }
 
-    public String getName() {
-        return name;
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+
     }
 
     @Override
     public String toString() {
-        return "Role{" + "id=" + id + ", name=" + name + '}';
+
+        return super.toString(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
     }
+
+
     
 }

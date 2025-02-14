@@ -4,15 +4,19 @@
  */
 package Model;
 
-import Model.Role;
+
+
+
 import java.util.Date;
 
 /**
  *
- * @author admin
+
+ * @author hieum
  */
 public class User {
-    private int userID;
+    private int userId;
+
     private String firstName;
     private String lastName;
     private String phone;
@@ -20,18 +24,21 @@ public class User {
     private String username;
     private String password;
     private Date dob;
-    private boolean gender; // true for male, false for female
+
+    private boolean gender;
     private String address;
     private String avatar;
-    private Role r;
+    private int roleId;
+    private boolean isActive;
+    private String token;
+    private String expiredToken;
 
-    // Constructors
-    public User() {}
+    public User() {
+    }
 
-    public User(int userID, String firstName, String lastName, String phone, String email,
-                String username, String password, Date dob, boolean gender,
-                String address, String avatar, Role r) {
-        this.userID = userID;
+    public User(int userId, String firstName, String lastName, String phone, String email, String username, String password, Date dob, boolean gender, String address, String avatar, int roleId, boolean isActive, String token, String expiredToken) {
+        this.userId = userId;
+
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
@@ -42,16 +49,20 @@ public class User {
         this.gender = gender;
         this.address = address;
         this.avatar = avatar;
-        this.r = r;
+
+        this.roleId = roleId;
+        this.isActive = isActive;
+        this.token = token;
+        this.expiredToken = expiredToken;
     }
 
-    // Getters and Setters
-    public int getUserID() {
-        return userID;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUserID(int userID) {
-        this.userID = userID;
+    public void setUserId(int userId) {
+        this.userId = userId;
+
     }
 
     public String getFirstName() {
@@ -134,32 +145,49 @@ public class User {
         this.avatar = avatar;
     }
 
-    public Role getRole() {
-        return r;
+
+    public int getRoleId() {
+        return roleId;
     }
 
-    public void setRole(Role r) {
-        this.r = r;
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
+    }
+
+    public boolean isIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(boolean isActive) {
+        this.isActive = isActive;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getExpiredToken() {
+        return expiredToken;
+    }
+
+    public void setExpiredToken(String expiredToken) {
+        this.expiredToken = expiredToken;
+
     }
 
     @Override
     public String toString() {
-        return "User{" +
-                "userID=" + userID +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", phone='" + phone + '\'' +
-                ", email='" + email + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", dob=" + dob +
-                ", gender=" + (gender ? "Male" : "Female") +
-                ", address='" + address + '\'' +
-                ", avatar='" + avatar + '\'' +
-                ", role=" + (r != null ? r.toString() : "No Role") +
-                '}';
+
+        return super.toString(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
     }
+    
+    
+    
+    
+    
 }
 
-    // Constructor
-  
