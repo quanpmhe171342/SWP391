@@ -195,36 +195,39 @@ public class UserDAO {
         return false; // Trả về false nếu không có người dùng nào
     }
 
+   public boolean checkOldPassword(String username, String oldPassword) {
+        String query = "SELECT password FROM Users WHERE username = ?";
+        
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, username); // Gán giá trị username vào câu lệnh
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                // Lấy mật khẩu từ cơ sở dữ liệu
+                String storedPassword = rs.getString("password");
+                
+                // So sánh mật khẩu cũ nhập vào với mật khẩu trong cơ sở dữ liệu
+                return storedPassword.equals(oldPassword);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return false; // Trả về false nếu không tìm thấy username hoặc có lỗi
+    }
+
+    // Phương thức đổi mật khẩu
     public boolean changePassword(String username, String oldPassword, String newPassword) {
-        // Lấy thông tin người dùng từ database
-        User user = getUserByUsername(username);
-        if (user == null) {
-            System.out.println("User not found!");
-            return false;
-        }
-
-        // Kiểm tra mật khẩu cũ có khớp không
-        if (!user.getPassword().equals(oldPassword)) {
-            System.out.println("Old password is incorrect!");
-            return false;
-        }
-
-        // Kiểm tra mật khẩu mới và mật khẩu cũ có giống nhau không
-        if (oldPassword.equals(newPassword)) {
-            System.out.println("New password must be different from the old password!");
-            return false;
-        }
-
-        // Cập nhật mật khẩu mới
-        String sql = "UPDATE Users SET password = ? WHERE username = ?";
-        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-            pstmt.setString(1, newPassword);
-            pstmt.setString(2, username);
-            pstmt.executeUpdate();
-            System.out.println("Password changed successfully!");
-            return true;
-        } catch (SQLException ex) {
-            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, "Error changing password", ex);
+        if (checkOldPassword(username, oldPassword)) {
+            String query = "UPDATE Users SET password = ? WHERE username = ?";
+            try (PreparedStatement stmt = connection.prepareStatement(query)) {
+                stmt.setString(1, newPassword);
+                stmt.setString(2, username);
+                int rowsAffected = stmt.executeUpdate();
+                return rowsAffected > 0; // Trả về true nếu cập nhật thành công
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return false;
     }

@@ -80,7 +80,7 @@ public class RegisterController extends HttpServlet {
 
         // Redirect or forward to a success page
         request.setAttribute("successMessage", "User created successfully!");
-        request.getRequestDispatcher("/auth/login.jsp").forward(request, response);  // Redirect to login page or any other page
+        request.getRequestDispatcher("/auth/hometest.jsp").forward(request, response);  // Redirect to login page or any other page
     }
 
     // Method to generate a random Date of Birth between 1970 and 2000
