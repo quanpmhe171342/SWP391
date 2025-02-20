@@ -535,7 +535,47 @@ ol {
 	position: relative;
 	top: 3px;
 }
+/*
+chinh sua
+*/
+/* Định dạng menu con */
+.header__menu .submenu {
+    display: none; /* Ẩn menu con ban đầu */
+    position: absolute; /* Đặt menu con ở vị trí tuyệt đối */
+    left: 0;
+    top: 100%; /* Hiển thị menu con ngay dưới menu chính */
+    background: white;
+    border: 1px solid #ddd;
+    list-style: none;
+    padding: 10px;
+    min-width: 200px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    text-align: left; /* Căn chữ bên trái */
+    z-index: 9999; /* Đảm bảo menu con được hiển thị đè lên các phần khác */
+}
 
+/* Đảm bảo mỗi item trong menu con hiển thị theo chiều dọc */
+.header__menu .submenu li {
+    display: block; /* Hiển thị theo chiều dọc */
+    padding: 5px 10px;
+}
+
+/* Định dạng các liên kết trong menu con */
+.header__menu .submenu li a {
+    color: black;
+    text-decoration: none; /* Bỏ gạch chân */
+}
+
+/* Hiển thị menu con khi hover */
+.header__menu .dropdown:hover .submenu {
+    display: block; /* Hiện menu con khi hover */
+}
+
+
+
+/*
+chinh sua
+*/
 .offcanvas-menu-wrapper {
 	display: none;
 }
@@ -586,6 +626,8 @@ ol {
 .hero__items {
 	height: 800px;
 	padding-top: 230px;
+       
+     
 }
 
 .hero__text h6 {
@@ -615,6 +657,7 @@ ol {
 	-webkit-transition: all, 0.6s;
 	-o-transition: all, 0.6s;
 	transition: all, 0.6s;
+        margin-right: 400px;
 }
 
 .hero__text p {
@@ -627,6 +670,7 @@ ol {
 	-webkit-transition: all, 0.9s;
 	-o-transition: all, 0.9s;
 	transition: all, 0.9s;
+        margin-right: 400px;
 }
 
 .hero__text .primary-btn {

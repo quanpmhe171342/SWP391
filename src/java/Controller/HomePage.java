@@ -5,6 +5,8 @@
 
 package Controller;
 
+import DAO.DaoCategoryProduct;
+import DAO.DaoProduct;
 import DAO.HomePageDAO;
 import Model.Blog;
 import Model.Product;
@@ -53,6 +55,8 @@ public class HomePage extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         HomePageDAO m = new HomePageDAO();
+        
+        DaoCategoryProduct db1 = new DaoCategoryProduct();
          List<ProductVariant> list = m.BestSeller();
         request.setAttribute("listBestSellers", list);
         List<ProductVariant> newProduct = m.NewProduct();
@@ -62,6 +66,7 @@ public class HomePage extends HttpServlet {
         
         List<Blog> listBlog = m.TopBlogNew();
          request.setAttribute("blog", listBlog);
+         request.setAttribute("cateproduct", db1.getCateProduct());
          request.getRequestDispatcher("Views/HomePage.jsp").forward(request, response);
     } 
 
