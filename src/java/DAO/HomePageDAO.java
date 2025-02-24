@@ -182,7 +182,7 @@ public class HomePageDAO extends DBContext{
                         FROM [Product] p
                         JOIN [ProductVariant] pv ON p.[ProductID] = pv.[ProductID]
                         JOIN [CategoryProduct] cp ON p.[CategoryProductID] = cp.[CategoryID]
-                        ORDER BY p.ProductID DESC;
+                        ORDER BY p.ProductID DESC ;
     """;
 
     try {
