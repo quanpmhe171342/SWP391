@@ -62,7 +62,7 @@ public class BlogList extends HttpServlet {
     
     // Set default page and page size
     int page = 1;
-    int pageSize = 6; // Number of blogs per page
+    int pageSize = 3; // Number of blogs per page
     
     // Get page number from request parameter
     String pageParam = request.getParameter("page");

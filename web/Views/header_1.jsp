@@ -36,7 +36,7 @@
             <div class="col-lg-6 col-md-6">
                 <nav class="header__menu mobile-menu">
                     <ul>
-                        <li><a href="./HomePage">Home</a></li>
+                        <li><a href="./HomePage">Trang chủ</a></li>
                          <li class="dropdown">
                             <a href="./ProductList">Sản phẩm</a>
                             <ul class="submenu">

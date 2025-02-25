@@ -103,7 +103,7 @@
                                     <i class="fa fa-star-o"></i>
                                     <i class="fa fa-star-o"></i>
                                 </div>
-                                <h5>$${list.product.sale_price} &nbsp;&nbsp; <del>$${list.product.original_Price}</del></h5>
+                                <h5>${list.product.sale_price}VND &nbsp; <del>${list.product.original_Price} VND</del></h5>
 
 
                             </div>
@@ -204,7 +204,7 @@
                             <div class="blog__item__text">
                                 <span><img src="img/icon/calendar.png" alt=""> ${listBlog.createdAt}</span>
                                 <h5>${listBlog.title}</h5>
-                                <a href="BlogDetail?blogID=${listBlog.blogID}">Read More</a>
+                                <a href="BlogDetail?blogID=${listBlog.blogID}">Chi tiết</a>
                             </div>
                         </div>
                     </div>
