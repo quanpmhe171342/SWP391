@@ -15,37 +15,12 @@ public class UserDAO {
     private final Connection connection;
 
     public UserDAO() {
-//        dbContext = DBContext.getInstance();
-//        connection = dbContext.getConnection();
+
         dbContext = new DBContext();
         connection = dbContext.conn;
     }
 
-    // Thêm người dùng mới vào database
-//    public void createUser(User user) {
-//        String sql = "INSERT INTO Users (first_name, last_name, phone, email, username, password, dob, gender, address, avatar, roleId, isActive, token, expired_token) "
-//                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-//        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-//            pstmt.setString(1, user.getFirstName());
-//            pstmt.setString(2, user.getLastName());
-//            pstmt.setString(3, user.getPhone());
-//            pstmt.setString(4, user.getEmail());
-//            pstmt.setString(5, user.getUsername());
-//            pstmt.setString(6, user.getPassword());
-//            pstmt.setDate(7, new java.sql.Date(user.getDob().getTime()));
-//            pstmt.setBoolean(8, user.isGender());
-//            pstmt.setString(9, user.getAddress());
-//            pstmt.setString(10, user.getAvatar());
-//            pstmt.setInt(11, user.getRoleId());
-//            pstmt.setBoolean(12, user.isIsActive());
-//            pstmt.setString(13, user.getToken());
-//            pstmt.setString(14, user.getExpiredToken());
-//            pstmt.executeUpdate();
-//            System.out.println("User created successfully!");
-//        } catch (SQLException ex) {
-//            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, "Error inserting user", ex);
-//        }
-//    }
+ 
     public boolean createUser(User user) {
         if (checkExistUser(user.getUsername())) {
             System.out.println("Username already exists!");
