@@ -9,6 +9,8 @@ import Model.CategoryBlog;
 import Model.CategoryProduct;
 import Model.Color;
 import Model.Product;
+import Model.NewProduct;
+import Model.NewProductVariant;
 import Model.ProductVariant;
 import Model.Size;
 import Model.Slider;
@@ -159,30 +161,31 @@ public class HomePageDAO extends DBContext{
     
     
     
-    public List<ProductVariant> NewProduct() {
+    public List<NewProductVariant> NewProduct() {
    
-    List<ProductVariant> newProduct = new ArrayList<>();
+    List<NewProductVariant> newProduct = new ArrayList<>();
     String query = """
             SELECT TOP 4 
-                            p.[ProductID],
-                            p.[ProductName],
-                            p.[original_price],
-                            p.[sale_price],
-                            p.[product_description],
-                            p.[brief_information],
-                            pv.[VariantID],
-                            pv.[SizeID],
-                            pv.[ColorID],
-                            pv.[Stock],
-                            pv.[ImageURL],
-                            cp.CategoryID,
-                            cp.category_name,
-                            cp.category_description,
-                            cp.image
-                        FROM [Product] p
-                        JOIN [ProductVariant] pv ON p.[ProductID] = pv.[ProductID]
-                        JOIN [CategoryProduct] cp ON p.[CategoryProductID] = cp.[CategoryID]
-                        ORDER BY p.ProductID DESC ;
+                                                    p.[ProductID],
+                                                    p.[ProductName],
+                                                    p.[original_price],
+                                                    p.[sale_price],
+                                                    p.[product_description],
+                                                    p.[brief_information],
+                                                    p.CreateDate,
+                                                    pv.[VariantID],
+                                                    pv.[SizeID],
+                                                    pv.[ColorID],
+                                                    pv.[Stock],
+                                                    pv.[ImageURL],
+                                                    cp.CategoryID,
+                                                    cp.category_name,
+                                                    cp.category_description,
+                                                    cp.image
+                                                FROM [Product] p
+                                                JOIN [ProductVariant] pv ON p.[ProductID] = pv.[ProductID]
+                                                JOIN [CategoryProduct] cp ON p.[CategoryProductID] = cp.[CategoryID]
+                                                ORDER BY p.CreateDate DESC ;
     """;
 
     try {
@@ -209,12 +212,12 @@ public class HomePageDAO extends DBContext{
             String briefInformation = rs.getString("brief_information");
 
             Product product = new Product(productID, productName, originalPrice, salePrice, productDescription, briefInformation, categoryProduct);
-
+            NewProduct m = new NewProduct(product, rs.getDate("CreateDate"));
             int variantID = rs.getInt("VariantID");
             int stock = rs.getInt("Stock");
             String imageUrl = rs.getString("ImageURL");
 
-            ProductVariant productVariant = new ProductVariant(variantID, product, size, color, stock, imageUrl);
+            NewProductVariant productVariant = new NewProductVariant(variantID, m, size, color, stock, imageUrl);
 
             newProduct.add(productVariant); 
         }

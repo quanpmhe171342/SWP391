@@ -90,11 +90,11 @@
                         <div class="product__item">
                             <div class="product__item__pic set-bg" data-setbg="${list.image}">                         
                                 <ul class="product__hover">
-                                    <li><a href="ProductDetails?pid=${list.product.product_ID}"><img src="img/icon/search.png" alt=""><span>Tìm kiếm</span></a></li>
+                                    <li><a href="ProductDetails?pid=${list.product.product.product_ID}"><img src="img/icon/search.png" alt=""><span>Tìm kiếm</span></a></li>
                                 </ul>
                             </div>
                             <div class="product__item__text">
-                                <h6>${list.product.product_name}</h6>
+                                <h6>${list.product.product.product_name}</h6>
                                 <a href="#" class="add-cart">+ Thêm vào giỏ hàng</a>
                                 <div class="rating">
                                     <i class="fa fa-star-o"></i>
@@ -103,7 +103,7 @@
                                     <i class="fa fa-star-o"></i>
                                     <i class="fa fa-star-o"></i>
                                 </div>
-                                <h5>${list.product.sale_price}VND &nbsp; <del>${list.product.original_Price} VND</del></h5>
+                                <h5>${list.product.product.sale_price}VND &nbsp; <del>${list.product.product.original_Price} VND</del></h5>
 
 
                             </div>

@@ -9,7 +9,8 @@ import DAO.DaoCategoryProduct;
 import DAO.DaoProduct;
 import DAO.HomePageDAO;
 import Model.Blog;
-import Model.Product;
+import Model.NewProduct;
+import Model.NewProductVariant;
 import Model.ProductVariant;
 import Model.Slider;
 import java.io.IOException;
@@ -59,7 +60,7 @@ public class HomePage extends HttpServlet {
         DaoCategoryProduct db1 = new DaoCategoryProduct();
          List<ProductVariant> list = m.BestSeller();
         request.setAttribute("listBestSellers", list);
-        List<ProductVariant> newProduct = m.NewProduct();
+        List<NewProductVariant> newProduct = m.NewProduct();
         request.setAttribute("listNewArrivals", newProduct);
         List<Slider> sl = m.slideHome();
         request.setAttribute("slider", sl);
