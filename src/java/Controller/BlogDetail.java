@@ -60,7 +60,7 @@ public class BlogDetail extends HttpServlet {
         DAO.DAOBlog daoblog = new DAOBlog();
 
         request.setAttribute("blog", daoblog.getBlogByid(blogID));
-        request.setAttribute("fb", daoblog.getfBlogByid(blogID));
+//        request.setAttribute("fb", daoblog.getfBlogByid(blogID));
 
         request.setAttribute("blognew", daoblog.getBlogNewest());
         request.getRequestDispatcher("Views/BlogDetail.jsp").forward(request, response);

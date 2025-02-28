@@ -176,65 +176,65 @@ public List<Blog> getListByPage(List<Blog> list, int start, int end) {
         return b;
     }
 
-    public List<Feedback> getfBlogByid(int id) {
-    List<Feedback> list = new ArrayList<>();
-    try {
-        String query = "SELECT " +
-                "b.BlogID, b.Title, b.image, b.Content AS BlogContent, " +
-                "b.CategoryBlogID, b.CreatedAt AS BlogCreatedAt, " +
-                "f.FeedbackID, f.Content AS FeedbackContent, f.CreatedAt AS FeedbackCreatedAt, " +
-                "u.UserID, u.first_name, u.last_name, u.email, u.username, u.avatar, u.roleID " +
-                "FROM Blog b " +
-                "INNER JOIN FeedbackBlog fb ON b.BlogID = fb.BlogID " +
-                "INNER JOIN Feedback f ON fb.FeedbackId = f.FeedbackID " +
-                "INNER JOIN Users u ON f.UserID = u.UserID " +
-                "WHERE b.BlogID = ?";
-        
-        PreparedStatement stm = conn.prepareStatement(query);
-        stm.setInt(1, id); // Prevent SQL injection
-        ResultSet rs = stm.executeQuery();
-        
-        while (rs.next()) {
-            CategoryBlog category = new CategoryBlog(rs.getInt("CategoryBlogID"), null);
-            Blog blog = new Blog(
-                rs.getInt("BlogID"),
-                rs.getString("Title"),
-                rs.getString("image"),
-                rs.getString("BlogContent"),
-                category,
-                rs.getDate("BlogCreatedAt")
-            );
-
-            Role role = new Role(rs.getInt("roleID"), null);
-            User user = new User(
-                rs.getInt("UserID"),
-                rs.getString("first_name"),
-                rs.getString("last_name"),
-                rs.getString("email"),
-                rs.getString("username"),
-                null,
-                null,
-                null,
-                true,
-                null,
-                rs.getString("avatar"),
-                role
-            );
-
-            Feedback feedback = new Feedback(
-                rs.getInt("FeedbackID"),
-                user,
-                rs.getString("FeedbackContent"),
-                rs.getDate("FeedbackCreatedAt")
-            );
-
-            list.add(feedback); // Add feedback to the list
-        }
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
-    return list;
-}
+//    public List<Feedback> getfBlogByid(int id) {
+//    List<Feedback> list = new ArrayList<>();
+//    try {
+//        String query = "SELECT " +
+//                "b.BlogID, b.Title, b.image, b.Content AS BlogContent, " +
+//                "b.CategoryBlogID, b.CreatedAt AS BlogCreatedAt, " +
+//                "f.FeedbackID, f.Content AS FeedbackContent, f.CreatedAt AS FeedbackCreatedAt, " +
+//                "u.UserID, u.first_name, u.last_name, u.email, u.username, u.avatar, u.roleID " +
+//                "FROM Blog b " +
+//                "INNER JOIN FeedbackBlog fb ON b.BlogID = fb.BlogID " +
+//                "INNER JOIN Feedback f ON fb.FeedbackId = f.FeedbackID " +
+//                "INNER JOIN Users u ON f.UserID = u.UserID " +
+//                "WHERE b.BlogID = ?";
+//        
+//        PreparedStatement stm = conn.prepareStatement(query);
+//        stm.setInt(1, id); // Prevent SQL injection
+//        ResultSet rs = stm.executeQuery();
+//        
+//        while (rs.next()) {
+//            CategoryBlog category = new CategoryBlog(rs.getInt("CategoryBlogID"), null);
+//            Blog blog = new Blog(
+//                rs.getInt("BlogID"),
+//                rs.getString("Title"),
+//                rs.getString("image"),
+//                rs.getString("BlogContent"),
+//                category,
+//                rs.getDate("BlogCreatedAt")
+//            );
+//
+//            Role role = new Role(rs.getInt("roleID"), null);
+//            User user = new User(
+//                rs.getInt("UserID"),
+//                rs.getString("first_name"),
+//                rs.getString("last_name"),
+//                rs.getString("email"),
+//                rs.getString("username"),
+//                null,
+//                null,
+//                null,
+//                true,
+//                null,
+//                rs.getString("avatar"),
+//                role
+//            );
+//
+//            Feedback feedback = new Feedback(
+//                rs.getInt("FeedbackID"),
+//                user,
+//                rs.getString("FeedbackContent"),
+//                rs.getDate("FeedbackCreatedAt")
+//            );
+//
+//            list.add(feedback); // Add feedback to the list
+//        }
+//    } catch (Exception e) {
+//        e.printStackTrace();
+//    }
+//    return list;
+//}
 
 public static void main(String[] args) {
     DAOBlog daoBlog = new DAOBlog();

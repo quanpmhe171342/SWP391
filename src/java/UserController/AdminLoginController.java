@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class LoginController extends HttpServlet {
+public class AdminLoginController extends HttpServlet {
 
     private UserDAO userDAO;
 
@@ -23,7 +23,7 @@ public class LoginController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Forward to the login JSP page
-        request.getRequestDispatcher("/auth/login.jsp").forward(request, response);
+        request.getRequestDispatcher("/auth/adminlogin.jsp").forward(request, response);
     }
 
     @Override
@@ -37,20 +37,23 @@ public class LoginController extends HttpServlet {
 
         if (user != null) {
             if (user.getPassword().equals(password)) {
-                if (user.getRoleId() == 3) {
+                if (user.getRoleId() == 1) {
                     request.getSession().setAttribute("user", user);
                     response.sendRedirect(request.getContextPath() + "/auth/hometest.jsp");
-                } else {
-                    request.setAttribute("errorMessage", "Tài khoản không thể truy cập.");
-                    request.getRequestDispatcher("/auth/login.jsp").forward(request, response);
+                }else if(user.getRoleId() == 2) {
+                    request.getSession().setAttribute("user", user);
+                    response.sendRedirect(request.getContextPath() + "/auth/hometest.jsp");
+                }else {
+                    request.setAttribute("errorMessage", "Vui lòng sử dụng tài khoản Admin hoặc Staff.");
+                    request.getRequestDispatcher("/auth/adminlogin.jsp").forward(request, response);
                 }
             } else {
                 request.setAttribute("errorMessage", "Sai mật khẩu. Vui lòng thử lại.");
-                request.getRequestDispatcher("/auth/login.jsp").forward(request, response);
+                request.getRequestDispatcher("/auth/adminlogin.jsp").forward(request, response);
             }
         } else {
             request.setAttribute("errorMessage", "Tài khoản không tồn tại. Vui lòng thử lại.");
-            request.getRequestDispatcher("/auth/login.jsp").forward(request, response);
+            request.getRequestDispatcher("/auth/adminlogin.jsp").forward(request, response);
         }
     }
 

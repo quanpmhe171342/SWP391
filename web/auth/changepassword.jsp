@@ -1,4 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
+<%@ page import="Model.User" %>
+
 <html>
     <head>
         <title>Trang Đổi Mật Khẩu</title>
@@ -10,9 +13,34 @@
         <section class="vh-100 d-flex align-items-center justify-content-center" style="background-color: #eee;">
             <div class="card p-4" style="border-radius: 15px; width: 100%; max-width: 500px;">
                 <div class="card-body">
-                    <h3 class="text-center mb-4">Đổi Mật Khẩu</h3>
+                    <%-- Lấy thông tin người dùng từ session --%>
+                    <%
+                        User user = (User) session.getAttribute("user");  // Lấy đối tượng User từ session
+                        if (user != null) {
+                            String username = user.getUsername();  // Truy cập thuộc tính username từ đối tượng User
+                    %>
+                    <h4 class="text-center">Chào mừng, <%= username %>!</h4>
+                    <% 
+                        } else {
+                    %>
+                    <h4 class="text-center">Chào mừng bạn!</h4>
+                    <% 
+                        }
+                    %>
 
-                    <form action="../changepassword" method="POST">
+                    <h3 class="text-center mb-4">Đổi Mật Khẩu</h3>
+                    <% String error = (String) request.getAttribute("error"); %>
+                    <% String success = (String) request.getAttribute("success"); %>
+
+                    <% if (error != null) { %>
+                    <div class="alert alert-danger text-center"><%= error %></div>
+                    <% } %>
+
+                    <% if (success != null) { %>
+                    <div class="alert alert-success text-center"><%= success %></div>
+                    <% } %>
+
+                    <form action="../SWP391/changepassword" method="POST">
                         <div class="mb-3">
                             <label for="oldPassword" class="form-label">Mật khẩu cũ</label>
                             <input type="password" id="oldPassword" name="oldPassword" class="form-control" required>
@@ -37,7 +65,7 @@
                     </form>
 
                     <div class="text-center mt-3">
-                        <p>Quay lại trang <a href="/login" class="fw-bold">đăng nhập</a>.</p>
+                        <p>Quay lại trang <a href="../SWP391/login" class="fw-bold">đăng nhập</a>.</p>
                     </div>
                 </div>
             </div>
@@ -52,7 +80,6 @@
 
                 const oldPasswordError = document.getElementById("oldPasswordError");
                 const newPasswordError = document.getElementById("newPasswordError");
-                const repeatNewPasswordError = document.getElementById("repeatNewPasswordError");
 
                 form.addEventListener("submit", function (event) {
                     let isValid = true;
@@ -68,18 +95,13 @@
                     // Kiểm tra mật khẩu mới (ít nhất 8 ký tự, 1 chữ hoa, 1 số)
                     const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
                     if (!passwordRegex.test(newPassword.value.trim())) {
-                        newPasswordError.textContent = "Mật khẩu mới phải có ít nhất 8 ký tự, bao gồm ít nhất 1 chữ hoa và 1 số.";
+                        newPasswordError.textContent = "Mật khẩu phải có ít nhất 8 ký tự, bao gồm ít nhất 1 chữ hoa và 1 số.";
+                        isValid = false;
+                    } else if (newPassword.value.trim() !== repeatNewPassword.value.trim()) {
+                        newPasswordError.textContent = "Mật khẩu mới và nhập lại mật khẩu không khớp!";
                         isValid = false;
                     } else {
                         newPasswordError.textContent = "";
-                    }
-
-                    // Kiểm tra nhập lại mật khẩu mới
-                    if (newPassword.value.trim() !== repeatNewPassword.value.trim()) {
-                        repeatNewPasswordError.textContent = "Mật khẩu nhập lại không khớp!";
-                        isValid = false;
-                    } else {
-                        repeatNewPasswordError.textContent = "";
                     }
 
                     if (!isValid) {
@@ -90,3 +112,4 @@
         </script>
     </body>
 </html>
+
