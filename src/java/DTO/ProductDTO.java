@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  *
- * @author d
+ * @author Nguyen NGoc Linh
  */
 public class ProductDTO {
     private int productId;

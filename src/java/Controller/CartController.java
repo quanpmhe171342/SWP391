@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author d
+ * @author Nguyen NGoc Linh
  */
 public class CartController extends HttpServlet {
 

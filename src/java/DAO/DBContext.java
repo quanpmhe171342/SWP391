@@ -6,7 +6,7 @@ package DAO;
 
 /**
  *
- * @author phuan
+ * @author Nguyen NGoc Linh
  */
 import java.sql.Connection;
 import java.util.logging.Level;

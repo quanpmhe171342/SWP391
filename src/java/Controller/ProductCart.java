@@ -30,7 +30,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 /**
  *
- * @author d
+ * @author Nguyen NGoc Linh
  */
 public class ProductCart extends HttpServlet {
 
