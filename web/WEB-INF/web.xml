@@ -40,6 +40,26 @@
         <servlet-name>AdminLoginController</servlet-name>
         <servlet-class>UserController.AdminLoginController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PaymentController</servlet-name>
+        <servlet-class>Controller.PaymentController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CartController</servlet-name>
+        <servlet-class>Controller.CartController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProductCart</servlet-name>
+        <servlet-class>Controller.ProductCart</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProductDTO</servlet-name>
+        <servlet-class>DTO.ProductDTO</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VNPayConfig</servlet-name>
+        <servlet-class>DTO.Config.VNPayConfig</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProductList</servlet-name>
         <url-pattern>/ProductList</url-pattern>
@@ -79,6 +99,26 @@
     <servlet-mapping>
         <servlet-name>AdminLoginController</servlet-name>
         <url-pattern>/adminlogin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PaymentController</servlet-name>
+        <url-pattern>/paymentcontroller</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CartController</servlet-name>
+        <url-pattern>/cartcontroller</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductCart</servlet-name>
+        <url-pattern>/productcart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductDTO</servlet-name>
+        <url-pattern>/productdto</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VNPayConfig</servlet-name>
+        <url-pattern>/vnpayconfig</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>
