@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 
-@WebServlet(name = "AddStaffController", urlPatterns = {"/addStaff"})
+
 public class AddStaffController extends HttpServlet {
     private UserDAO userDAO;
 
