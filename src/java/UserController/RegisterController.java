@@ -11,7 +11,7 @@ import java.util.Calendar;
 import java.util.Date;
 import DAO.UserDAO;
 
-@WebServlet("/register")
+
 public class RegisterController extends HttpServlet {
 
     private UserDAO userDAO;
