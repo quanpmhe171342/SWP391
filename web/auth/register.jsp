@@ -65,7 +65,9 @@
                                     </div>
 
                                     <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
-                                        <img src="../img/photo/register.jpg" class="img-fluid" alt="Hình ảnh mẫu">
+
+                                        <img src="<%= request.getContextPath() %>/img/photo/register.jpg" alt="Hình ảnh mẫu">
+
                                     </div>
                                 </div>
                             </div>

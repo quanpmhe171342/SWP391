@@ -48,6 +48,10 @@
         <servlet-name>AddStaffController</servlet-name>
         <servlet-class>UserController.AddStaffController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ViewProfile</servlet-name>
+        <servlet-class>UserController.ViewProfile</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProductList</servlet-name>
         <url-pattern>/ProductList</url-pattern>
@@ -95,6 +99,10 @@
     <servlet-mapping>
         <servlet-name>AddStaffController</servlet-name>
         <url-pattern>/addstaff</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewProfile</servlet-name>
+        <url-pattern>/viewprofile</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>
