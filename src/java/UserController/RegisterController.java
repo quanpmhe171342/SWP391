@@ -11,7 +11,6 @@ import java.util.Calendar;
 import java.util.Date;
 import DAO.UserDAO;
 
-
 public class RegisterController extends HttpServlet {
 
     private UserDAO userDAO;
@@ -19,6 +18,13 @@ public class RegisterController extends HttpServlet {
     @Override
     public void init() throws ServletException {
         userDAO = new UserDAO();
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // Forward to the login JSP page
+        request.getRequestDispatcher("/auth/register.jsp").forward(request, response);
     }
 
     @Override
@@ -47,7 +53,7 @@ public class RegisterController extends HttpServlet {
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setDob(autoDOB()); // Set ngày sinh mặc định
-        user.setRoleId(3); 
+        user.setRoleId(3);
         user.setIsActive(false);
         user.setToken(null);
         user.setExpiredToken(null);
