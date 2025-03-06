@@ -4,7 +4,15 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/FPT%20University/SE.7/SWP391/Project/Group1/SWP391/src/java/Utils/Email.java</file>
+            <file>file:/D:/FPT%20University/SE.7/SWP391/Project/Group1/SWP391/src/java/DAO/DBContext.java</file>
+            <file>file:/D:/FPT%20University/SE.7/SWP391/Project/Group1/SWP391/src/java/UserController/AddStaffController.java</file>
             <file>file:/D:/FPT%20University/SE.7/SWP391/Project/Group1/SWP391/src/java/Controller/MangeProduct.java</file>
+            <file>file:/D:/FPT%20University/SE.7/SWP391/Project/Group1/SWP391/web/WEB-INF/web.xml</file>
+            <file>file:/D:/FPT%20University/SE.7/SWP391/Project/Group1/SWP391/src/java/UserController/LogoutController.java</file>
+            <file>file:/D:/FPT%20University/SE.7/SWP391/Project/Group1/SWP391/web/auth/addstaff.jsp</file>
+            <file>file:/D:/FPT%20University/SE.7/SWP391/Project/Group1/SWP391/web/auth/register.jsp</file>
+            <file>file:/D:/FPT%20University/SE.7/SWP391/Project/Group1/SWP391/src/java/DAO/DAOBlog.java</file>
+            <file>file:/D:/FPT%20University/SE.7/SWP391/Project/Group1/SWP391/src/java/UserController/RegisterController.java</file>
         </group>
     </open-files>
 </project-private>
