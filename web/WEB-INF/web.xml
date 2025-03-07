@@ -40,6 +40,22 @@
         <servlet-name>AdminLoginController</servlet-name>
         <servlet-class>UserController.AdminLoginController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UserReport</servlet-name>
+        <servlet-class>Controller.ReportUser</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserReportt</servlet-name>
+        <servlet-class>Controller.UserReport</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReportProduct</servlet-name>
+        <servlet-class>Controller.ReportProduct</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReportOldCustomer</servlet-name>
+        <servlet-class>Controller.ReportOldCustomer</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProductList</servlet-name>
         <url-pattern>/ProductList</url-pattern>
@@ -79,6 +95,18 @@
     <servlet-mapping>
         <servlet-name>AdminLoginController</servlet-name>
         <url-pattern>/adminlogin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserReportt</servlet-name>
+        <url-pattern>/user/report</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReportProduct</servlet-name>
+        <url-pattern>/product/report</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReportOldCustomer</servlet-name>
+        <url-pattern>/oldCustomer/report</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

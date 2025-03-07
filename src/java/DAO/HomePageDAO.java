@@ -20,15 +20,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  *
  * @author Admin
  */
-public class HomePageDAO extends DBContext{
+public class HomePageDAO extends DBContext {
+
     public List<ProductVariant> BestSeller() {
-    List<ProductVariant> bestSellers = new ArrayList<>();
-    String query = """
+        List<ProductVariant> bestSellers = new ArrayList<>();
+        String query = """
             SELECT TOP 8
                 p.[ProductID],
                 p.[ProductName],
@@ -48,57 +48,54 @@ public class HomePageDAO extends DBContext{
             FROM [Product] p
             JOIN [ProductVariant] pv ON p.[ProductID] = pv.[ProductID]
             JOIN [CategoryProduct] cp ON p.[CategoryProductID] = cp.[CategoryID]
+            WHERE p.[sale_price] > 0  
             ORDER BY p.sale_price DESC;
     """;
 
-    try {
-        PreparedStatement ps = conn.prepareStatement(query);
-        ResultSet rs = ps.executeQuery();
-        
-        while (rs.next()) {
-            
-            int categoryID = rs.getInt("CategoryID");
-            String categoryName = rs.getString("category_name");
-            String categoryDescription = rs.getString("category_description");
-            String categoryImage = rs.getString("image");
-            
-            CategoryProduct categoryProduct = new CategoryProduct(categoryID, categoryName, categoryDescription, categoryImage);
-            
-            
-            Size size = new Size(); 
-            Color color = new Color(); 
-        
-            int productID = rs.getInt("ProductID");
-            String productName = rs.getString("ProductName");
-            double originalPrice = rs.getDouble("original_price");
-            double salePrice = rs.getDouble("sale_price");
-            String productDescription = rs.getString("product_description");
-            String briefInformation = rs.getString("brief_information");
+        try {
+            PreparedStatement ps = conn.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
 
-            Product product = new Product(productID, productName, originalPrice, salePrice, productDescription, briefInformation, categoryProduct);
+            while (rs.next()) {
 
-            int variantID = rs.getInt("VariantID");
-            int stock = rs.getInt("Stock");
-            String imageUrl = rs.getString("ImageURL");
+                int categoryID = rs.getInt("CategoryID");
+                String categoryName = rs.getString("category_name");
+                String categoryDescription = rs.getString("category_description");
+                String categoryImage = rs.getString("image");
 
-            ProductVariant productVariant = new ProductVariant(variantID, product, size, color, stock, imageUrl);
+                CategoryProduct categoryProduct = new CategoryProduct(categoryID, categoryName, categoryDescription, categoryImage);
 
-            bestSellers.add(productVariant); 
+                Size size = new Size();
+                Color color = new Color();
+
+                int productID = rs.getInt("ProductID");
+                String productName = rs.getString("ProductName");
+                double originalPrice = rs.getDouble("original_price");
+                double salePrice = rs.getDouble("sale_price");
+                String productDescription = rs.getString("product_description");
+                String briefInformation = rs.getString("brief_information");
+
+                Product product = new Product(productID, productName, originalPrice, salePrice, productDescription, briefInformation, categoryProduct);
+
+                int variantID = rs.getInt("VariantID");
+                int stock = rs.getInt("Stock");
+                String imageUrl = rs.getString("ImageURL");
+
+                ProductVariant productVariant = new ProductVariant(variantID, product, size, color, stock, imageUrl);
+
+                bestSellers.add(productVariant);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace(); 
+
+        return bestSellers;
     }
 
-    return bestSellers;
-}
-
-     
- 
-
     public List<Slider> slideHome() {
-   
-    List<Slider> list = new ArrayList<>();
-    String query = """
+
+        List<Slider> list = new ArrayList<>();
+        String query = """
             SELECT TOP 3 [SliderID]
                     ,[title]
                     ,[image]
@@ -109,28 +106,27 @@ public class HomePageDAO extends DBContext{
                 ORDER BY [SliderID] DESC;
     """;
 
-    try {
-        PreparedStatement ps = conn.prepareStatement(query);
-        ResultSet rs = ps.executeQuery();
-        
-        while (rs.next()) {
-            
-           Slider sl = new Slider(rs.getInt("SliderID"), rs.getString("title"), rs.getString("image"), rs.getInt("status"), rs.getString("Description"));
+        try {
+            PreparedStatement ps = conn.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
 
-            list.add(sl); 
+            while (rs.next()) {
+
+                Slider sl = new Slider(rs.getInt("SliderID"), rs.getString("title"), rs.getString("image"), rs.getInt("status"), rs.getString("Description"));
+
+                list.add(sl);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace(); 
+
+        return list;
     }
 
-    return list;
-    }
-    
-    
     public List<Blog> TopBlogNew() {
-   
-    List<Blog> list = new ArrayList<>();
-    String query = """
+
+        List<Blog> list = new ArrayList<>();
+        String query = """
            SELECT TOP 3 [BlogID]
                       ,[Title]
                       ,[image]
@@ -141,30 +137,27 @@ public class HomePageDAO extends DBContext{
                   ORDER BY [CreatedAt] DESC;
     """;
 
-    try {
-        PreparedStatement ps = conn.prepareStatement(query);
-        ResultSet rs = ps.executeQuery();
-        
-        while (rs.next()) {
-            
-            CategoryBlog cb = new CategoryBlog();
-            Blog blog = new Blog(rs.getInt("BlogID"), rs.getString("Title"), rs.getString("image"), rs.getString("Content"), cb, rs.getDate("CreatedAt"));
-            list.add(blog); 
+        try {
+            PreparedStatement ps = conn.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                CategoryBlog cb = new CategoryBlog();
+                Blog blog = new Blog(rs.getInt("BlogID"), rs.getString("Title"), rs.getString("image"), rs.getString("Content"), cb, rs.getDate("CreatedAt"));
+                list.add(blog);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace(); 
+
+        return list;
     }
 
-    return list;
-    }
-    
-    
-    
-    
     public List<NewProductVariant> NewProduct() {
-   
-    List<NewProductVariant> newProduct = new ArrayList<>();
-    String query = """
+
+        List<NewProductVariant> newProduct = new ArrayList<>();
+        String query = """
             SELECT TOP 4 
                                                     p.[ProductID],
                                                     p.[ProductName],
@@ -185,52 +178,53 @@ public class HomePageDAO extends DBContext{
                                                 FROM [Product] p
                                                 JOIN [ProductVariant] pv ON p.[ProductID] = pv.[ProductID]
                                                 JOIN [CategoryProduct] cp ON p.[CategoryProductID] = cp.[CategoryID]
+                                                WHERE cp.[CategoryID] = 1
                                                 ORDER BY p.CreateDate DESC ;
     """;
 
-    try {
-        PreparedStatement ps = conn.prepareStatement(query);
-        ResultSet rs = ps.executeQuery();
-        
-        while (rs.next()) {
-            
-            int categoryID = rs.getInt("CategoryID");
-            String categoryName = rs.getString("category_name");
-            String categoryDescription = rs.getString("category_description");
-            String categoryImage = rs.getString("image");
-            
-            CategoryProduct categoryProduct = new CategoryProduct(categoryID, categoryName, categoryDescription, categoryImage);
-                   
-            Size size = new Size(); 
-            Color color = new Color(); 
-        
-            int productID = rs.getInt("ProductID");
-            String productName = rs.getString("ProductName");
-            double originalPrice = rs.getDouble("original_price");
-            double salePrice = rs.getDouble("sale_price");
-            String productDescription = rs.getString("product_description");
-            String briefInformation = rs.getString("brief_information");
+        try {
+            PreparedStatement ps = conn.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
 
-            Product product = new Product(productID, productName, originalPrice, salePrice, productDescription, briefInformation, categoryProduct);
-            NewProduct m = new NewProduct(product, rs.getDate("CreateDate"));
-            int variantID = rs.getInt("VariantID");
-            int stock = rs.getInt("Stock");
-            String imageUrl = rs.getString("ImageURL");
+            while (rs.next()) {
 
-            NewProductVariant productVariant = new NewProductVariant(variantID, m, size, color, stock, imageUrl);
+                int categoryID = rs.getInt("CategoryID");
+                String categoryName = rs.getString("category_name");
+                String categoryDescription = rs.getString("category_description");
+                String categoryImage = rs.getString("image");
 
-            newProduct.add(productVariant); 
+                CategoryProduct categoryProduct = new CategoryProduct(categoryID, categoryName, categoryDescription, categoryImage);
+
+                Size size = new Size();
+                Color color = new Color();
+
+                int productID = rs.getInt("ProductID");
+                String productName = rs.getString("ProductName");
+                double originalPrice = rs.getDouble("original_price");
+                double salePrice = rs.getDouble("sale_price");
+                String productDescription = rs.getString("product_description");
+                String briefInformation = rs.getString("brief_information");
+
+                Product product = new Product(productID, productName, originalPrice, salePrice, productDescription, briefInformation, categoryProduct);
+                NewProduct m = new NewProduct(product, rs.getDate("CreateDate"));
+                int variantID = rs.getInt("VariantID");
+                int stock = rs.getInt("Stock");
+                String imageUrl = rs.getString("ImageURL");
+
+                NewProductVariant productVariant = new NewProductVariant(variantID, m, size, color, stock, imageUrl);
+
+                newProduct.add(productVariant);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace(); 
+
+        return newProduct;
     }
 
-    return newProduct;
-    }
-    
-         public static void main(String[] args) {
-         HomePageDAO db = new HomePageDAO();
-             System.out.println(db.slideHome());
-        
+    public static void main(String[] args) {
+        HomePageDAO db = new HomePageDAO();
+        System.out.println(db.slideHome());
+
     }
 }
