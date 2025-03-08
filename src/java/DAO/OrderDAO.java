@@ -255,7 +255,7 @@ public class OrderDAO extends DBContext {
                          p.ProductID,
                          p.ProductName,
                          SUM(od.Quantity) as TotalSold,
-                         SUM(od.Quantity * od.Price) as Revenue,
+                         SUM(od.Price - p.real_price) as Revenue,
                          CAST(o.OrderDate AS DATE) as Period
                      FROM Product p
                      JOIN OrderDetails od ON p.ProductID = od.ProductID
