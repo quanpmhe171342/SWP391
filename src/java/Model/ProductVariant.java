@@ -10,14 +10,15 @@ package Model;
  */
 public class ProductVariant {
 
-
     int VariantID;
     Product product;
     Size size;
     Color color;
     int stock;
     String image;
-    public  ProductVariant(){};
+
+    public ProductVariant() {
+    };
 
     public ProductVariant(int VariantID, Product product, Size size, Color color, int stock, String image) {
         this.VariantID = VariantID;
@@ -80,6 +81,5 @@ public class ProductVariant {
     public String toString() {
         return "ProductVariant{" + "VariantID=" + VariantID + ", product=" + product + ", size=" + size + ", color=" + color + ", stock=" + stock + ", image=" + image + '}';
     }
-    
-    
+
 }

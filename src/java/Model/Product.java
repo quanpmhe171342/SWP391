@@ -4,6 +4,8 @@
  */
 package Model;
 
+import java.util.List;
+
 /**
  *
  * @author phuan
@@ -17,7 +19,6 @@ public class Product {
     String product_description;
     String brief_information;
     CategoryProduct ct;
-
       public Product(){
       };
 

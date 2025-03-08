@@ -95,7 +95,7 @@
                                 </div>
                                 <div class="product__item__text">
                                     <h6>${list.product.product_name}</h6>
-                                    <a href="#" class="add-cart">+ Thêm vào giỏ hàng</a>
+                                    <a href="product/cart?pid=${list.product.product_ID}" class="add-cart">+ Thêm vào giỏ hàng</a>
                                     <div class="rating">
                                         <i class="fa fa-star-o"></i>
                                         <i class="fa fa-star-o"></i>
@@ -103,9 +103,7 @@
                                         <i class="fa fa-star-o"></i>
                                         <i class="fa fa-star-o"></i>
                                     </div>
-                                    <h5>$${list.product.sale_price} &nbsp;&nbsp; <del>$${list.product.original_Price}</del></h5>
-
-                                  
+                                    <h5>$${list.product.sale_price} &nbsp;&nbsp; <del>$${list.product.original_Price}</del></h5>                                  
                                 </div>
                             </div>
                         </div>
@@ -137,7 +135,7 @@
                                 </div>
                                 <div class="product__item__text">
                                     <h6>${list.product.product_name}</h6>
-                                    <a href="#" class="add-cart">+ Thêm vào giỏ hàng</a>
+                                    <a href="product/cart?pid=${list.product.product_ID}" class="add-cart">+ Thêm vào giỏ hàng</a>
                                     <div class="rating">
                                         <i class="fa fa-star-o"></i>
                                         <i class="fa fa-star-o"></i>

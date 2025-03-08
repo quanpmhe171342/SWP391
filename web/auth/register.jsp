@@ -23,7 +23,8 @@
                                         
                                         
                                         
-                                        <form class="mx-1 mx-md-4" action="../register" method="POST">
+                                        <!--<form class="mx-1 mx-md-4" action="../register" method="POST">-->
+                                        <form method="POST" action="${pageContext.request.contextPath}/register">
 
                                             <div class="d-flex flex-row align-items-center mb-4">
                                                 <i class="fas fa-user fa-lg me-3 fa-fw"></i>

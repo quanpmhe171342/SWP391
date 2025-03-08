@@ -7,7 +7,6 @@ package Controller;
 
 import DAO.HomePageDAO;
 import Model.Blog;
-import Model.Product;
 import Model.ProductVariant;
 import Model.Slider;
 import java.io.IOException;
@@ -59,10 +58,9 @@ public class HomePage extends HttpServlet {
         request.setAttribute("listNewArrivals", newProduct);
         List<Slider> sl = m.slideHome();
         request.setAttribute("slider", sl);
-        
         List<Blog> listBlog = m.TopBlogNew();
-         request.setAttribute("blog", listBlog);
-         request.getRequestDispatcher("Views/HomePage.jsp").forward(request, response);
+        request.setAttribute("blog", listBlog);
+        request.getRequestDispatcher("Views/HomePage.jsp").forward(request, response);
     } 
 
 
