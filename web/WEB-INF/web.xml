@@ -64,6 +64,26 @@
         <servlet-name>UpdateUser</servlet-name>
         <servlet-class>UserController.UpdateUser</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UserReport</servlet-name>
+        <servlet-class>Controller.UserReport</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserReportt</servlet-name>
+        <servlet-class>Controller.UserReportt</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProductReport</servlet-name>
+        <servlet-class>Controller.ProductReport</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReportProductt</servlet-name>
+        <servlet-class>Controller.ReportProductt</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReportOldCustomer</servlet-name>
+        <servlet-class>Controller.ReportOldCustomer</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProductList</servlet-name>
         <url-pattern>/ProductList</url-pattern>
@@ -117,6 +137,7 @@
         <url-pattern>/viewprofile</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+
         <servlet-name>ViewUser</servlet-name>
         <url-pattern>/viewuser</url-pattern>
     </servlet-mapping>
@@ -127,6 +148,19 @@
     <servlet-mapping>
         <servlet-name>UpdateUser</servlet-name>
         <url-pattern>/updateuser</url-pattern>
+</servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserReportt</servlet-name>
+        <url-pattern>/user/report</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReportProductt</servlet-name>
+        <url-pattern>/report/product</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReportOldCustomer</servlet-name>
+        <url-pattern>/report/old/customer</url-pattern>
+
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>
