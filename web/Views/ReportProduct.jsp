@@ -9,7 +9,8 @@
         <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     </head>
-    <body>
+    <body style="margin-top: 100px;">
+        <jsp:include page="staffDashboard.jsp"></jsp:include>
         <div class="container mt-4">
             <!-- Form lọc thời gian -->
             <div class="card mb-4">
@@ -92,7 +93,7 @@
             const data = [{
                 x: dates,
                 y: totalSold,
-                name: 'Số lượng bán',
+                name: 'Số lượng sản phẩm bán ra',
                 type: "bar",
                 marker: {
                     color: "rgba(75, 192, 192, 0.6)",

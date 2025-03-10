@@ -43,17 +43,17 @@
 
         <!-- Hero Section Begin -->
         <section class="hero">
-            <div class="hero__slider owl-carousel">
+              <div class="hero__slider owl-carousel">
             <c:forEach items="${slider}" var="lisst">
-                <div class="hero__items set-bg" data-setbg="${lisst.image}">
+                <div class="hero__items set-bg" data-setbg="${lisst.productVariantID.image}">
                     <div class="container">
                         <div class="row">
                             <div class="col-xl-5 col-lg-7 col-md-8">
                                 <div class="hero__text">
-                                    <h6>Summer Collection</h6>
-                                    <h2>${lisst.title}</h2>
-                                    <p>${lisst.description}</p>
-                                    <a href="ProductList" class="primary-btn">Shop now <span class="arrow_right"></span></a>
+                                   
+                                    <h2>${lisst.productVariantID.product.product_name}</h2>
+                                   
+                                    <a href="ProductDetails?pid=${lisst.productVariantID.product.product_ID}" class="primary-btn">Shop now <span class="arrow_right"></span></a>
                                     <div class="hero__social">
                                         <a href="#"><i class="fa fa-facebook"></i></a>
                                         <a href="#"><i class="fa fa-twitter"></i></a>
@@ -67,8 +67,7 @@
                 </div>
             </c:forEach>
 
-        </div>
-    </section>
+        </div>    </section>
     <!-- Hero Section End -->
 
 
@@ -202,7 +201,7 @@
                 <div class="col-lg-12">
                     <div class="section-title">
                         <span>Top News</span>
-                        <h2>Xu Hướng Thời Trang Mới Nhất</h2>
+                        
                     </div>
                 </div>
             </div>
