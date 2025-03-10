@@ -41,20 +41,16 @@
         <servlet-class>UserController.AdminLoginController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>UserReport</servlet-name>
-        <servlet-class>Controller.ReportUser</servlet-class>
+        <servlet-name>LogoutController</servlet-name>
+        <servlet-class>UserController.LogoutController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>UserReportt</servlet-name>
-        <servlet-class>Controller.UserReport</servlet-class>
+        <servlet-name>AddStaffController</servlet-name>
+        <servlet-class>UserController.AddStaffController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ReportProduct</servlet-name>
-        <servlet-class>Controller.ReportProduct</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ReportOldCustomer</servlet-name>
-        <servlet-class>Controller.ReportOldCustomer</servlet-class>
+        <servlet-name>ViewProfile</servlet-name>
+        <servlet-class>UserController.ViewProfile</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ProductList</servlet-name>
@@ -97,16 +93,16 @@
         <url-pattern>/adminlogin</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>UserReportt</servlet-name>
-        <url-pattern>/user/report</url-pattern>
+        <servlet-name>LogoutController</servlet-name>
+        <url-pattern>/logout</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ReportProduct</servlet-name>
-        <url-pattern>/product/report</url-pattern>
+        <servlet-name>AddStaffController</servlet-name>
+        <url-pattern>/addstaff</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ReportOldCustomer</servlet-name>
-        <url-pattern>/oldCustomer/report</url-pattern>
+        <servlet-name>ViewProfile</servlet-name>
+        <url-pattern>/viewprofile</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>
