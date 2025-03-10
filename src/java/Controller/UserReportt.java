@@ -22,9 +22,9 @@ import java.util.Map;
 
 /**
  *
- * @author NV200
+ * @author d
  */
-public class UserReport extends HttpServlet {
+public class UserReportt extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

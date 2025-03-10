@@ -38,7 +38,7 @@ public class DashboarDAO extends DBContext{
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 ReportCustomerDTO stat = new ReportCustomerDTO();
-                stat.setPeriod(rs.getDate("Period")); // Lấy giá trị kiểu Date
+                stat.setPeriod(rs.getDate("Period")); 
                 stat.setCustomers(rs.getInt("Customers"));
                 stats.add(stat);
             }
@@ -50,11 +50,11 @@ public class DashboarDAO extends DBContext{
      public List<ReportProductDTO> getReportProduct(Date startDate, Date endDate) {
         List<ReportProductDTO> products = new ArrayList<>();
         String sql = """
-                     SELECT TOP 10
+                     SELECT
                          p.ProductID,
                          p.ProductName,
                          SUM(od.Quantity) as TotalSold,
-                         SUM(od.Quantity * od.Price) as Revenue,
+                         SUM(od.Price - p.real_price*od.Quantity) as Revenue,
                          CAST(o.OrderDate AS DATE) as Period
                      FROM Product p
                      JOIN OrderDetails od ON p.ProductID = od.ProductID

@@ -18,6 +18,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -48,7 +49,7 @@ public class HomePageDAO extends DBContext {
             FROM [Product] p
             JOIN [ProductVariant] pv ON p.[ProductID] = pv.[ProductID]
             JOIN [CategoryProduct] cp ON p.[CategoryProductID] = cp.[CategoryID]
-            WHERE p.[sale_price] > 0  
+            WHERE p.[sale_price] > 0  and pv.[Stock] > 0
             ORDER BY p.sale_price DESC;
     """;
 
@@ -93,35 +94,55 @@ public class HomePageDAO extends DBContext {
     }
 
     public List<Slider> slideHome() {
+    List<Slider> list = new ArrayList<>();
+    String query = """
+            SELECT TOP 3 s.[SliderID], s.[title], s.[image], s.[status], s.[Description], 
+                           pv.[VariantID], pv.[Stock], pv.[ImageURL],
+                           p.[ProductID], p.[ProductName], p.[original_price], p.[sale_price], p.[product_description], p.[brief_information], p.[CreateDate]
+                    FROM [Slider] s
+                    JOIN ProductVariant pv ON s.produtVarianID = pv.VariantID
+                    JOIN Product p ON pv.ProductID = p.ProductID
+                    WHERE s.[status] = 1
+                    ORDER BY s.[SliderID] DESC;
+            """;
 
-        List<Slider> list = new ArrayList<>();
-        String query = """
-            SELECT TOP 3 [SliderID]
-                    ,[title]
-                    ,[image]
-                    ,[status]
-                    ,[Description]
-                FROM [Slider]
-                WHERE [status] = 1
-                ORDER BY [SliderID] DESC;
-    """;
+    try (PreparedStatement ps = conn.prepareStatement(query);
+         ResultSet rs = ps.executeQuery()) {
+        
+        while (rs.next()) {
+            
+            Size size = new Size(); 
+            Color color = new Color();
 
-        try {
-            PreparedStatement ps = conn.prepareStatement(query);
-            ResultSet rs = ps.executeQuery();
+            // Lấy thông tin Product
+            int productID = rs.getInt("ProductID");
+            String productName = rs.getString("ProductName");
+            double originalPrice = rs.getDouble("original_price");
+            double salePrice = rs.getDouble("sale_price");
+            String productDescription = rs.getString("product_description");
+            String briefInformation = rs.getString("brief_information");
+            Date createDate = rs.getDate("CreateDate");
 
-            while (rs.next()) {
+            Product product = new Product(productID, productName, originalPrice, salePrice, productDescription, briefInformation, null);
+            NewProduct newProduct = new NewProduct(product, createDate);
 
-                Slider sl = new Slider(rs.getInt("SliderID"), rs.getString("title"), rs.getString("image"), rs.getInt("status"), rs.getString("Description"));
+            // Lấy thông tin ProductVariant
+            int variantID = rs.getInt("VariantID");
+            int stock = rs.getInt("Stock");
+            String imageUrl = rs.getString("ImageURL");
+            ProductVariant productVariant = new ProductVariant(variantID, product, size, color, stock, imageUrl);
 
-                list.add(sl);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            // Tạo Slider
+            Slider slider = new Slider(rs.getInt("SliderID"), rs.getString("title"), rs.getString("image"), rs.getInt("status"), rs.getString("Description"), productVariant);
+            list.add(slider);
         }
-
-        return list;
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
+
+    return list;
+}
+
 
     public List<Blog> TopBlogNew() {
 
@@ -178,7 +199,7 @@ public class HomePageDAO extends DBContext {
                                                 FROM [Product] p
                                                 JOIN [ProductVariant] pv ON p.[ProductID] = pv.[ProductID]
                                                 JOIN [CategoryProduct] cp ON p.[CategoryProductID] = cp.[CategoryID]
-                                                WHERE cp.[CategoryID] = 1
+                                                WHERE cp.[CategoryID] = 1 and pv.[Stock] > 0
                                                 ORDER BY p.CreateDate DESC ;
     """;
 

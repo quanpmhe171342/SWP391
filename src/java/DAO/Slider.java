@@ -4,6 +4,8 @@
  */
 package DAO;
 
+import Model.ProductVariant;
+
 /**
  *
  * @author Admin
@@ -14,6 +16,7 @@ public class Slider {
     String image;
     int status;
     String description;
+    ProductVariant productVariantID;
 
     public Slider() {
     }
@@ -25,6 +28,26 @@ public class Slider {
         this.status = status;
         this.description = description;
     }
+
+    public Slider(int sliderID, String title, String image, int status, String description, ProductVariant productVariantID) {
+        this.sliderID = sliderID;
+        this.title = title;
+        this.image = image;
+        this.status = status;
+        this.description = description;
+        this.productVariantID = productVariantID;
+    }
+
+    public ProductVariant getProductVariantID() {
+        return productVariantID;
+    }
+
+    public void setProductVariantID(ProductVariant productVariantID) {
+        this.productVariantID = productVariantID;
+    }
+
+   
+    
 
     public int getSliderID() {
         return sliderID;
