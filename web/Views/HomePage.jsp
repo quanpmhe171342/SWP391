@@ -11,7 +11,7 @@
         <meta name="keywords" content="Male_Fashion, unica, creative, html">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-     <title>Male-Fashion | Template</title>
+     <title>Thời trang nam-Fashion | Template</title>
     
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
@@ -103,9 +103,19 @@
                                     <i class="fa fa-star-o"></i>
                                     <i class="fa fa-star-o"></i>
                                 </div>
-                                <h5>${list.product.product.sale_price}VND &nbsp; <del>${list.product.product.original_Price} VND</del></h5>
+                                
 
-
+                                <h5>
+                                        <c:choose>
+                                            <c:when test="${list.product.product.sale_price > 0}">
+                                                ${list.product.product.sale_price} VND <br> 
+                                                <del>${list.product.product.original_Price} VND</del>
+                                            </c:when>
+                                            <c:otherwise>
+                                                ${list.product.product.original_Price} VND
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </h5>
                             </div>
                         </div>
                     </div>
@@ -145,7 +155,7 @@
                                     <i class="fa fa-star-o"></i>
                                     <i class="fa fa-star-o"></i>
                                 </div>
-                                <h5>$${list.product.sale_price} &nbsp;&nbsp; <del>$${list.product.original_Price}</del></h5>
+                                <h5>${list.product.sale_price} VND <br> <del>${list.product.original_Price} VND</del></h5>
 
                             </div>
                         </div>
