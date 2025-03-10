@@ -20,7 +20,6 @@ public class UserDAO {
         connection = dbContext.conn;
     }
 
- 
     public boolean createUser(User user) {
         if (checkExistUser(user.getUsername())) {
             System.out.println("Username already exists!");
@@ -105,39 +104,47 @@ public class UserDAO {
     }
 
     // Cập nhật thông tin người dùng
-    public void updateUser(User user) {
-        String sql = "UPDATE Users SET first_name=?, last_name=?, phone=?, email=?, password=?, dob=?, gender=?, address=?, avatar=?, roleId=?, isActive=?, token=?, expired_token=? WHERE username=?";
-        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-            pstmt.setString(1, user.getFirstName());
-            pstmt.setString(2, user.getLastName());
-            pstmt.setString(3, user.getPhone());
-            pstmt.setString(4, user.getEmail());
-            pstmt.setString(5, user.getPassword());
-            pstmt.setDate(6, new java.sql.Date(user.getDob().getTime()));
-            pstmt.setBoolean(7, user.isGender());
-            pstmt.setString(8, user.getAddress());
-            pstmt.setString(9, user.getAvatar());
-            pstmt.setInt(10, user.getRoleId());
-            pstmt.setBoolean(11, user.isIsActive());
-            pstmt.setString(12, user.getToken());
-            pstmt.setString(13, user.getExpiredToken());
-            pstmt.setString(14, user.getUsername());
-            pstmt.executeUpdate();
-            System.out.println("User updated successfully!");
-        } catch (SQLException ex) {
-            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, "Error updating user", ex);
+    public boolean updateUser(int userId, String firstName, String lastName, String email, String phone, String password, int roleId) {
+        String sql;
+        boolean updatePassword = (password != null && !password.trim().isEmpty());
+
+        if (updatePassword) {
+            sql = "UPDATE Users SET first_name = ?, last_name = ?, email = ?, phone = ?, password = ?, RoleID = ? WHERE UserID = ?";
+        } else {
+            sql = "UPDATE Users SET first_name = ?, last_name = ?, email = ?, phone = ?, RoleID = ? WHERE UserID = ?";
         }
+
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            pstmt.setString(1, firstName);
+            pstmt.setString(2, lastName);
+            pstmt.setString(3, email);
+            pstmt.setString(4, phone);
+
+            int index = 5;
+            if (updatePassword) {
+                pstmt.setString(index++, password); // Nếu có mật khẩu mới, cập nhật nó
+            }
+            pstmt.setInt(index++, roleId);
+            pstmt.setInt(index, userId);
+
+            return pstmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     // Xóa người dùng theo username
-    public void deleteUser(String username) {
-        String sql = "DELETE FROM Users WHERE username = ?";
+    public boolean deleteUser(int userId) {
+        String sql = "DELETE FROM Users WHERE UserID = ?";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-            pstmt.setString(1, username);
-            pstmt.executeUpdate();
-            System.out.println("User deleted successfully!");
-        } catch (SQLException ex) {
-            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, "Error deleting user", ex);
+            pstmt.setInt(1, userId);
+            int rowsAffected = pstmt.executeUpdate();
+            return rowsAffected > 0; // Trả về true nếu xóa thành công
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
     }
 
@@ -170,9 +177,9 @@ public class UserDAO {
         return false; // Trả về false nếu không có người dùng nào
     }
 
-   public boolean checkOldPassword(String username, String oldPassword) {
+    public boolean checkOldPassword(String username, String oldPassword) {
         String query = "SELECT password FROM Users WHERE username = ?";
-        
+
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, username); // Gán giá trị username vào câu lệnh
             ResultSet rs = stmt.executeQuery();
@@ -180,14 +187,14 @@ public class UserDAO {
             if (rs.next()) {
                 // Lấy mật khẩu từ cơ sở dữ liệu
                 String storedPassword = rs.getString("password");
-                
+
                 // So sánh mật khẩu cũ nhập vào với mật khẩu trong cơ sở dữ liệu
                 return storedPassword.equals(oldPassword);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
+
         return false; // Trả về false nếu không tìm thấy username hoặc có lỗi
     }
 
@@ -226,6 +233,42 @@ public class UserDAO {
                 rs.getString("token"),
                 rs.getString("expired_token")
         );
+    }
+
+    public List<User> getUsersByRole(int roleID) {
+        List<User> userList = new ArrayList<>();
+        String sql = "SELECT UserID, first_name, last_name, phone, email, username, RoleID FROM Users";
+
+        // Lọc theo RoleID: Nếu 2 hoặc 3 thì lọc theo role cụ thể, nếu 0 thì chỉ lấy Nhân viên & Khách hàng
+        if (roleID == 2 || roleID == 3) {
+            sql += " WHERE RoleID = ?";
+        } else if (roleID == 0) {
+            sql += " WHERE RoleID IN (2, 3)"; // Lọc tất cả nhưng không có RoleID = 1 (Admin)
+        }
+
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            // Nếu lọc theo 1 role cụ thể (2 hoặc 3), gán giá trị vào câu lệnh SQL
+            if (roleID == 2 || roleID == 3) {
+                pstmt.setInt(1, roleID);
+            }
+
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                User user = new User();
+                user.setUserId(rs.getInt("UserID"));
+                user.setFirstName(rs.getString("first_name"));
+                user.setLastName(rs.getString("last_name"));
+                user.setPhone(rs.getString("phone"));
+                user.setEmail(rs.getString("email"));
+                user.setUsername(rs.getString("username"));
+                user.setRoleId(rs.getInt("RoleID"));
+                userList.add(user);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return userList;
     }
 
 }
