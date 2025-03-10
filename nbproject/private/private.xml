@@ -2,6 +2,17 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+
+        <group>
+            <file>file:/D:/FPT%20University/SE.7/SWP391/Project/Group1/SWP391/web/auth/viewuser.jsp</file>
+            <file>file:/D:/FPT%20University/SE.7/SWP391/Project/Group1/SWP391/src/java/UserController/LoginController.java</file>
+            <file>file:/D:/FPT%20University/SE.7/SWP391/Project/Group1/SWP391/src/java/UserController/AddStaffController.java</file>
+            <file>file:/D:/FPT%20University/SE.7/SWP391/Project/Group1/SWP391/src/java/UserController/AdminLoginController.java</file>
+            <file>file:/D:/FPT%20University/SE.7/SWP391/Project/Group1/SWP391/web/WEB-INF/web.xml</file>
+            <file>file:/D:/FPT%20University/SE.7/SWP391/Project/Group1/SWP391/src/java/DAO/UserDAO.java</file>
+            <file>file:/D:/FPT%20University/SE.7/SWP391/Project/Group1/SWP391/src/java/Model/User.java</file>
+            <file>file:/D:/FPT%20University/SE.7/SWP391/Project/Group1/SWP391/src/java/UserController/RegisterController.java</file>
+        </group>
+
     </open-files>
 </project-private>

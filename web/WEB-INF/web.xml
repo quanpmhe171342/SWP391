@@ -50,7 +50,19 @@
     </servlet>
     <servlet>
         <servlet-name>ViewProfile</servlet-name>
-        <servlet-class>UserController.ViewProfile</servlet-class>
+        <servlet-class>UserController.ViewProfileController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewUser</servlet-name>
+        <servlet-class>UserController.ViewUserController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteUser</servlet-name>
+        <servlet-class>UserController.DeleteUserController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateUser</servlet-name>
+        <servlet-class>UserController.UpdateUser</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UserReport</servlet-name>
@@ -125,6 +137,19 @@
         <url-pattern>/viewprofile</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+
+        <servlet-name>ViewUser</servlet-name>
+        <url-pattern>/viewuser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteUser</servlet-name>
+        <url-pattern>/deleteuser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateUser</servlet-name>
+        <url-pattern>/updateuser</url-pattern>
+</servlet-mapping>
+    <servlet-mapping>
         <servlet-name>UserReportt</servlet-name>
         <url-pattern>/user/report</url-pattern>
     </servlet-mapping>
@@ -135,6 +160,7 @@
     <servlet-mapping>
         <servlet-name>ReportOldCustomer</servlet-name>
         <url-pattern>/report/old/customer</url-pattern>
+
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>
