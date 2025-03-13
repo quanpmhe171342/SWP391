@@ -12,7 +12,7 @@
         <script>
         function updateQuantity(productId, newQuantity, cartId) {
             if (newQuantity <= 0) {
-                removeFromCart(productId);
+                removeFromCart(cartId);
                 return;
             }
             fetch("/SWP391/product/cart?action=update&pid=" + productId + "&quantity=" + newQuantity + "&cid="+cartId, {

@@ -110,8 +110,9 @@ public class CartController extends HttpServlet {
         int newQuantity = Integer.parseInt(request.getParameter("quantity"));
         int cid = Integer.parseInt(request.getParameter("cid"));
         if (newQuantity < 1) {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            response.getWriter().write("Quantity must be greater than 0");
+            daoCartItem.deleteCartItem(cid);
+            response.setStatus(HttpServletResponse.SC_OK);
+            response.getWriter().write("Product removed successfully because quantity was less than 1");
             return;
         }
         var product = daoProduct.getListProductById(productId);
@@ -131,7 +132,6 @@ public class CartController extends HttpServlet {
     private void deleteFromCart(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int cartId = Integer.parseInt(request.getParameter("pid"));
-        CartItem cartItem = new CartItem();
         daoCartItem.deleteCartItem(cartId);
         response.setStatus(HttpServletResponse.SC_OK);
         response.getWriter().write("Product removed successfully");
