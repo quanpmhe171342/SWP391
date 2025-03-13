@@ -39,6 +39,7 @@ public class UserReport extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // start date
         String startDateParam = request.getParameter("startDate");
         String endDateParam = request.getParameter("endDate");
         Date startDate = (startDateParam != null) ? Date.valueOf(startDateParam) : Date.valueOf(LocalDate.now());
