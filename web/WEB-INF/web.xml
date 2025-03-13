@@ -88,6 +88,10 @@
         <servlet-name>VerifyController</servlet-name>
         <servlet-class>UserController.VerifyController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UpdateProfileController</servlet-name>
+        <servlet-class>UserController.UpdateProfileController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProductList</servlet-name>
         <url-pattern>/ProductList</url-pattern>
@@ -167,6 +171,10 @@
     <servlet-mapping>
         <servlet-name>VerifyController</servlet-name>
         <url-pattern>/verify</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateProfileController</servlet-name>
+        <url-pattern>/updateprofile</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

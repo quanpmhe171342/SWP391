@@ -54,6 +54,23 @@ public class UserDAO {
         return false;
     }
 
+    public boolean updateProfile(User user) {
+        String sql = "UPDATE Users SET first_name = ?, last_name = ?, phone = ?, email = ? WHERE username = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, user.getFirstName());
+            pstmt.setString(2, user.getLastName());
+            pstmt.setString(3, user.getPhone());
+            pstmt.setString(4, user.getEmail());
+            pstmt.setString(5, user.getUsername());
+
+            int rowsUpdated = pstmt.executeUpdate();
+            return rowsUpdated > 0; // Trả về true nếu có ít nhất một bản ghi được cập nhật
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, "Error updating user profile", ex);
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
         UserDAO u = new UserDAO();
         User us = new User();
