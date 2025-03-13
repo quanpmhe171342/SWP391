@@ -6,12 +6,12 @@ package Controller;
 
 import DAO.DAOCartItem;
 import DAO.DaoCart;
+import DAO.DaoProduct;
 import Model.Cart;
 import Model.CartItem;
 import Model.User;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -34,6 +34,7 @@ public class CartController extends HttpServlet {
      */
     private final DaoCart daoCart = new DaoCart();
     private final DAOCartItem daoCartItem = new DAOCartItem();
+    private final DaoProduct daoProduct = new DaoProduct();
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -105,22 +106,23 @@ public class CartController extends HttpServlet {
 
     private void updateCart(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int cartId = Integer.parseInt(request.getParameter("pid"));
+        int productId = Integer.parseInt(request.getParameter("pid"));
         int newQuantity = Integer.parseInt(request.getParameter("quantity"));
+        int cid = Integer.parseInt(request.getParameter("cid"));
         if (newQuantity < 1) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             response.getWriter().write("Quantity must be greater than 0");
             return;
         }
-        CartItem cartItemC = daoCartItem.getCartItemById(cartId);
-        if (newQuantity > cartItemC.getQuantity() && cartItemC != null) {
+        var product = daoProduct.getListProductById(productId);
+        if (newQuantity > product.getQuantity() && product != null) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             response.getWriter().write("Quantity must be smaller than in product");
             return;
         }
         CartItem cartItem = new CartItem();
         cartItem.setQuantity(newQuantity);
-        cartItem.setCartItemID(cartId);
+        cartItem.setCartItemID(cid);
         daoCartItem.updateCartItem(cartItem);
         response.setStatus(HttpServletResponse.SC_OK);
         response.getWriter().write("Quantity updated successfully");

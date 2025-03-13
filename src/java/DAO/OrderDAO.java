@@ -148,13 +148,19 @@ public class OrderDAO extends DBContext {
         List<ReportCustomerDTO> stats = new ArrayList<>();
         String sql = """
         SELECT 
-            CAST(OrderDate AS DATE) as Period, 
-            COUNT(DISTINCT u.UserID) as Customers
-        FROM Users u
-        JOIN [Order] o ON u.UserID = o.UserID
-        WHERE u.RoleID = 1
-            AND o.OrderDate BETWEEN ? AND ?
-        GROUP BY CAST(OrderDate AS DATE) 
+            CAST(FirstOrderDate AS DATE) as Period, 
+            COUNT(DISTINCT UserID) as NewCustomers
+        FROM (
+            SELECT 
+                u.UserID,
+                MIN(o.OrderDate) as FirstOrderDate
+            FROM Users u
+            JOIN [Order] o ON u.UserID = o.UserID
+            WHERE u.RoleID = 1
+            GROUP BY u.UserID
+            HAVING MIN(o.OrderDate) BETWEEN ? AND ?
+        ) as FirstTimeOrders
+        GROUP BY CAST(FirstOrderDate AS DATE) 
         ORDER BY Period
     """;
         try {
@@ -165,7 +171,7 @@ public class OrderDAO extends DBContext {
             while (rs.next()) {
                 ReportCustomerDTO stat = new ReportCustomerDTO();
                 stat.setPeriod(rs.getDate("Period")); // Lấy giá trị kiểu Date
-                stat.setCustomers(rs.getInt("Customers"));
+                stat.setCustomers(rs.getInt("NewCustomers"));
                 stats.add(stat);
             }
         } catch (SQLException e) {
@@ -284,6 +290,7 @@ public class OrderDAO extends DBContext {
         }
         return products;
     }
+
     public List<LessProductsDTO> getTopProducts(Date startDate, Date endDate) {
         List<LessProductsDTO> products = new ArrayList<>();
         String sql = """
@@ -300,11 +307,11 @@ public class OrderDAO extends DBContext {
                     GROUP BY p.ProductID, p.ProductName
                     ORDER BY TotalSold ASC
                     """;
-        
+
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setDate(1, new java.sql.Date(startDate.getTime()));
             ps.setDate(2, new java.sql.Date(endDate.getTime()));
-            
+
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 LessProductsDTO product = new LessProductsDTO();

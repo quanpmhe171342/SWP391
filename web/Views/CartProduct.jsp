@@ -10,12 +10,12 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
         <script>
-        function updateQuantity(productId, newQuantity) {
+        function updateQuantity(productId, newQuantity, cartId) {
             if (newQuantity <= 0) {
                 removeFromCart(productId);
                 return;
             }
-            fetch("/SWP391/product/cart?action=update&pid=" + productId + "&quantity=" + newQuantity, {
+            fetch("/SWP391/product/cart?action=update&pid=" + productId + "&quantity=" + newQuantity + "&cid="+cartId, {
                 method: 'POST'
             })
             .then(response => {
@@ -131,17 +131,17 @@
                                                             <div class="input-group input-group-sm">
                                                                 <button class="btn btn-outline-secondary" 
                                                                         type="button" 
-                                                                        onclick="updateQuantity(${cart.cartId}, parseInt(this.nextElementSibling.value) - 1)">
+                                                                        onclick="updateQuantity(${cart.productId}, parseInt(this.nextElementSibling.value) - 1, ${cart.cartId})">
                                                                     <i class="fas fa-minus"></i>
                                                                 </button>
                                                                 <input type="number" 
                                                                        class="form-control text-center" 
                                                                        value="${cart.quantity}" 
                                                                        min="0"
-                                                                       onchange="updateQuantity(${cart.cartId}, this.value)">
+                                                                       onchange="updateQuantity(${cart.productId}, this.value, ${cart.cartId})">
                                                                 <button class="btn btn-outline-secondary" 
                                                                         type="button" 
-                                                                        onclick="updateQuantity(${cart.cartId}, parseInt(this.previousElementSibling.value) + 1)">
+                                                                        onclick="updateQuantity(${cart.productId}, parseInt(this.previousElementSibling.value) + 1, ${cart.cartId})">
                                                                     <i class="fas fa-plus"></i>
                                                                 </button>
                                                             </div>
