@@ -60,7 +60,7 @@
                                         </form>
 
                                         <div class="text-center mt-3">
-                                            <p>Nếu đã có tài khoản, hãy <a href="SWP391/auth/login.jsp" class="fw-bold">đăng nhập ở đây</a>.</p>
+                                            <p>Nếu đã có tài khoản, hãy <a href="<%= request.getContextPath() %>/login" class="fw-bold">đăng nhập ở đây</a>.</p>
                                         </div>
                                     </div>
 

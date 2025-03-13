@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 import DAO.UserDAO;
+import java.time.LocalDate;
 
 public class RegisterController extends HttpServlet {
 
@@ -44,6 +45,9 @@ public class RegisterController extends HttpServlet {
             return;
         }
 
+        // Tạo token xác minh
+        String token = UserDAO.generateToken();
+
         // Tạo user mới
         User user = new User();
         user.setUsername(username);
@@ -55,13 +59,22 @@ public class RegisterController extends HttpServlet {
         user.setDob(autoDOB()); // Set ngày sinh mặc định
         user.setRoleId(3);
         user.setIsActive(false);
-        user.setToken(null);
+        user.setToken(token);
         user.setExpiredToken(null);
 
         // Thêm vào database
         boolean success = userDAO.createUser(user);
         if (success) {
-            request.setAttribute("successMessage", "Đăng ký tài khoản thành công!");
+//            request.setAttribute("successMessage", "Đăng ký tài khoản thành công!");
+
+            userDAO.saveVerificationToken(email, token);
+
+            // **Tạo đường link xác minh**
+            String verifyLink = "http://localhost:8080/SWP391/verify?token=" + token;
+
+            // **Hiển thị link trên trang web**
+            request.setAttribute("successMessage", "Đăng ký thành công! Dùng link sau để kích hoạt tài khoản: <br><a href='" + verifyLink + "'>" + verifyLink + "</a>");
+
         } else {
             request.setAttribute("errorMessage", "Đã xảy ra lỗi. Vui lòng thử lại!");
         }
@@ -70,12 +83,10 @@ public class RegisterController extends HttpServlet {
         request.getRequestDispatcher("auth/register.jsp").forward(request, response);
     }
 
-    // Hàm tạo ngày sinh mặc định là 1/1/2025
+    // lấy ngày tạo tài khoản
     private Date autoDOB() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(2025, Calendar.JANUARY, 1);
-        return calendar.getTime();
-    }
+    return java.sql.Date.valueOf(LocalDate.now());
+}
 
     @Override
     public String getServletInfo() {

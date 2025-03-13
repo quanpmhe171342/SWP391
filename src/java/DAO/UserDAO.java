@@ -1,6 +1,8 @@
 package DAO;
 
 import Model.User;
+import java.math.BigInteger;
+import java.security.SecureRandom;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -269,6 +271,75 @@ public class UserDAO {
             e.printStackTrace();
         }
         return userList;
+    }
+
+    // Sinh token ngẫu nhiên
+    public static String generateToken() {
+        SecureRandom random = new SecureRandom();
+        return new BigInteger(130, random).toString(32);
+    }
+
+    // Lưu token vào database
+    public boolean saveVerificationToken(String username, String token) {
+        String sql = "UPDATE Users SET token = ? WHERE username = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, token);
+            pstmt.setString(2, username);
+            int rowsUpdated = pstmt.executeUpdate();
+
+            return rowsUpdated > 0;
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, "Error saving verification token", ex);
+        }
+        return false;
+    }
+
+    //get token from dtbs
+    public String getVerificationToken(String email) {
+        String sql = "SELECT token FROM Users WHERE email = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, email);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getString("token");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, "Error retrieving verification token", ex);
+        }
+        return null;
+    }
+
+    public User getUserByToken(String token) {
+        String sql = "SELECT * FROM Users WHERE token = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, token);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                User user = new User();
+                user.setUserId(rs.getInt("userId"));
+                user.setUsername(rs.getString("username"));
+                user.setEmail(rs.getString("email"));
+                user.setIsActive(rs.getBoolean("isActive"));
+                user.setToken(rs.getString("token"));
+                return user;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, "Error retrieving user by token", ex);
+        }
+        return null;
+    }
+
+    public boolean activateUser(String token) {
+        String sql = "UPDATE Users SET isActive = 1, token = NULL WHERE token = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, token);
+            int rowsUpdated = pstmt.executeUpdate();
+
+            return rowsUpdated > 0;
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, "Error activating user", ex);
+        }
+        return false;
     }
 
 }

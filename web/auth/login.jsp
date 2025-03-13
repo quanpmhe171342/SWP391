@@ -62,7 +62,7 @@
                             <div class="text-center text-lg-start mt-4 pt-2">
                                 <button type="submit" class="btn btn-primary btn-lg"
                                         style="padding-left: 2.5rem; padding-right: 2.5rem;">Đăng nhập</button>
-                                <p class="small fw-bold mt-2 pt-1 mb-0">Chưa có tài khoản? <a href="../auth/register.jsp" class="link-danger">Đăng ký</a></p>
+                                <p class="small fw-bold mt-2 pt-1 mb-0">Chưa có tài khoản? <a href="<%= request.getContextPath() %>/register" class="link-danger">Đăng ký</a></p>
                             </div>
 
                         </form>
