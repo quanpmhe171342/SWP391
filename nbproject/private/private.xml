@@ -5,8 +5,9 @@
         <group>
             <file>file:/C:/Users/d/Documents/Swp391/SWP391/src/java/Controller/ProductCart.java</file>
             <file>file:/C:/Users/d/Documents/Swp391/SWP391/src/java/DAO/DaoCart.java</file>
-            <file>file:/C:/Users/d/Documents/Swp391/SWP391/src/java/Controller/PaymentController.java</file>
+            <file>file:/C:/Users/d/Documents/Swp391/SWP391/src/java/Controller/UserReport.java</file>
             <file>file:/C:/Users/d/Documents/Swp391/SWP391/src/java/DAO/DaoProduct.java</file>
+            <file>file:/C:/Users/d/Documents/Swp391/SWP391/src/java/Controller/CartController.java</file>
         </group>
     </open-files>
 </project-private>
