@@ -16,7 +16,6 @@ import Model.OrderDetail;
 import Model.User;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -77,7 +76,7 @@ public class PaymentController extends HttpServlet {
             OrderDetail orderDetail = new OrderDetail();
             orderDetail.setProductId(p.getProductId());
             orderDetail.setQuantity(p.getQuantity());
-            orderDetail.setPrice(p.getQuantity() * p.getOriginalPrice());
+            orderDetail.setPrice(p.getQuantity() * (p.getSalePrice() == null ? p.getOriginalPrice() : p.getSalePrice()));
             orderDetail.setOrderId(orderId);
             daoOrder.addOrderDetail(orderDetail);
             listOrderDetails.add(orderDetail);

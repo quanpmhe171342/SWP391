@@ -176,9 +176,7 @@ public class DAOCartItem extends DBContext {
         return cartItems;
     }
      public static void main(String[] args) {
-         new DAOCartItem().getCartItemsByUserId(1)
-                 .forEach(u -> {
-                     System.out.println(u);
-                 });
+         DAOCartItem cart = new DAOCartItem();
+         System.out.println(cart.getCartItemById(2));
     }
 }

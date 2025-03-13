@@ -699,10 +699,9 @@ public class DaoProduct extends DBContext {
 
     public static void main(String[] args) {
         DaoProduct pv = new DaoProduct();
-        List<Integer> names = Arrays.asList(1,2,3);       
+        List<Integer> names = Arrays.asList(2);       
         names.stream().forEach(name -> {
-            System.out.println(pv.getListProductById(name));
-            System.out.println(pv.getProduct1());
+            System.out.println(pv.getListProductById(name).getQuantity());
         });
     }
 }

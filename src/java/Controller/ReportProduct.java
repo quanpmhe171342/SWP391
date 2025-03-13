@@ -62,7 +62,6 @@ public class ReportProduct extends HttpServlet {
         for (LocalDate date = start; !date.isAfter(end); date = date.plusDays(1)) {
             String dateStr = date.format(dtFormatter);
             allDates.add(dateStr);
-
             Map<String, Object> dayStats = dailyStats.getOrDefault(dateStr, new HashMap<>());
             allTotalSold.add((Integer) dayStats.getOrDefault("totalSold", 0));
             allRevenue.add((Double) dayStats.getOrDefault("revenue", 0.0));

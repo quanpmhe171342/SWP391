@@ -68,7 +68,8 @@ public class ProductCart extends HttpServlet {
                 }
                 productVariant.setCartId(c.getCartItemID());
                 productVariant.setQuantity(c.getQuantity());
-                productVariant.setOriginalPrice(c.getQuantity() * productVariant.getOriginalPrice());
+                productVariant.setOriginalPrice(c.getQuantity() * (productVariant.getSalePrice() == null ? 
+                        productVariant.getOriginalPrice() : productVariant.getSalePrice()));
                 products.add(productVariant);
             }
         }
