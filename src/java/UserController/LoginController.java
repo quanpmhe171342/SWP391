@@ -28,40 +28,42 @@ public class LoginController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
-    String username = request.getParameter("username");
-    String password = request.getParameter("password");
+            throws ServletException, IOException {
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
 
-    // Kiểm tra xem username có tồn tại không
-    User user = userDAO.getUserByUsername(username);
+        // Kiểm tra username có tồn tại không
+        User user = userDAO.getUserByUsername(username);
 
-    if (user != null) {
-        // Kiểm tra nếu tài khoản chưa kích hoạt
-        if (!user.isIsActive()) {
-            request.setAttribute("errorMessage", "Tài khoản chưa được kích hoạt. Vui lòng kiểm tra lại.");
+        if (user == null) {
+            request.setAttribute("errorMessage", "Tài khoản không tồn tại. Vui lòng thử lại.");
             request.getRequestDispatcher("/auth/login.jsp").forward(request, response);
             return;
         }
 
-        // Kiểm tra mật khẩu
-        if (user.getPassword().equals(password)) {
-            // Kiểm tra quyền truy cập
-            if (user.getRoleId() == 3) {
-                request.getSession().setAttribute("user", user);
-                response.sendRedirect(request.getContextPath() + "/auth/hometest.jsp");
-            } else {
-                request.setAttribute("errorMessage", "Tài khoản không thể truy cập.");
-                request.getRequestDispatcher("/auth/login.jsp").forward(request, response);
-            }
-        } else {
+        // Kiểm tra nếu tài khoản chưa kích hoạt
+        if (!user.isIsActive()) {
+            request.setAttribute("errorMessage", "Tài khoản chưa được kích hoạt. Vui lòng kiểm tra email để kích hoạt.");
+            request.getRequestDispatcher("/auth/login.jsp").forward(request, response);
+            return;
+        }
+
+        // Kiểm tra mật khẩu (tránh lỗi NullPointerException)
+        if (user.getPassword() == null || !user.getPassword().equals(password)) {
             request.setAttribute("errorMessage", "Sai mật khẩu. Vui lòng thử lại.");
             request.getRequestDispatcher("/auth/login.jsp").forward(request, response);
+            return;
         }
-    } else {
-        request.setAttribute("errorMessage", "Tài khoản không tồn tại. Vui lòng thử lại.");
-        request.getRequestDispatcher("/auth/login.jsp").forward(request, response);
+
+        // Kiểm tra quyền truy cập
+        if (user.getRoleId() == 3) {
+            request.getSession().setAttribute("user", user);
+            response.sendRedirect(request.getContextPath() + "/auth/hometest.jsp");
+        } else {
+            request.setAttribute("errorMessage", "Tài khoản không có quyền truy cập.");
+            request.getRequestDispatcher("/auth/login.jsp").forward(request, response);
+        }
     }
-}
 
     @Override
     public String getServletInfo() {

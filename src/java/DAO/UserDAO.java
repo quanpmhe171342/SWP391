@@ -311,6 +311,18 @@ public class UserDAO {
         return false;
     }
 
+    public boolean updatePassword(String username, String newPassword) {
+        String sql = "UPDATE Users SET password = ? WHERE username = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, newPassword);
+            pstmt.setString(2, username);
+            return pstmt.executeUpdate() > 0;
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, "Error updating password", ex);
+        }
+        return false;
+    }
+
     // Sinh token ngẫu nhiên
     public static String generateToken() {
         SecureRandom random = new SecureRandom();
@@ -365,6 +377,16 @@ public class UserDAO {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, "Error retrieving user by token", ex);
         }
         return null;
+    }
+
+    public void clearToken(String username) {
+        String sql = "UPDATE Users SET token = NULL WHERE username = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, username);
+            pstmt.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, "Error clearing reset token", ex);
+        }
     }
 
     public boolean activateUser(String token) {
