@@ -155,16 +155,16 @@ public class UserDAO {
     }
 
     // Xóa người dùng theo username
-    public boolean deleteUser(int userId) {
-        String sql = "DELETE FROM Users WHERE UserID = ?";
+    public boolean deleteUserByUsername(String username) {
+        String sql = "DELETE FROM Users WHERE username = ?";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-            pstmt.setInt(1, userId);
-            int rowsAffected = pstmt.executeUpdate();
-            return rowsAffected > 0; // Trả về true nếu xóa thành công
+            pstmt.setString(1, username);
+            int rowsDeleted = pstmt.executeUpdate();
+            return rowsDeleted > 0;
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
         }
+        return false;
     }
 
     // Lấy danh sách tất cả người dùng
@@ -243,7 +243,7 @@ public class UserDAO {
                 rs.getString("email"),
                 rs.getString("username"),
                 rs.getString("password"),
-                rs.getDate("dob"),
+                rs.getDate("dob"), // ✅ Đảm bảo lấy đúng cột 'dob'
                 rs.getBoolean("gender"),
                 rs.getString("address"),
                 rs.getString("avatar"),
@@ -256,18 +256,15 @@ public class UserDAO {
 
     public List<User> getUsersByRole(int roleID) {
         List<User> userList = new ArrayList<>();
-        String sql = "SELECT UserID, first_name, last_name, phone, email, username, RoleID FROM Users";
+        String sql = "SELECT UserID, first_name, last_name, phone, email, username, dob, RoleID, isActive FROM Users";
 
-        // Lọc theo RoleID: Nếu 2 hoặc 3 thì lọc theo role cụ thể, nếu 0 thì chỉ lấy Nhân viên & Khách hàng
         if (roleID == 2 || roleID == 3) {
             sql += " WHERE RoleID = ?";
         } else if (roleID == 0) {
-            sql += " WHERE RoleID IN (2, 3)"; // Lọc tất cả nhưng không có RoleID = 1 (Admin)
+            sql += " WHERE RoleID IN (2, 3)";
         }
 
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-
-            // Nếu lọc theo 1 role cụ thể (2 hoặc 3), gán giá trị vào câu lệnh SQL
             if (roleID == 2 || roleID == 3) {
                 pstmt.setInt(1, roleID);
             }
@@ -282,12 +279,36 @@ public class UserDAO {
                 user.setEmail(rs.getString("email"));
                 user.setUsername(rs.getString("username"));
                 user.setRoleId(rs.getInt("RoleID"));
+                user.setIsActive(rs.getBoolean("isActive"));
+
+                // ✅ FIX: Lấy giá trị ngày tạo
+                user.setDob(rs.getDate("dob")); // Hoặc rs.getTimestamp("dob") nếu là DATETIME
+
                 userList.add(user);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return userList;
+    }
+
+    public boolean updateUser(User user) {
+        String sql = "UPDATE Users SET first_name = ?, last_name = ?, phone = ?, email = ?, isActive = ? WHERE username = ?";
+
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, user.getFirstName());
+            pstmt.setString(2, user.getLastName());
+            pstmt.setString(3, user.getPhone());
+            pstmt.setString(4, user.getEmail());
+            pstmt.setBoolean(5, user.isIsActive());
+            pstmt.setString(6, user.getUsername());
+
+            int rowsUpdated = pstmt.executeUpdate();
+            return rowsUpdated > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     // Sinh token ngẫu nhiên

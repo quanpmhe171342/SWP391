@@ -1,21 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package UserController;
 
 import DAO.UserDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author hieum
- */
 public class DeleteUserController extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
@@ -24,28 +15,31 @@ public class DeleteUserController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            int userId = Integer.parseInt(request.getParameter("userId"));
-            userDAO.deleteUser(userId);
+            String username = request.getParameter("username");
 
-            // Lưu thông báo vào session
-            request.getSession().setAttribute("message", "Xóa người dùng thành công!");
+            if (username == null || username.isEmpty()) {
+                request.getSession().setAttribute("message", "Tên đăng nhập không hợp lệ!");
+                response.sendRedirect("viewuser");
+                return;
+            }
+
+            boolean success = userDAO.deleteUserByUsername(username);
+
+            if (success) {
+                request.getSession().setAttribute("message", "Xóa người dùng thành công!");
+            } else {
+                request.getSession().setAttribute("message", "Xóa thất bại, vui lòng thử lại.");
+            }
         } catch (Exception e) {
             e.printStackTrace();
-            request.getSession().setAttribute("message", "Xóa thất bại, vui lòng thử lại.");
+            request.getSession().setAttribute("message", "Lỗi hệ thống, vui lòng thử lại.");
         }
 
-        response.sendRedirect("viewuser"); // Chuyển hướng để load lại danh sách user
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
+        response.sendRedirect("viewuser");
     }
 
     @Override
     public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
+        return "Xóa user theo username";
+    }
 }

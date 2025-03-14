@@ -11,12 +11,16 @@
 <html lang="vi">
     <head>
         <meta charset="UTF-8">
-        <title>Danh sách khách hàng</title>
+        <title>Danh sách nhân viên</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     </head>
     <body class="bg-light">
         <div class="container mt-5">
-            <h2 class="text-center mb-4">Danh sách khách hàng</h2>
+            <h2 class="text-center mb-4">Danh sách nhân viên</h2>
+
+            <div class="mb-3 text-end">
+                <a href="<%= request.getContextPath() %>/addstaff" class="btn btn-success">Thêm nhân viên</a>
+            </div>
 
             <table class="table table-bordered table-hover">
                 <thead class="table-dark">
@@ -35,7 +39,7 @@
                 <tbody>
                     <% if (userList.isEmpty()) { %>
                     <tr>
-                        <td colspan="9" class="text-center">Không có khách hàng</td>
+                        <td colspan="9" class="text-center">Không có nhân viên</td>
                     </tr>
                     <% } else { %>
                     <% for (User user : userList) { %>
@@ -58,8 +62,7 @@
                         </td>
                         <td>
                             <a href="edituser?username=<%= user.getUsername() %>" class="btn btn-warning btn-sm">Sửa</a>
-                            <a href="deleteuser?username=<%= user.getUsername() %>" class="btn btn-danger btn-sm" onclick="return confirm('Xóa khách hàng này?');">Xóa</a>
-
+                            <a href="deleteuser?username=<%= user.getUsername() %>" class="btn btn-danger btn-sm" onclick="return confirm('Xóa nhân viên này?');">Xóa</a>
                         </td>
                     </tr>
                     <% } %>
