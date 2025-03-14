@@ -82,10 +82,10 @@
                     <div class="mb-3">
                         <label for="category" class="form-label">Danh mục</label>
                         <select class="form-select" id="category" name="category" required>
-                            <option value="1">Công nghệ</option>
-                            <option value="2">Giải trí</option>
-                            <option value="3">Sức khỏe</option>
-                            <option value="4">Kinh doanh</option>
+                             <option value="1">ÁO DA</option>
+                            <option value="2">GIÀY DA</option>
+                            <option value="3">VÍ DA</option>
+                            <option value="4">THẮT LƯNG</option>
                         </select>
                     </div>
 
