@@ -32,18 +32,26 @@ public class AdminLoginController extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        // Kiểm tra xem username và password có hợp lệ không
+        // Kiểm tra xem username có tồn tại không
         User user = userDAO.getUserByUsername(username);
 
         if (user != null) {
+            // Kiểm tra nếu tài khoản chưa kích hoạt
+            if (!user.isIsActive()) {
+                request.setAttribute("errorMessage", "Tài khoản chưa được kích hoạt. Vui lòng liên hệ quản trị viên.");
+                request.getRequestDispatcher("/auth/adminlogin.jsp").forward(request, response);
+                return;
+            }
+
+            // Kiểm tra mật khẩu
             if (user.getPassword().equals(password)) {
                 if (user.getRoleId() == 1) {
                     request.getSession().setAttribute("user", user);
                     response.sendRedirect(request.getContextPath() + "/auth/hometest.jsp");
-                }else if(user.getRoleId() == 2) {
+                } else if (user.getRoleId() == 2) {
                     request.getSession().setAttribute("user", user);
                     response.sendRedirect(request.getContextPath() + "/auth/hometest.jsp");
-                }else {
+                } else {
                     request.setAttribute("errorMessage", "Vui lòng sử dụng tài khoản Admin hoặc Staff.");
                     request.getRequestDispatcher("/auth/adminlogin.jsp").forward(request, response);
                 }

@@ -68,9 +68,7 @@
                                                 <button type="submit" class="btn btn-primary btn-lg">Tạo Tài Khoản</button>
                                             </div>
                                         </form>
-                                        <div class="text-center">
-                                            <p>Nếu đã có tài khoản, hãy <a href="SWP391/auth/login.jsp" class="fw-bold">đăng nhập ở đây</a>.</p>
-                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>

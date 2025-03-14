@@ -55,6 +55,15 @@ public class User {
         this.token = token;
         this.expiredToken = expiredToken;
     }
+    
+    public User(String username, String firstName, String lastName, String phone, String email, boolean isActive) {
+    this.username = username;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.phone = phone;
+    this.email = email;
+    this.isActive = isActive;
+}
 
     public int getUserId() {
         return userId;
