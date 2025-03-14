@@ -96,6 +96,14 @@
         <servlet-name>ViewStaffController</servlet-name>
         <servlet-class>UserController.ViewStaffController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ResetPasswordController</servlet-name>
+        <servlet-class>UserController.ResetPasswordController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SendResetLinkController</servlet-name>
+        <servlet-class>UserController.SendResetLinkController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProductList</servlet-name>
         <url-pattern>/ProductList</url-pattern>
@@ -183,6 +191,14 @@
     <servlet-mapping>
         <servlet-name>ViewStaffController</servlet-name>
         <url-pattern>/viewstaff</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ResetPasswordController</servlet-name>
+        <url-pattern>/resetpassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SendResetLinkController</servlet-name>
+        <url-pattern>/sendresetlink</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>
