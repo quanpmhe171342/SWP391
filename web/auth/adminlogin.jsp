@@ -52,11 +52,11 @@
 
                                 <div class="d-flex justify-content-between align-items-center">
                                     <!-- Checkbox -->
-                                    <div class="form-check">
+<!--                                    <div class="form-check">
                                         <input class="form-check-input" type="checkbox" id="rememberMe" />
                                         <label class="form-check-label" for="rememberMe">Nhớ tài khoản</label>
-                                    </div>
-                                    <a href="#" class="text-primary">Quên mật khẩu?</a>
+                                    </div>-->
+                                    <a href="<%= request.getContextPath() %>/sendresetlink" class="text-primary">Quên mật khẩu?</a>
                                 </div>
 
                                 <div class="text-center mt-4">

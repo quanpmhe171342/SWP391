@@ -50,7 +50,15 @@
     </servlet>
     <servlet>
         <servlet-name>ViewProfile</servlet-name>
-        <servlet-class>UserController.ViewProfile</servlet-class>
+        <servlet-class>UserController.ViewProfileController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewUser</servlet-name>
+        <servlet-class>UserController.ViewUserController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteUser</servlet-name>
+        <servlet-class>UserController.DeleteUserController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UserReport</servlet-name>
@@ -71,6 +79,30 @@
     <servlet>
         <servlet-name>ReportOldCustomer</servlet-name>
         <servlet-class>Controller.ReportOldCustomer</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VerifyController</servlet-name>
+        <servlet-class>UserController.VerifyController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateProfileController</servlet-name>
+        <servlet-class>UserController.UpdateProfileController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditUserController</servlet-name>
+        <servlet-class>UserController.EditUserController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewStaffController</servlet-name>
+        <servlet-class>UserController.ViewStaffController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ResetPasswordController</servlet-name>
+        <servlet-class>UserController.ResetPasswordController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SendResetLinkController</servlet-name>
+        <servlet-class>UserController.SendResetLinkController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ProductList</servlet-name>
@@ -125,6 +157,14 @@
         <url-pattern>/viewprofile</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>ViewUser</servlet-name>
+        <url-pattern>/viewuser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteUser</servlet-name>
+        <url-pattern>/deleteuser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>UserReportt</servlet-name>
         <url-pattern>/user/report</url-pattern>
     </servlet-mapping>
@@ -135,6 +175,30 @@
     <servlet-mapping>
         <servlet-name>ReportOldCustomer</servlet-name>
         <url-pattern>/report/old/customer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VerifyController</servlet-name>
+        <url-pattern>/verify</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateProfileController</servlet-name>
+        <url-pattern>/updateprofile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditUserController</servlet-name>
+        <url-pattern>/edituser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewStaffController</servlet-name>
+        <url-pattern>/viewstaff</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ResetPasswordController</servlet-name>
+        <url-pattern>/resetpassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SendResetLinkController</servlet-name>
+        <url-pattern>/sendresetlink</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

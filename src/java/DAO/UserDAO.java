@@ -1,6 +1,8 @@
 package DAO;
 
 import Model.User;
+import java.math.BigInteger;
+import java.security.SecureRandom;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -20,7 +22,6 @@ public class UserDAO {
         connection = dbContext.conn;
     }
 
- 
     public boolean createUser(User user) {
         if (checkExistUser(user.getUsername())) {
             System.out.println("Username already exists!");
@@ -49,6 +50,23 @@ public class UserDAO {
             return true; // Trả về true nếu tạo thành công
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, "Error inserting user", ex);
+        }
+        return false;
+    }
+
+    public boolean updateProfile(User user) {
+        String sql = "UPDATE Users SET first_name = ?, last_name = ?, phone = ?, email = ? WHERE username = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, user.getFirstName());
+            pstmt.setString(2, user.getLastName());
+            pstmt.setString(3, user.getPhone());
+            pstmt.setString(4, user.getEmail());
+            pstmt.setString(5, user.getUsername());
+
+            int rowsUpdated = pstmt.executeUpdate();
+            return rowsUpdated > 0; // Trả về true nếu có ít nhất một bản ghi được cập nhật
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, "Error updating user profile", ex);
         }
         return false;
     }
@@ -105,40 +123,48 @@ public class UserDAO {
     }
 
     // Cập nhật thông tin người dùng
-    public void updateUser(User user) {
-        String sql = "UPDATE Users SET first_name=?, last_name=?, phone=?, email=?, password=?, dob=?, gender=?, address=?, avatar=?, roleId=?, isActive=?, token=?, expired_token=? WHERE username=?";
-        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-            pstmt.setString(1, user.getFirstName());
-            pstmt.setString(2, user.getLastName());
-            pstmt.setString(3, user.getPhone());
-            pstmt.setString(4, user.getEmail());
-            pstmt.setString(5, user.getPassword());
-            pstmt.setDate(6, new java.sql.Date(user.getDob().getTime()));
-            pstmt.setBoolean(7, user.isGender());
-            pstmt.setString(8, user.getAddress());
-            pstmt.setString(9, user.getAvatar());
-            pstmt.setInt(10, user.getRoleId());
-            pstmt.setBoolean(11, user.isIsActive());
-            pstmt.setString(12, user.getToken());
-            pstmt.setString(13, user.getExpiredToken());
-            pstmt.setString(14, user.getUsername());
-            pstmt.executeUpdate();
-            System.out.println("User updated successfully!");
-        } catch (SQLException ex) {
-            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, "Error updating user", ex);
+    public boolean updateUser(int userId, String firstName, String lastName, String email, String phone, String password, int roleId) {
+        String sql;
+        boolean updatePassword = (password != null && !password.trim().isEmpty());
+
+        if (updatePassword) {
+            sql = "UPDATE Users SET first_name = ?, last_name = ?, email = ?, phone = ?, password = ?, RoleID = ? WHERE UserID = ?";
+        } else {
+            sql = "UPDATE Users SET first_name = ?, last_name = ?, email = ?, phone = ?, RoleID = ? WHERE UserID = ?";
         }
+
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            pstmt.setString(1, firstName);
+            pstmt.setString(2, lastName);
+            pstmt.setString(3, email);
+            pstmt.setString(4, phone);
+
+            int index = 5;
+            if (updatePassword) {
+                pstmt.setString(index++, password); // Nếu có mật khẩu mới, cập nhật nó
+            }
+            pstmt.setInt(index++, roleId);
+            pstmt.setInt(index, userId);
+
+            return pstmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     // Xóa người dùng theo username
-    public void deleteUser(String username) {
+    public boolean deleteUserByUsername(String username) {
         String sql = "DELETE FROM Users WHERE username = ?";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setString(1, username);
-            pstmt.executeUpdate();
-            System.out.println("User deleted successfully!");
-        } catch (SQLException ex) {
-            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, "Error deleting user", ex);
+            int rowsDeleted = pstmt.executeUpdate();
+            return rowsDeleted > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return false;
     }
 
     // Lấy danh sách tất cả người dùng
@@ -170,9 +196,9 @@ public class UserDAO {
         return false; // Trả về false nếu không có người dùng nào
     }
 
-   public boolean checkOldPassword(String username, String oldPassword) {
+    public boolean checkOldPassword(String username, String oldPassword) {
         String query = "SELECT password FROM Users WHERE username = ?";
-        
+
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, username); // Gán giá trị username vào câu lệnh
             ResultSet rs = stmt.executeQuery();
@@ -180,14 +206,14 @@ public class UserDAO {
             if (rs.next()) {
                 // Lấy mật khẩu từ cơ sở dữ liệu
                 String storedPassword = rs.getString("password");
-                
+
                 // So sánh mật khẩu cũ nhập vào với mật khẩu trong cơ sở dữ liệu
                 return storedPassword.equals(oldPassword);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
+
         return false; // Trả về false nếu không tìm thấy username hoặc có lỗi
     }
 
@@ -217,7 +243,7 @@ public class UserDAO {
                 rs.getString("email"),
                 rs.getString("username"),
                 rs.getString("password"),
-                rs.getDate("dob"),
+                rs.getDate("dob"), // ✅ Đảm bảo lấy đúng cột 'dob'
                 rs.getBoolean("gender"),
                 rs.getString("address"),
                 rs.getString("avatar"),
@@ -226,6 +252,154 @@ public class UserDAO {
                 rs.getString("token"),
                 rs.getString("expired_token")
         );
+    }
+
+    public List<User> getUsersByRole(int roleID) {
+        List<User> userList = new ArrayList<>();
+        String sql = "SELECT UserID, first_name, last_name, phone, email, username, dob, RoleID, isActive FROM Users";
+
+        if (roleID == 2 || roleID == 3) {
+            sql += " WHERE RoleID = ?";
+        } else if (roleID == 0) {
+            sql += " WHERE RoleID IN (2, 3)";
+        }
+
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            if (roleID == 2 || roleID == 3) {
+                pstmt.setInt(1, roleID);
+            }
+
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                User user = new User();
+                user.setUserId(rs.getInt("UserID"));
+                user.setFirstName(rs.getString("first_name"));
+                user.setLastName(rs.getString("last_name"));
+                user.setPhone(rs.getString("phone"));
+                user.setEmail(rs.getString("email"));
+                user.setUsername(rs.getString("username"));
+                user.setRoleId(rs.getInt("RoleID"));
+                user.setIsActive(rs.getBoolean("isActive"));
+
+                // ✅ FIX: Lấy giá trị ngày tạo
+                user.setDob(rs.getDate("dob")); // Hoặc rs.getTimestamp("dob") nếu là DATETIME
+
+                userList.add(user);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return userList;
+    }
+
+    public boolean updateUser(User user) {
+        String sql = "UPDATE Users SET first_name = ?, last_name = ?, phone = ?, email = ?, isActive = ? WHERE username = ?";
+
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, user.getFirstName());
+            pstmt.setString(2, user.getLastName());
+            pstmt.setString(3, user.getPhone());
+            pstmt.setString(4, user.getEmail());
+            pstmt.setBoolean(5, user.isIsActive());
+            pstmt.setString(6, user.getUsername());
+
+            int rowsUpdated = pstmt.executeUpdate();
+            return rowsUpdated > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean updatePassword(String username, String newPassword) {
+        String sql = "UPDATE Users SET password = ? WHERE username = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, newPassword);
+            pstmt.setString(2, username);
+            return pstmt.executeUpdate() > 0;
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, "Error updating password", ex);
+        }
+        return false;
+    }
+
+    // Sinh token ngẫu nhiên
+    public static String generateToken() {
+        SecureRandom random = new SecureRandom();
+        return new BigInteger(130, random).toString(32);
+    }
+
+    // Lưu token vào database
+    public boolean saveVerificationToken(String username, String token) {
+        String sql = "UPDATE Users SET token = ? WHERE username = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, token);
+            pstmt.setString(2, username);
+            int rowsUpdated = pstmt.executeUpdate();
+
+            return rowsUpdated > 0;
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, "Error saving verification token", ex);
+        }
+        return false;
+    }
+
+    //get token from dtbs
+    public String getVerificationToken(String email) {
+        String sql = "SELECT token FROM Users WHERE email = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, email);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getString("token");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, "Error retrieving verification token", ex);
+        }
+        return null;
+    }
+
+    public User getUserByToken(String token) {
+        String sql = "SELECT * FROM Users WHERE token = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, token);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                User user = new User();
+                user.setUserId(rs.getInt("userId"));
+                user.setUsername(rs.getString("username"));
+                user.setEmail(rs.getString("email"));
+                user.setIsActive(rs.getBoolean("isActive"));
+                user.setToken(rs.getString("token"));
+                return user;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, "Error retrieving user by token", ex);
+        }
+        return null;
+    }
+
+    public void clearToken(String username) {
+        String sql = "UPDATE Users SET token = NULL WHERE username = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, username);
+            pstmt.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, "Error clearing reset token", ex);
+        }
+    }
+
+    public boolean activateUser(String token) {
+        String sql = "UPDATE Users SET isActive = 1, token = NULL WHERE token = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, token);
+            int rowsUpdated = pstmt.executeUpdate();
+
+            return rowsUpdated > 0;
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, "Error activating user", ex);
+        }
+        return false;
     }
 
 }
