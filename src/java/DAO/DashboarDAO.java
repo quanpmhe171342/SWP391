@@ -18,17 +18,23 @@ import java.util.List;
  * @author NV200
  */
 public class DashboarDAO extends DBContext{
-     public List<ReportCustomerDTO> getNewCustomerStats(Date startDate, Date endDate) {
+    public List<ReportCustomerDTO> getNewCustomerStats(Date startDate, Date endDate) {
         List<ReportCustomerDTO> stats = new ArrayList<>();
         String sql = """
         SELECT 
-            CAST(OrderDate AS DATE) as Period, 
-            COUNT(DISTINCT u.UserID) as Customers
-        FROM Users u
-        JOIN [Order] o ON u.UserID = o.UserID
-        WHERE u.RoleID = 1
-            AND o.OrderDate BETWEEN ? AND ?
-        GROUP BY CAST(OrderDate AS DATE) 
+            CAST(FirstOrderDate AS DATE) as Period, 
+            COUNT(DISTINCT UserID) as NewCustomers
+        FROM (
+            SELECT 
+                u.UserID,
+                MIN(o.OrderDate) as FirstOrderDate
+            FROM Users u
+            JOIN [Order] o ON u.UserID = o.UserID
+            WHERE u.RoleID = 1
+            GROUP BY u.UserID
+            HAVING MIN(o.OrderDate) BETWEEN ? AND ?
+        ) as FirstTimeOrders
+        GROUP BY CAST(FirstOrderDate AS DATE) 
         ORDER BY Period
     """;
         try {
@@ -38,8 +44,8 @@ public class DashboarDAO extends DBContext{
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 ReportCustomerDTO stat = new ReportCustomerDTO();
-                stat.setPeriod(rs.getDate("Period")); 
-                stat.setCustomers(rs.getInt("Customers"));
+                stat.setPeriod(rs.getDate("Period")); // Lấy giá trị kiểu Date
+                stat.setCustomers(rs.getInt("NewCustomers"));
                 stats.add(stat);
             }
         } catch (SQLException e) {
