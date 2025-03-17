@@ -96,6 +96,50 @@
         <servlet-name>ViewStaffController</servlet-name>
         <servlet-class>UserController.ViewStaffController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DAOBlogList</servlet-name>
+        <servlet-class>DAO.DAOBlogList</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DAOBlogDetail</servlet-name>
+        <servlet-class>DAO.DAOBlogDetail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CartController</servlet-name>
+        <servlet-class>Controller.CartController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DaoCart</servlet-name>
+        <servlet-class>DAO.DaoCart</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Cart</servlet-name>
+        <servlet-class>Model.Cart</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CartItem</servlet-name>
+        <servlet-class>Model.CartItem</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DAOCartItem</servlet-name>
+        <servlet-class>DAO.DAOCartItem</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PaymentController</servlet-name>
+        <servlet-class>Controller.PaymentController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrderDAO</servlet-name>
+        <servlet-class>DAO.OrderDAO</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrderDetailDTO</servlet-name>
+        <servlet-class>DTO.OrderDetailDTO</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProductCart</servlet-name>
+        <servlet-class>Controller.ProductCart</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProductList</servlet-name>
         <url-pattern>/ProductList</url-pattern>
@@ -183,6 +227,50 @@
     <servlet-mapping>
         <servlet-name>ViewStaffController</servlet-name>
         <url-pattern>/viewstaff</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DAOBlogList</servlet-name>
+        <url-pattern>/DAOBlogList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DAOBlogDetail</servlet-name>
+        <url-pattern>/DAOBlogDetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CartController</servlet-name>
+        <url-pattern>/CartController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DaoCart</servlet-name>
+        <url-pattern>/DaoCart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Cart</servlet-name>
+        <url-pattern>/Cart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CartItem</servlet-name>
+        <url-pattern>/CartItem</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DAOCartItem</servlet-name>
+        <url-pattern>/DAOCartItem</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PaymentController</servlet-name>
+        <url-pattern>/PaymentController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderDAO</servlet-name>
+        <url-pattern>/OrderDAO</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderDetailDTO</servlet-name>
+        <url-pattern>/OrderDetailDTO</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductCart</servlet-name>
+        <url-pattern>/ProductCart</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

@@ -34,7 +34,7 @@ public class DBContext {
     }
     
     public DBContext() {
-        this("jdbc:sqlserver://localhost:1433;databaseName=SWP0403", "sa", "123");  
+        this("jdbc:sqlserver://localhost:1433;databaseName=SWP391", "sa", "123");  
     }
     //public for all class
     public ResultSet getData(String sql) {

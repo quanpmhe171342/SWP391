@@ -3,16 +3,21 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/FPT%20University/SE.7/SWP391/Project/Group1/SWP391/src/java/Utils/Email.java</file>
-            <file>file:/D:/FPT%20University/SE.7/SWP391/Project/Group1/SWP391/src/java/DAO/DBContext.java</file>
-            <file>file:/D:/FPT%20University/SE.7/SWP391/Project/Group1/SWP391/web/auth/login.jsp</file>
-            <file>file:/D:/FPT%20University/SE.7/SWP391/Project/Group1/SWP391/web/WEB-INF/web.xml</file>
-            <file>file:/D:/FPT%20University/SE.7/SWP391/Project/Group1/SWP391/src/java/DAO/UserDAO.java</file>
-            <file>file:/D:/FPT%20University/SE.7/SWP391/Project/Group1/SWP391/web/auth/viewprofile.jsp</file>
-            <file>file:/D:/FPT%20University/SE.7/SWP391/Project/Group1/SWP391/src/java/Model/User.java</file>
-            <file>file:/D:/FPT%20University/SE.7/SWP391/Project/Group1/SWP391/web/auth/register.jsp</file>
-            <file>file:/D:/FPT%20University/SE.7/SWP391/Project/Group1/SWP391/src/java/UserController/RegisterController.java</file>
-            <file>file:/D:/FPT%20University/SE.7/SWP391/Project/Group1/SWP391/src/java/UserController/UpdateProfileController.java</file>
+            <file>file:/D:/swp391c/3142025/SWP391/src/java/DAO/DAOBlogList.java</file>
+            <file>file:/D:/swp391c/3142025/SWP391/nbproject/build-impl.xml</file>
+            <file>file:/D:/swp391c/3142025/SWP391/src/java/DAO/DBContext.java</file>
+            <file>file:/D:/swp391c/3142025/SWP391/src/java/Model/User.java</file>
+            <file>file:/D:/swp391c/3142025/SWP391/src/java/Controller/MangeProduct.java</file>
+            <file>file:/D:/swp391c/3142025/SWP391/web/Views/ManageBlog.jsp</file>
+            <file>file:/D:/swp391c/3142025/SWP391/web/Views/CreateBlog.jsp</file>
+            <file>file:/D:/swp391c/3142025/SWP391/src/java/Controller/UserReportt.java</file>
+            <file>file:/D:/swp391c/3142025/SWP391/web/Views/BlogDetail.jsp</file>
+            <file>file:/D:/swp391c/3142025/SWP391/src/java/DAO/DaoCategoryProduct.java</file>
+            <file>file:/D:/swp391c/3142025/SWP391/src/java/DAO/DAOBlog.java</file>
+            <file>file:/D:/swp391c/3142025/SWP391/src/java/Controller/BlogDetail.java</file>
+            <file>file:/D:/swp391c/3142025/SWP391/web/META-INF/context.xml</file>
+            <file>file:/D:/swp391c/3142025/SWP391/web/WEB-INF/web.xml</file>
+            <file>file:/D:/swp391c/3142025/SWP391/src/java/DAO/DAOBlogDetail.java</file>
         </group>
     </open-files>
 </project-private>

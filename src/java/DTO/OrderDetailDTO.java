@@ -4,50 +4,59 @@
  */
 package DTO;
 
-import Model.Color;
-import Model.Size;
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  *
  * @author d
  */
-public class ProductDTO {
+public class OrderDetailDTO {
 
-    private int cartId;
+    private int orderDetailID;
+    private int orderId;
     private int productId;
     private String productName;
-    private Double originalPrice;
-    private Double salePrice;
+    private double originalPrice;
+    private double salePrice;
     private String productDescription;
     private String briefInformation;
-    private String imageUrl;
     private int quantity;
-    private List<Size> sizes = new ArrayList<>();
-    private List<Color> colors = new ArrayList<>();
+    private double price;
+    private double totalPrice;
 
-    public ProductDTO() {
+    public OrderDetailDTO() {
     }
 
-    public ProductDTO(int cartId, int productId, String productName, Double originalPrice, Double salePrice, String productDescription, String briefInformation, String imageUrl, int quantity) {
-        this.cartId = cartId;
+    
+    public OrderDetailDTO(int orderDetailID, int orderId, int productId, String productName,
+            double originalPrice, double salePrice, String productDescription,
+            String briefInformation, int quantity, double price) {
+        this.orderDetailID = orderDetailID;
+        this.orderId = orderId;
         this.productId = productId;
         this.productName = productName;
         this.originalPrice = originalPrice;
         this.salePrice = salePrice;
         this.productDescription = productDescription;
         this.briefInformation = briefInformation;
-        this.imageUrl = imageUrl;
         this.quantity = quantity;
+        this.price = price;
+        this.totalPrice = quantity * price;
     }
 
-    public int getCartId() {
-        return cartId;
+    // Getters and Setters
+    public int getOrderDetailID() {
+        return orderDetailID;
     }
 
-    public void setCartId(int cartId) {
-        this.cartId = cartId;
+    public void setOrderDetailID(int orderDetailID) {
+        this.orderDetailID = orderDetailID;
+    }
+
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
     }
 
     public int getProductId() {
@@ -66,19 +75,19 @@ public class ProductDTO {
         this.productName = productName;
     }
 
-    public Double getOriginalPrice() {
+    public double getOriginalPrice() {
         return originalPrice;
     }
 
-    public void setOriginalPrice(Double originalPrice) {
+    public void setOriginalPrice(double originalPrice) {
         this.originalPrice = originalPrice;
     }
 
-    public Double getSalePrice() {
+    public double getSalePrice() {
         return salePrice;
     }
 
-    public void setSalePrice(Double salePrice) {
+    public void setSalePrice(double salePrice) {
         this.salePrice = salePrice;
     }
 
@@ -98,40 +107,25 @@ public class ProductDTO {
         this.briefInformation = briefInformation;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
     public int getQuantity() {
         return quantity;
     }
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+        this.totalPrice = quantity * price;
     }
 
-    public List<Size> getSizes() {
-        return sizes;
+    public double getPrice() {
+        return price;
     }
 
-    public void setSizes(List<Size> sizes) {
-        this.sizes = sizes;
+    public void setPrice(double price) {
+        this.price = price;
+        this.totalPrice = quantity * price;
     }
 
-    public List<Color> getColors() {
-        return colors;
-    }
-
-    public void setColors(List<Color> colors) {
-        this.colors = colors;
-    }
-
-    @Override
-    public String toString() {
-        return "ProductDTO{" + "cartId=" + cartId + ", productId=" + productId + ", productName=" + productName + ", originalPrice=" + originalPrice + ", salePrice=" + salePrice + ", productDescription=" + productDescription + ", briefInformation=" + briefInformation + ", imageUrl=" + imageUrl + ", quantity=" + quantity + ", sizes=" + sizes + ", colors=" + colors + '}';
+    public double getTotalPrice() {
+        return totalPrice;
     }
 }
