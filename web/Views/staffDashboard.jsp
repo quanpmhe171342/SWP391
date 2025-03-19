@@ -99,9 +99,10 @@
 
         <nav class="navbar">
             <ul class="nav-links">
-                <li><a href="/user/report">Khách hàng mới</a></li>
-                <li><a href="/report/product">Doanh thu</a></li>
+                <li><a href="/user/report"> Thống kê khách hàng mới</a></li>
+                <li><a href="/report/product">Doanh thu bán hàng</a></li>
                 <li><a href="/report/old/customer">Tỉ lệ khách hàng quay lại</a></li>
+                <li><a href="/SliderManager">Quản lí slider</a></li>
             </ul>
         </nav>
 

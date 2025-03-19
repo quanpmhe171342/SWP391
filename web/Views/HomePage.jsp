@@ -45,7 +45,7 @@
         <section class="hero">
               <div class="hero__slider owl-carousel">
             <c:forEach items="${slider}" var="lisst">
-                <div class="hero__items set-bg" data-setbg="${lisst.productVariantID.image}">
+                <div class="hero__items set-bg" data-setbg="${lisst.image}">
                     <div class="container">
                         <div class="row">
                             <div class="col-xl-5 col-lg-7 col-md-8">
