@@ -104,6 +104,34 @@
         <servlet-name>SendResetLinkController</servlet-name>
         <servlet-class>UserController.SendResetLinkController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LoadProductVariant</servlet-name>
+        <servlet-class>Controller.LoadProductVariant</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SliderManager</servlet-name>
+        <servlet-class>Controller.SliderManager</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddSlider</servlet-name>
+        <servlet-class>Controller.AddSlider</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoadSliderById</servlet-name>
+        <servlet-class>Controller.LoadSliderById</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateSlider</servlet-name>
+        <servlet-class>Controller.UpdateSlider</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteSlider</servlet-name>
+        <servlet-class>Controller.DeleteSlider</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>HidenSlider</servlet-name>
+        <servlet-class>Controller.HidenSlider</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProductList</servlet-name>
         <url-pattern>/ProductList</url-pattern>
@@ -199,6 +227,34 @@
     <servlet-mapping>
         <servlet-name>SendResetLinkController</servlet-name>
         <url-pattern>/sendresetlink</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoadProductVariant</servlet-name>
+        <url-pattern>/LoadProductVariant</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SliderManager</servlet-name>
+        <url-pattern>/SliderManager</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddSlider</servlet-name>
+        <url-pattern>/AddSlider</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoadSliderById</servlet-name>
+        <url-pattern>/LoadSliderById</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateSlider</servlet-name>
+        <url-pattern>/UpdateSlider</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteSlider</servlet-name>
+        <url-pattern>/DeleteSlider</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HidenSlider</servlet-name>
+        <url-pattern>/HidenSlider</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

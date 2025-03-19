@@ -50,7 +50,7 @@
                             <thead>
                                 <tr>
                                     <th>Ngày</th>
-                                    <th>Số khách hàng mới</th>
+                                    <th>Số khách hàng quay lại</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -95,7 +95,7 @@
             }];
 
             const layout = {
-                title: "Thống kê khách hàng mới theo ngày",
+                title: "Thống kê khách hàng quay lại",
                 xaxis: {
                     title: "Số lượng khách hàng",
                     tickmode: "linear",
