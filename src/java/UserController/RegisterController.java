@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 import DAO.UserDAO;
+import static Utils.Email.sendEmail;
 import java.time.LocalDate;
 
 public class RegisterController extends HttpServlet {
@@ -73,7 +74,18 @@ public class RegisterController extends HttpServlet {
             String verifyLink = "http://localhost:8080/SWP391/verify?token=" + token;
 
             // **Hiển thị link trên trang web**
-            request.setAttribute("successMessage", "Đăng ký thành công! Dùng link sau để kích hoạt tài khoản: <br><a href='" + verifyLink + "'>" + verifyLink + "</a>");
+//            request.setAttribute("successMessage", "Đăng ký thành công! Dùng link sau để kích hoạt tài khoản: <br><a href='" + verifyLink + "'>" + verifyLink + "</a>");
+            request.setAttribute("successMessage", "Đăng ký thành công! Hãy kiểm tra email để kích hoạt tài khoản.");
+            
+            String subject = "Đăng ký thành công!";
+            String content = "Chào bạn" +",<br><br>"
+                    + "Cảm ơn bạn đã đăng ký tài khoản.<br>"
+                    + "Vui lòng bấm vào link sau để xác minh tài khoản của bạn:<br>"
+                    + "<a href='" + verifyLink + "'>" + verifyLink + "</a><br><br>"
+                    + "Nếu bạn không thực hiện yêu cầu này, vui lòng bỏ qua email này.<br><br>"
+                    + "Trân trọng!";
+
+            sendEmail(email, subject, content);
 
         } else {
             request.setAttribute("errorMessage", "Đã xảy ra lỗi. Vui lòng thử lại!");
@@ -85,8 +97,8 @@ public class RegisterController extends HttpServlet {
 
     // lấy ngày tạo tài khoản
     private Date autoDOB() {
-    return java.sql.Date.valueOf(LocalDate.now());
-}
+        return java.sql.Date.valueOf(LocalDate.now());
+    }
 
     @Override
     public String getServletInfo() {

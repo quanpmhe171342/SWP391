@@ -1,6 +1,7 @@
 package UserController;
 
 import DAO.UserDAO;
+import Model.User;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -23,6 +24,14 @@ public class DeleteUserController extends HttpServlet {
                 return;
             }
 
+            // Lấy thông tin user để kiểm tra role
+            User user = userDAO.getUserByUsername(username);
+            if (user == null) {
+                request.getSession().setAttribute("message", "Người dùng không tồn tại!");
+                response.sendRedirect("viewuser");
+                return;
+            }
+
             boolean success = userDAO.deleteUserByUsername(username);
 
             if (success) {
@@ -30,12 +39,21 @@ public class DeleteUserController extends HttpServlet {
             } else {
                 request.getSession().setAttribute("message", "Xóa thất bại, vui lòng thử lại.");
             }
+
+            // Điều hướng theo role
+            if (user.getRoleId() == 2) {
+                response.sendRedirect("viewstaff");
+            } else if (user.getRoleId() == 3) {
+                response.sendRedirect("viewuser");
+            } else {
+                response.sendRedirect("viewuser");
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
             request.getSession().setAttribute("message", "Lỗi hệ thống, vui lòng thử lại.");
+            response.sendRedirect("viewuser");
         }
-
-        response.sendRedirect("viewuser");
     }
 
     @Override

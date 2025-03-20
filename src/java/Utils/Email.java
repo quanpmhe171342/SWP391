@@ -59,7 +59,7 @@ public class Email {
             msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to, false));
 
             // Tiêu đề email
-            msg.setSubject(tieuDe);
+            msg.setSubject(tieuDe, "UTF-8");
 
             // Nội dung
             msg.setContent(noiDung, "text/HTML; charset=UTF-8");
@@ -75,53 +75,53 @@ public class Email {
         }
     }
 
-    public static void main(String[] args) {
-        final String from = "hieuminh21102003@gmail.com";
-        final String password = "njfuwkiyvrvhqxzn";
-        
-        final String to = "hieuhieu1234231@gmail.com";
-        
-        Properties props = new Properties();
-        props.put("mail.smtp.host", "smtp.gmail.com"); // SMTP HOST
-        props.put("mail.smtp.port", "587"); // TLS 587 SSL 465
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-        
-        Authenticator auth = new Authenticator() {
-            @Override
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(from, password);
-            }
-        };
-        
-        Session session = Session.getInstance(props, auth);
-        
-        MimeMessage msg = new MimeMessage(session);
-        
-        try {
-            // Kiểu nội dung
-            msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
-
-            // Người gửi
-            msg.setFrom(from);
-
-            // Người nhận
-            msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to, false));
-
-            // Tiêu đề email
-            msg.setSubject("Test send email");
-
-            // Nội dung
-            msg.setContent("This is a test", "text/HTML; charset=UTF-8");
-
-            // Gửi email
-            Transport.send(msg);
-            System.out.println("Gửi mail thành công");
-            
-        } catch (Exception e) {
-            System.out.println("Gặp lỗi trong quá trình gửi email");
-            e.printStackTrace();
-            
-        }
-    }
+//    public static void main(String[] args) {
+//        final String from = "hieuminh21102003@gmail.com";
+//        final String password = "njfuwkiyvrvhqxzn";
+//        
+//        final String to = "hieuhieu1234231@gmail.com";
+//        
+//        Properties props = new Properties();
+//        props.put("mail.smtp.host", "smtp.gmail.com"); // SMTP HOST
+//        props.put("mail.smtp.port", "587"); // TLS 587 SSL 465
+//        props.put("mail.smtp.auth", "true");
+//        props.put("mail.smtp.starttls.enable", "true");
+//        
+//        Authenticator auth = new Authenticator() {
+//            @Override
+//            protected PasswordAuthentication getPasswordAuthentication() {
+//                return new PasswordAuthentication(from, password);
+//            }
+//        };
+//        
+//        Session session = Session.getInstance(props, auth);
+//        
+//        MimeMessage msg = new MimeMessage(session);
+//        
+//        try {
+//            // Kiểu nội dung
+//            msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
+//
+//            // Người gửi
+//            msg.setFrom(from);
+//
+//            // Người nhận
+//            msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to, false));
+//
+//            // Tiêu đề email
+//            msg.setSubject("Test send email");
+//
+//            // Nội dung
+//            msg.setContent("This is a test", "text/HTML; charset=UTF-8");
+//
+//            // Gửi email
+//            Transport.send(msg);
+//            System.out.println("Gửi mail thành công");
+//            
+//        } catch (Exception e) {
+//            System.out.println("Gặp lỗi trong quá trình gửi email");
+//            e.printStackTrace();
+//            
+//        }
+//    }
 }
