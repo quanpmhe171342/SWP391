@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+
             <file>file:/D:/FPT%20University/SE.7/SWP391/Project/Group1/SWP391/src/java/Utils/Email.java</file>
             <file>file:/D:/FPT%20University/SE.7/SWP391/Project/Group1/SWP391/src/java/UserController/ResetPasswordController.java</file>
             <file>file:/D:/FPT%20University/SE.7/SWP391/Project/Group1/SWP391/src/java/UserController/LoginController.java</file>
@@ -14,6 +15,12 @@
             <file>file:/D:/FPT%20University/SE.7/SWP391/Project/Group1/SWP391/web/auth/changepassword.jsp</file>
             <file>file:/D:/FPT%20University/SE.7/SWP391/Project/Group1/SWP391/web/auth/register.jsp</file>
             <file>file:/D:/FPT%20University/SE.7/SWP391/Project/Group1/SWP391/src/java/UserController/RegisterController.java</file>
+            <file>file:/C:/Users/NV200/OneDrive/Documents/GitHub/SWP391/web/Views/slidermanager.jsp</file>
+            <file>file:/C:/Users/NV200/OneDrive/Documents/GitHub/SWP391/src/java/Controller/HidenSlider.java</file>
+            <file>file:/C:/Users/NV200/OneDrive/Documents/GitHub/SWP391/web/Views/ReportUser.jsp</file>
+            <file>file:/C:/Users/NV200/OneDrive/Documents/GitHub/SWP391/web/Views/ReportOldCustomer.jsp</file>
+            <file>file:/C:/Users/NV200/OneDrive/Documents/GitHub/SWP391/web/WEB-INF/web.xml</file>
+
         </group>
     </open-files>
 </project-private>

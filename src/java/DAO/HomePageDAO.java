@@ -96,7 +96,7 @@ public class HomePageDAO extends DBContext {
     public List<Slider> slideHome() {
     List<Slider> list = new ArrayList<>();
     String query = """
-            SELECT TOP 3 s.[SliderID], s.[title], s.[image], s.[status], s.[Description], 
+            SELECT  s.[SliderID], s.[title], s.[image], s.[status], s.[Description], 
                            pv.[VariantID], pv.[Stock], pv.[ImageURL],
                            p.[ProductID], p.[ProductName], p.[original_price], p.[sale_price], p.[product_description], p.[brief_information], p.[CreateDate]
                     FROM [Slider] s
