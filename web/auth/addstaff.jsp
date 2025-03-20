@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
     <head>
         <title>Tạo Tài Khoản Nhân Viên</title>
@@ -18,7 +19,19 @@
                             <div class="card-body p-md-5">
                                 <div class="row justify-content-center">
                                     <div class="col-md-10 col-lg-6 col-xl-5">
-                                        <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Thêm Nhân Viên</p>
+                                        <p class="text-center h1 fw-bold mb-4 mx-1 mx-md-4 mt-4">Thêm Nhân Viên</p>
+
+                                        <c:if test="${not empty successMessage}">
+                                            <div class="alert alert-success text-center" role="alert">
+                                                ${successMessage}
+                                            </div>
+                                        </c:if>
+                                        <c:if test="${not empty errorMessage}">
+                                            <div class="alert alert-danger text-center" role="alert">
+                                                ${errorMessage}
+                                            </div>
+                                        </c:if>
+
                                         <form id="registerForm" method="POST" action="${pageContext.request.contextPath}/addstaff">
                                             
                                             <div class="mb-4">
@@ -67,6 +80,11 @@
                                             <div class="d-flex justify-content-center mb-3">
                                                 <button type="submit" class="btn btn-primary btn-lg">Tạo Tài Khoản</button>
                                             </div>
+
+                                            <div class="d-flex justify-content-center">
+                                                <a href="${pageContext.request.contextPath}/viewstaff" class="btn btn-secondary btn-lg">Quay lại danh sách nhân viên</a>
+                                            </div>
+
                                         </form>
                                         
                                     </div>

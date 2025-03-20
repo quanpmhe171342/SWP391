@@ -26,8 +26,6 @@
                     <input type="text" class="form-control" value="${sessionScope.user.username}" readonly />
                 </div>
 
-
-
                 <!-- Họ -->
                 <div class="mb-3">
                     <label class="form-label">Họ</label>
@@ -86,35 +84,50 @@
                 form.addEventListener("submit", function (event) {
                     let isValid = true;
 
-                    // Kiểm tra họ & tên (chỉ cho phép chữ cái, không để trống nếu nhập)
+                    // Regex
                     const nameRegex = /^[A-Za-zÀ-Ỹà-ỹ\s]+$/;
-                    if (firstName.value.trim() !== "" && !nameRegex.test(firstName.value.trim())) {
-                        firstNameError.textContent = "Họ không hợp lệ!";
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    const phoneRegex = /^[0-9]{10}$/;
+
+                    // Kiểm tra họ (bắt buộc)
+                    if (firstName.value.trim() === "") {
+                        firstNameError.textContent = "Vui lòng nhập họ!";
+                        isValid = false;
+                    } else if (!nameRegex.test(firstName.value.trim())) {
+                        firstNameError.textContent = "Họ không hợp lệ (chỉ chứa chữ cái và khoảng trắng)!";
                         isValid = false;
                     } else {
                         firstNameError.textContent = "";
                     }
 
-                    if (lastName.value.trim() !== "" && !nameRegex.test(lastName.value.trim())) {
-                        lastNameError.textContent = "Tên không hợp lệ!";
+                    // Kiểm tra tên (bắt buộc)
+                    if (lastName.value.trim() === "") {
+                        lastNameError.textContent = "Vui lòng nhập tên!";
+                        isValid = false;
+                    } else if (!nameRegex.test(lastName.value.trim())) {
+                        lastNameError.textContent = "Tên không hợp lệ (chỉ chứa chữ cái và khoảng trắng)!";
                         isValid = false;
                     } else {
                         lastNameError.textContent = "";
                     }
 
-                    // Kiểm tra email
-                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                    if (email.value.trim() !== "" && !emailRegex.test(email.value.trim())) {
+                    // Kiểm tra email (bắt buộc)
+                    if (email.value.trim() === "") {
+                        emailError.textContent = "Vui lòng nhập email!";
+                        isValid = false;
+                    } else if (!emailRegex.test(email.value.trim())) {
                         emailError.textContent = "Email không hợp lệ!";
                         isValid = false;
                     } else {
                         emailError.textContent = "";
                     }
 
-                    // Kiểm tra số điện thoại: 10 số hoặc để trống
-                    const phoneRegex = /^[0-9]{10}$/;
-                    if (phone.value.trim() !== "" && !phoneRegex.test(phone.value.trim())) {
-                        phoneError.textContent = "Số điện thoại phải có đúng 10 số!";
+                    // Kiểm tra số điện thoại (bắt buộc)
+                    if (phone.value.trim() === "") {
+                        phoneError.textContent = "Vui lòng nhập số điện thoại!";
+                        isValid = false;
+                    } else if (!phoneRegex.test(phone.value.trim())) {
+                        phoneError.textContent = "Số điện thoại phải có đúng 10 chữ số!";
                         isValid = false;
                     } else {
                         phoneError.textContent = "";
