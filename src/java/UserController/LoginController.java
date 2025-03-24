@@ -58,7 +58,7 @@ public class LoginController extends HttpServlet {
         // Kiểm tra quyền truy cập
         if (user.getRoleId() == 3) {
             request.getSession().setAttribute("user", user);
-            response.sendRedirect(request.getContextPath() + "/auth/hometest.jsp");
+            response.sendRedirect(request.getContextPath() + "/HomePage");
         } else {
             request.setAttribute("errorMessage", "Tài khoản không có quyền truy cập.");
             request.getRequestDispatcher("/auth/login.jsp").forward(request, response);
