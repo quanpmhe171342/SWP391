@@ -99,10 +99,10 @@
 
         <nav class="navbar">
             <ul class="nav-links">
-                <li><a href="/user/report"> Thống kê khách hàng mới</a></li>
-                <li><a href="/report/product">Doanh thu bán hàng</a></li>
-                <li><a href="/report/old/customer">Tỉ lệ khách hàng quay lại</a></li>
-                <li><a href="/SliderManager">Quản lí slider</a></li>
+                <li><a href="${pageContext.request.contextPath}/user/report"> Thống kê khách hàng mới</a></li>
+                <li><a href="${pageContext.request.contextPath}/report/product">Doanh thu bán hàng</a></li>
+                <li><a href="${pageContext.request.contextPath}/report/old/customer">Tỉ lệ khách hàng quay lại</a></li>
+                <li><a href="${pageContext.request.contextPath}/SliderManager">Quản lí slider</a></li>
             </ul>
         </nav>
 

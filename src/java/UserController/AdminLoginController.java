@@ -50,7 +50,7 @@ public class AdminLoginController extends HttpServlet {
                     response.sendRedirect(request.getContextPath() + "/auth/hometest.jsp");
                 } else if (user.getRoleId() == 2) {
                     request.getSession().setAttribute("user", user);
-                    response.sendRedirect(request.getContextPath() + "/auth/hometest.jsp");
+                    response.sendRedirect(request.getContextPath() + "/Views/staffDashboard.jsp");
                 } else {
                     request.setAttribute("errorMessage", "Vui lòng sử dụng tài khoản Admin hoặc Staff.");
                     request.getRequestDispatcher("/auth/adminlogin.jsp").forward(request, response);
