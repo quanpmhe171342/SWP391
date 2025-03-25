@@ -149,7 +149,7 @@ public class DaoProduct extends DBContext {
 
 // Thêm biến thể sản phẩm
     public void addProductVariant(int productId, int sizeId, int colorId, int stock, String imageURL) {
-        String query = "INSERT INTO product_variant (ProductID, SizeID, ColorID, Stock, ImageURL) VALUES (?, ?, ?, ?, ?)";
+        String query = "INSERT INTO ProductVariant (ProductID, SizeID, ColorID, Stock, ImageURL) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement stm = connection.prepareStatement(query)) {
             stm.setInt(1, productId);
             stm.setInt(2, sizeId);

@@ -145,7 +145,7 @@ public class AddProductController extends HttpServlet {
                         ProductVariant productVariant = new ProductVariant();
 
                         // Gọi DAO để thêm ProductVariant
-                        productDAO.addProductVariant(newProductId, sizeId, colorId, stock, imageURL);
+                        productDAO  .addProductVariant(newProductId, sizeId, colorId, stock, imageURL);
                     } catch (NumberFormatException e) {
                         request.setAttribute("error", "Thông tin size, color hoặc stock không hợp lệ.");
                         doGet(request, response);
