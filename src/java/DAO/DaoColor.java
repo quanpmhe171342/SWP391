@@ -6,6 +6,7 @@ package DAO;
 
 import Model.Color;
 import Model.Size;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,23 +18,35 @@ import java.util.List;
  * @author phuan
  */
 public class DaoColor extends DBContext{
-    public List<Color> getColor() {
-        List<Color> color = new ArrayList();
-        try {
-            String query = "Select c.ColorID, c.ColorName   \n"
-                    + "					from Color c \n";
+    
+    private final DBContext dbContext;
+    private final Connection connection;
 
-            PreparedStatement stm = conn.prepareStatement(query);
-            ResultSet rs = stm.executeQuery();
+    public DaoColor() {
+
+        dbContext = new DBContext();
+        connection = dbContext.conn;
+    }
+    public List<Color> getColor() {
+        List<Color> colors = new ArrayList<>();
+        String query = "SELECT c.ColorID, c.ColorName FROM Color c";
+        try (PreparedStatement stm = conn.prepareStatement(query);
+             ResultSet rs = stm.executeQuery()) {
             while (rs.next()) {
-                Color c = new Color(rs.getInt("ColorID"),
-                        rs.getString("ColorName"));
-               
-                color.add(c);
+                Color color = new Color(
+                        rs.getInt("ColorID"),
+                        rs.getString("ColorName")
+                );
+                colors.add(color);
             }
         } catch (SQLException e) {
-            System.out.print(e);
+            e.printStackTrace();
         }
-        return color;
+        return colors;
+    }
+
+    public static void main(String[] args) {
+        DaoColor dao = new DaoColor();
+        System.out.println(dao.getColor());
     }
 }

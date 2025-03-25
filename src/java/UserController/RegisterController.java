@@ -42,7 +42,7 @@ public class RegisterController extends HttpServlet {
         // Kiểm tra username đã tồn tại chưa
         if (userDAO.checkExistUser(username)) {
             request.setAttribute("errorMessage", "Tên đăng nhập đã tồn tại. Vui lòng chọn tên khác!");
-            request.getRequestDispatcher("auth/register.jsp").forward(request, response);
+            request.getRequestDispatcher("/auth/register.jsp").forward(request, response);
             return;
         }
 
@@ -78,8 +78,8 @@ public class RegisterController extends HttpServlet {
             request.setAttribute("successMessage", "Đăng ký thành công! Hãy kiểm tra email để kích hoạt tài khoản.");
             
             String subject = "Đăng ký thành công!";
-            String content = "Chào bạn" +",<br><br>"
-                    + "Cảm ơn bạn đã đăng ký tài khoản.<br>"
+            String content = "Chào bạn đến với cửa hàng Male Fashion." +",<br><br>"
+                    + "Cảm ơn bạn đã đăng ký tài khoản trên hệ thống.<br>"
                     + "Vui lòng bấm vào link sau để xác minh tài khoản của bạn:<br>"
                     + "<a href='" + verifyLink + "'>" + verifyLink + "</a><br><br>"
                     + "Nếu bạn không thực hiện yêu cầu này, vui lòng bỏ qua email này.<br><br>"
@@ -92,7 +92,7 @@ public class RegisterController extends HttpServlet {
         }
 
         // Quay về trang đăng ký mà không chuyển hướng
-        request.getRequestDispatcher("auth/register.jsp").forward(request, response);
+        request.getRequestDispatcher("/auth/register.jsp").forward(request, response);
     }
 
     // lấy ngày tạo tài khoản

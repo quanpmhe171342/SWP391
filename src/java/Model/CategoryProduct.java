@@ -1,27 +1,18 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Model;
 
-/**
- *
- * @author phuan
- */
 public class CategoryProduct {
-    int category_productID;
-    String category_name;
-    String category_description;
-    String image;
+    private int category_productID;
+    private String category_name;
+    private String category_description;
+    private String image;
+
+    public CategoryProduct() {}
 
     public CategoryProduct(int category_productID, String category_name, String category_description, String image) {
         this.category_productID = category_productID;
         this.category_name = category_name;
         this.category_description = category_description;
         this.image = image;
-    }
-
-    public CategoryProduct() {
     }
 
     public int getCategory_productID() {
@@ -55,7 +46,4 @@ public class CategoryProduct {
     public void setImage(String image) {
         this.image = image;
     }
-
-   
-    
 }

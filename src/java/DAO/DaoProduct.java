@@ -9,6 +9,7 @@ import Model.Color;
 import Model.Product;
 import Model.ProductVariant;
 import Model.Size;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,12 +18,22 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.sql.Statement;
 
 /**
  *
  * @author phuan
  */
 public class DaoProduct extends DBContext {
+
+    private final DBContext dbContext;
+    private final Connection connection;
+
+    public DaoProduct() {
+
+        dbContext = new DBContext();
+        connection = dbContext.conn;
+    }
 
     public void DeleteProduct(int id) {
         try {
@@ -59,6 +70,7 @@ public class DaoProduct extends DBContext {
                     + "\n"
                     + "SELECT p.ProductID, p.ProductName, p.original_price, \n"
                     + "       p.sale_price, p.product_description, p.brief_information, \n"
+                    + "       p.create_date, p.import_price, p.status, \n"
                     + "       cp.CategoryID, cp.category_name, cp.category_description, cp.image, \n"
                     + "       pv.ImageURL      \n"
                     + "FROM Product p \n"
@@ -69,17 +81,28 @@ public class DaoProduct extends DBContext {
             stm.setInt(1, id);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
-                CategoryProduct cp = new CategoryProduct(rs.getInt("CategoryID"),
-                        rs.getString("category_name"), rs.getString("category_description"), rs.getString("image"));
+                CategoryProduct cp = new CategoryProduct(
+                        rs.getInt("CategoryID"),
+                        rs.getString("category_name"),
+                        rs.getString("category_description"),
+                        rs.getString("image")
+                );
 
-                Product p = new Product(rs.getInt("ProductID"),
+                Product p = new Product(
+                        rs.getInt("ProductID"),
                         rs.getString("ProductName"),
                         rs.getDouble("original_price"),
                         rs.getDouble("sale_price"),
                         rs.getString("product_description"),
-                        rs.getString("brief_information"), cp);
-                Size s = new Size();
-                Color c = new Color();
+                        rs.getString("brief_information"),
+                        cp,
+                        rs.getDate("create_date"),
+                        rs.getDouble("import_price"),
+                        rs.getBoolean("status")
+                );
+
+                Size s = new Size(); // Có thể lấy thêm thông tin nếu cần
+                Color c = new Color(); // Có thể lấy thêm thông tin nếu cần
                 pv = new ProductVariant(
                         0,
                         p,
@@ -89,12 +112,102 @@ public class DaoProduct extends DBContext {
                         rs.getString("ImageURL")
                 );
                 return pv;
-
             }
         } catch (SQLException e) {
             System.out.print(e);
         }
         return null;
+    }
+
+    // Thêm sản phẩm mới và trả về ProductID được tự động sinh ra.
+    // Nếu không cần lấy ID thì có thể gọi và bỏ qua giá trị trả về.
+    public int addProductReturnId(String productName, double originalPrice, String productDescription, String briefInformation, int categoryId, double importPrice, boolean status) {
+        String query = "INSERT INTO product (ProductName, original_price, product_description, brief_information, CategoryProductID, CreateDate, import_price, status) "
+                + "VALUES (?, ?, ?, ?, ?, GETDATE(), ?, ?)";
+        try (PreparedStatement pstmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+            pstmt.setString(1, productName);
+            pstmt.setDouble(2, originalPrice);
+            pstmt.setString(3, productDescription);
+            pstmt.setString(4, briefInformation);
+            pstmt.setInt(5, categoryId);
+            pstmt.setDouble(6, importPrice);
+            pstmt.setBoolean(7, status);
+
+            int rowsAffected = pstmt.executeUpdate();
+            if (rowsAffected > 0) {
+                try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        return generatedKeys.getInt(1);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+// Thêm biến thể sản phẩm
+    public void addProductVariant(int productId, int sizeId, int colorId, int stock, String imageURL) {
+        String query = "INSERT INTO product_variant (ProductID, SizeID, ColorID, Stock, ImageURL) VALUES (?, ?, ?, ?, ?)";
+        try (PreparedStatement stm = connection.prepareStatement(query)) {
+            stm.setInt(1, productId);
+            stm.setInt(2, sizeId);
+            stm.setInt(3, colorId);
+            stm.setInt(4, stock);
+            stm.setString(5, imageURL);
+
+            int rowsInserted = stm.executeUpdate();  // Thực hiện câu lệnh và kiểm tra số dòng bị ảnh hưởng
+            if (rowsInserted > 0) {
+                System.out.println("Product variant added successfully.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+// Thêm sản phẩm (bản thường)
+    public int addProduct(String productName, double originalPrice, String productDescription, String briefInformation, int categoryId, double importPrice, boolean status) {
+        String query = "INSERT INTO product (ProductName, original_price, product_description, brief_information, CategoryProductID, CreateDate, import_price, status) "
+                + "VALUES (?, ?, ?, ?, ?, GETDATE(), ?, ?)";
+        try (PreparedStatement pstmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) { // Thêm RETURN_GENERATED_KEYS
+            pstmt.setString(1, productName);
+            pstmt.setDouble(2, originalPrice);
+            pstmt.setString(3, productDescription);
+            pstmt.setString(4, briefInformation);
+            pstmt.setInt(5, categoryId);
+            pstmt.setDouble(6, importPrice);
+            pstmt.setBoolean(7, status);
+
+            int rowsAffected = pstmt.executeUpdate();
+            if (rowsAffected > 0) {
+                try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        return generatedKeys.getInt(1);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    public void updateProductVariant(int productId, int oldSizeId, int oldColorId, int newSizeId, int newColorId, int stock, String imageURL) {
+        String query = "UPDATE ProductVariant SET SizeID = ?, ColorID = ?, Stock = ?, ImageURL = ? "
+                + "WHERE ProductID = ? AND SizeID = ? AND ColorID = ?";
+        try (PreparedStatement stm = conn.prepareStatement(query)) {
+            stm.setInt(1, newSizeId);
+            stm.setInt(2, newColorId);
+            stm.setInt(3, stock);
+            stm.setString(4, imageURL);
+            stm.setInt(5, productId);
+            stm.setInt(6, oldSizeId);
+            stm.setInt(7, oldColorId);
+            stm.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void updateProduct(int product_id, String product_name, double original_price, double sale_price, String product_description, String brief_information, int CategoryProductID) {
@@ -167,50 +280,6 @@ public class DaoProduct extends DBContext {
         }
 
         return images; // Trả về danh sách ảnh và màu
-    }
-
-    public void addProduct(String product_name, double original_price, double sale_price, String product_description, String brief_information, int CategoryVariantID) {
-        try {
-            String query = "INSERT INTO Product(\n"
-                    + "    ProductName,\n"
-                    + "    original_price,\n"
-                    + "    sale_price,\n"
-                    + "    product_description,\n"
-                    + "    brief_information,\n"
-                    + "    CategoryProductID\n"
-                    + ") VALUES (?, ?, ?, ?, ?, ?);\n";
-            PreparedStatement stm = conn.prepareStatement(query);
-            stm.setString(1, product_name);
-            stm.setFloat(2, (float) original_price);
-            stm.setFloat(3, (float) sale_price);
-            stm.setString(4, product_description);
-            stm.setString(5, brief_information);
-            stm.setInt(6, CategoryVariantID);
-            stm.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void addProductVariant(int ProductID, int SizeID, int ColorID, int Stock, String ImageURL) {
-        try {
-            String query = "INSERT INTO ProductVariant(\n"
-                    + "    ProductID,\n"
-                    + "    SizeID,\n"
-                    + "    ColorID,\n"
-                    + "    Stock,\n"
-                    + "    ImageURL\n"
-                    + ") VALUES (?, ?, ?, ?, ?);\n";
-            PreparedStatement stm = conn.prepareStatement(query);
-            stm.setInt(1, ProductID);
-            stm.setInt(2, SizeID);
-            stm.setInt(3, ColorID);
-            stm.setInt(4, Stock);
-            stm.setString(5, ImageURL);
-            stm.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
     public List<ProductVariant> getSizeProduct(int id) {
