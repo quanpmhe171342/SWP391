@@ -88,6 +88,7 @@ public class PaymentController extends HttpServlet {
         request.setAttribute("order", order);
         request.setAttribute("orderDetails", orderDetails);
         request.setAttribute("totalAmount", totalAmount);
+        
         for (CartItem cartItem : cartItems) {
             daoCartItem.deleteCartItem(cartItem.getCartItemID());
             daoCart.deleteCart(cartItem.getCartID(), user.getUserId());

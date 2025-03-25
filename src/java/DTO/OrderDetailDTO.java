@@ -21,14 +21,14 @@ public class OrderDetailDTO {
     private int quantity;
     private double price;
     private double totalPrice;
-
+    private String status;
     public OrderDetailDTO() {
     }
 
     
     public OrderDetailDTO(int orderDetailID, int orderId, int productId, String productName,
             double originalPrice, double salePrice, String productDescription,
-            String briefInformation, int quantity, double price) {
+            String briefInformation, int quantity, double price, String status) {
         this.orderDetailID = orderDetailID;
         this.orderId = orderId;
         this.productId = productId;
@@ -40,6 +40,15 @@ public class OrderDetailDTO {
         this.quantity = quantity;
         this.price = price;
         this.totalPrice = quantity * price;
+        this.status = status;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     // Getters and Setters
