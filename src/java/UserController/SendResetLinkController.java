@@ -46,7 +46,7 @@ public class SendResetLinkController extends HttpServlet {
         String resetLink = request.getRequestURL().toString().replace("sendresetlink", "resetpassword") + "?token=" + token;
         
         String subject = "Yêu cầu đổi mật khẩu!";
-            String content = "Chào bạn" +",<br><br>"
+            String content = "Chào bạn đến với cửa hàng Male Fashion." +",<br><br>"
                     + "Chúng tôi nhận được yêu cầu đặt lại mật khẩu cho tài khoản của bạn.<br>"
                     + "Hãy bấm vào liên kết sau để tạo mật khẩu mới:<br>"
                     + "<a href='" + resetLink + "'>" + resetLink + "</a><br><br>"

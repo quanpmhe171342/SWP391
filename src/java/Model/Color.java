@@ -1,46 +1,29 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Model;
 
-/**
- *
- * @author phuan
- */
 public class Color {
-    int color_id;
-    String color_Name;
+    private int colorID;
+    private String colorName;
 
-    public Color(){
-     
-     };
+    public Color() {}
 
-    public Color(int color_id, String color_Name) {
-        this.color_id = color_id;
-        this.color_Name = color_Name;
+    public Color(int colorID, String colorName) {
+        this.colorID = colorID;
+        this.colorName = colorName;
     }
 
-    public int getColor_id() {
-        return color_id;
+    public int getColorID() {
+        return colorID;
     }
 
-    public void setColor_id(int color_id) {
-        this.color_id = color_id;
+    public void setColorID(int colorID) {
+        this.colorID = colorID;
     }
 
-    public String getColor_Name() {
-        return color_Name;
+    public String getColorName() {
+        return colorName;
     }
 
-    public void setColor_Name(String color_Name) {
-        this.color_Name = color_Name;
+    public void setColorName(String colorName) {
+        this.colorName = colorName;
     }
-
-    @Override
-    public String toString() {
-        return "Color{" + "color_id=" + color_id + ", color_Name=" + color_Name + '}';
-    }
-   
-    
 }
