@@ -30,6 +30,18 @@ public class Product {
         this.import_price = import_price;
         this.status = status;
     }
+    
+    public Product(int product_ID, String product_name, Double original_price, Double sale_price, String product_description,
+                   String brief_information, CategoryProduct category) {
+        this.product_ID = product_ID;
+        this.product_name = product_name;
+        this.original_price = original_price;
+        this.sale_price = sale_price;
+        this.product_description = product_description;
+        this.brief_information = brief_information;
+        this.category = category;
+        
+    }
 
     public int getProduct_ID() {
         return product_ID;
