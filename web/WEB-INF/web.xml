@@ -140,6 +140,10 @@
         <servlet-name>GetSizeByCategoryController</servlet-name>
         <servlet-class>UserController.GetSizeByCategoryController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UpdateProductController</servlet-name>
+        <servlet-class>UserController.UpdateProductController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProductList</servlet-name>
         <url-pattern>/ProductList</url-pattern>
@@ -271,6 +275,10 @@
     <servlet-mapping>
         <servlet-name>GetSizeByCategoryController</servlet-name>
         <url-pattern>/getsize</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateProductController</servlet-name>
+        <url-pattern>/updateproduct</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

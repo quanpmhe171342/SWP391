@@ -17,8 +17,8 @@ import java.util.List;
  *
  * @author phuan
  */
-public class DaoColor extends DBContext{
-    
+public class DaoColor extends DBContext {
+
     private final DBContext dbContext;
     private final Connection connection;
 
@@ -27,11 +27,11 @@ public class DaoColor extends DBContext{
         dbContext = new DBContext();
         connection = dbContext.conn;
     }
+
     public List<Color> getColor() {
         List<Color> colors = new ArrayList<>();
         String query = "SELECT c.ColorID, c.ColorName FROM Color c";
-        try (PreparedStatement stm = conn.prepareStatement(query);
-             ResultSet rs = stm.executeQuery()) {
+        try (PreparedStatement stm = conn.prepareStatement(query); ResultSet rs = stm.executeQuery()) {
             while (rs.next()) {
                 Color color = new Color(
                         rs.getInt("ColorID"),
@@ -43,6 +43,24 @@ public class DaoColor extends DBContext{
             e.printStackTrace();
         }
         return colors;
+    }
+
+    public Color getColorById(int colorId) {
+        String query = "SELECT ColorID, ColorName FROM Color WHERE ColorID = ?";
+        try (PreparedStatement stm = conn.prepareStatement(query)) {
+            stm.setInt(1, colorId);
+            try (ResultSet rs = stm.executeQuery()) {
+                if (rs.next()) {
+                    return new Color(
+                            rs.getInt("ColorID"),
+                            rs.getString("ColorName")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public static void main(String[] args) {
