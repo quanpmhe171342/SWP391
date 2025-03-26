@@ -21,7 +21,7 @@ import java.util.List;
  * @author phuan
  */
 public class DaoCategoryProduct extends DBContext {
-    
+
     private final DBContext dbContext;
     private final Connection connection;
 
@@ -48,6 +48,26 @@ public class DaoCategoryProduct extends DBContext {
             e.printStackTrace();
         }
         return categoryProducts;
+    }
+
+    public CategoryProduct getCategoryById(int categoryId) {
+        String query = "SELECT CategoryID, category_name, category_description, image FROM CategoryProduct WHERE CategoryID = ?";
+        try (PreparedStatement stm = conn.prepareStatement(query)) {
+            stm.setInt(1, categoryId);
+            try (ResultSet rs = stm.executeQuery()) {
+                if (rs.next()) {
+                    return new CategoryProduct(
+                            rs.getInt("CategoryID"),
+                            rs.getString("category_name"),
+                            rs.getString("category_description"),
+                            rs.getString("image")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public static void main(String[] args) {

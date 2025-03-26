@@ -50,6 +50,25 @@ public class DaoSize extends DBContext {
         return sizes;
     }
 
+    public Size getSizeById(int sizeId) {
+        String query = "SELECT SizeID, SizeName, Category_Id FROM Size WHERE SizeID = ?";
+        try (PreparedStatement stm = conn.prepareStatement(query)) {
+            stm.setInt(1, sizeId);
+            try (ResultSet rs = stm.executeQuery()) {
+                if (rs.next()) {
+                    return new Size(
+                            rs.getInt("SizeID"),
+                            rs.getString("SizeName"),
+                            rs.getInt("Category_Id")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public static void main(String[] args) {
         DaoSize dao = new DaoSize();
         System.out.println(dao.getSize(1));
