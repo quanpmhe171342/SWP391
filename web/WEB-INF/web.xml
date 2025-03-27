@@ -72,6 +72,10 @@
         <servlet-name>ReportLessProduct</servlet-name>
         <servlet-class>Controller.ReportLessProduct</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>OrderController</servlet-name>
+        <servlet-class>Controller.OrderController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProductList</servlet-name>
         <url-pattern>/ProductList</url-pattern>
@@ -143,6 +147,10 @@
     <servlet-mapping>
         <servlet-name>ReportLessProduct</servlet-name>
         <url-pattern>/report/less/product</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderController</servlet-name>
+        <url-pattern>/order</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

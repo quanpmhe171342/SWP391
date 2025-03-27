@@ -5,56 +5,52 @@
     <head>
         <title>Payment</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css" type="text/css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/font-awesome.min.css" type="text/css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/elegant-icons.css" type="text/css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/magnific-popup.css" type="text/css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/nice-select.css" type="text/css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/owl.carousel.min.css" type="text/css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/slicknav.min.css" type="text/css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" type="text/css">
     </head>
     <body>
         <jsp:include page="header_1.jsp"></jsp:include>
-        <c:if test="${not empty error}">
-            <div class="alert alert-danger" role="alert">
-                ${error}
-            </div>
-        </c:if>
-        <div class="container mt-5">
-            <h1 class="mb-4">Payment Details</h1>
-            <div class="table-responsive">
-                <table class="table table-bordered table-striped">
-                    <thead class="table-dark">
-                        <tr>
-                            <th>Product</th>
-                            <th class="text-center">Quantity</th>
-                            <th>Status</th>
-                            <th class="text-end">Price</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <c:forEach items="${orderDetails}" var="detail">
+            <div class="container mt-5">
+                <h2 class="mb-4">Order List</h2>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Order Id</th>
+                                <th class="text-center">Product Name</th>
+                                <th class="text-center">Customer Name</th>
+                                <th class="text-center">Status</th>
+                                <th class="text-center">Order Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach items="${orders}" var="order">
                             <tr>
                                 <td>
-                                    <div><strong>${detail.productName}</strong></div>
-                                    <small class="text-muted">${detail.briefInformation}</small>
+                                    <div>${order.orderId}</div>
                                 </td>
-                                <td class="text-center">${detail.quantity}</td>
+                                <td class="text-center">
+                                    <div>${order.productName}</div>
+                                </td>
                                 <td>
-                                    ${detail.status}
+                                    <div>${order.customerName}</div>
                                 </td>
-                                <td class="text-end">
-                                    <div>
-                                        <fmt:formatNumber value="${detail.price}" 
-                                                          type="currency" pattern="#,###₫"/>
-                                    </div>
+                                <td>
+                                    <div>${order.status}</div>
+                                </td>
+                                <td>
+                                    <div>${order.orderDate}</div>
                                 </td>
                             </tr>
                         </c:forEach>
                     </tbody>
                 </table>
-            </div>
-
-            <div class="d-flex justify-content-end mt-4">
-                <h4>Total Price: 
-                    <span class="text-success">
-                        <fmt:formatNumber value="${totalAmount}" 
-                                          type="currency" pattern="#,###₫"/>
-                    </span>
-                </h4>
             </div>
         </div>
         <footer class="footer">

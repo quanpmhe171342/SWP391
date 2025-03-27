@@ -5,6 +5,7 @@
 package DAO;
 
 import DTO.LessProductsDTO;
+import DTO.OrderDTO;
 import DTO.OrderDetailDTO;
 import DTO.ReportCustomerDTO;
 import DTO.ReportProductDTO;
@@ -331,15 +332,52 @@ public class OrderDAO extends DBContext {
         return products;
     }
 
+    public List<OrderDTO> getListOrder(int userId) {
+    List<OrderDTO> orders = new ArrayList<>();
+    String sql = """
+                SELECT 
+                    o.[OrderID],
+                    u.[first_name] + ' ' + u.[last_name] AS CustomerName, 
+                    o.[OrderDate],
+                    o.[Status],
+                    p.[ProductName]
+                FROM 
+                    [SWP391].[dbo].[Order] o
+                INNER JOIN 
+                    [SWP391].[dbo].[OrderDetails] od ON o.[OrderID] = od.[OrderID]
+                INNER JOIN 
+                    [SWP391].[dbo].[Product] p ON od.[ProductID] = p.[ProductID]
+                INNER JOIN
+                    [SWP391].[dbo].[Users] u ON o.[UserID] = u.[UserID]
+                WHERE 
+                    u.UserID = ?
+                ORDER BY 
+                    o.[OrderDate] DESC
+                 """;
+    try (PreparedStatement ps = conn.prepareStatement(sql)) {
+        // Set the userId parameter in the prepared statement
+        ps.setInt(1, userId);
+        
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            OrderDTO orderDTO = new OrderDTO();
+            orderDTO.setOrderId(rs.getInt("OrderID"));
+            orderDTO.setCustomerName(rs.getString("CustomerName"));
+            orderDTO.setOrderDate(rs.getDate("OrderDate"));
+            orderDTO.setStatus(rs.getString("Status"));
+            orderDTO.setProductName(rs.getString("ProductName"));
+            orders.add(orderDTO);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return orders;
+}
+
     public static void main(String[] args) {
         OrderDAO daoOrder = new OrderDAO();
-        // Sử dụng LocalDate và chuyển đổi sang java.sql.Date
-        java.time.LocalDate today = java.time.LocalDate.now();
-        java.sql.Date startDate = java.sql.Date.valueOf(today);
-        java.sql.Date endDate = java.sql.Date.valueOf(today);
-        List<LessProductsDTO> rs = daoOrder.getTopProducts(startDate, endDate);
-        rs.forEach(r -> {
-            System.out.println(r);
+        daoOrder.getListOrder(1).forEach(o -> {
+            System.out.println(o);
         });
     }
 }
