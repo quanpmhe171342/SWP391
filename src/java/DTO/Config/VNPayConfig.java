@@ -23,7 +23,7 @@ public class VNPayConfig {
     // Cấu hình chung
     public static final String VNP_CURRCODE = "VND";
     public static final String VNP_LOCALE = "vn";
-    public static final String VNP_RETURN_URL = "http://localhost:8080/SWP391/payment";
+    public static final String VNP_RETURN_URL = "http://localhost:9999/SWP391/payment";
 
     public static String getRandomNumber(int len) {
         Random rnd = new Random();
