@@ -76,15 +76,12 @@ public class OrderDAO extends DBContext {
 
     public List<OrderDetailDTO> getOrderDetailsByOrderId(int orderId) {
         List<OrderDetailDTO> details = new ArrayList<>();
-        String sql = """
-                     SELECT od.OrderDetailID, od.OrderID, od.ProductID, 
-                     od.Quantity, od.Price, p.ProductName, p.original_price, 
-                     p.sale_price, p.product_description, p.brief_information,o.Status
-                     FROM OrderDetails od 
-                     INNER JOIN Product p ON od.ProductID = p.ProductID 
-                     INNER JOIN [Order] o ON o.OrderID = od.OrderID 
-                     WHERE od.OrderID = ?
-                     """;
+        String sql = "SELECT od.OrderDetailID, od.OrderID, od.ProductID, "
+                + "od.Quantity, od.Price, p.ProductName, p.original_price, "
+                + "p.sale_price, p.product_description, p.brief_information "
+                + "FROM OrderDetails od "
+                + "INNER JOIN Product p ON od.ProductID = p.ProductID "
+                + "WHERE od.OrderID = ?";
 
         try {
             PreparedStatement st = conn.prepareStatement(sql);
@@ -101,8 +98,7 @@ public class OrderDAO extends DBContext {
                         rs.getString("product_description"),
                         rs.getString("brief_information"),
                         rs.getInt("Quantity"),
-                        rs.getDouble("Price"),
-                        rs.getString("Status")
+                        rs.getDouble("Price")
                 );
                 details.add(detail);
             }

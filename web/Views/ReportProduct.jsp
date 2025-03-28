@@ -10,9 +10,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     </head>
     <body>
-        <jsp:include page="AdminHeader.jsp" />
-        <jsp:include page="AdminSidebar.jsp" />
-        <div class="container" style="margin-top: -40%">
+        <div class="container mt-4">
             <!-- Form lọc thời gian -->
             <div class="card mb-4">
                 <div class="card-body">

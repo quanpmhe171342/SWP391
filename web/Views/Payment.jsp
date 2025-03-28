@@ -33,9 +33,6 @@
                                     <small class="text-muted">${detail.briefInformation}</small>
                                 </td>
                                 <td class="text-center">${detail.quantity}</td>
-                                <td>
-                                    ${detail.status}
-                                </td>
                                 <td class="text-end">
                                     <div>
                                         <fmt:formatNumber value="${detail.price}" 
