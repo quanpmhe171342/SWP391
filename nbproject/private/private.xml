@@ -5,6 +5,7 @@
         <group>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             <file>file:/C:/Users/d/Documents/Swp391/SWP391/web/Views/OrderList.jsp</file>
             <file>file:/C:/Users/d/Documents/Swp391/SWP391/web/Views/header_1.jsp</file>
             <file>file:/C:/Users/d/Documents/Swp391/SWP391/web/Views/CartProduct.jsp</file>
@@ -13,10 +14,15 @@
             <file>file:/C:/Users/d/Documents/Swp391/SWP391/src/java/DAO/DaoCart.java</file>
 >>>>>>> parent of 45beade (update cart)
 =======
+=======
+>>>>>>> parent of 1dd1db6 (update order)
             <file>file:/C:/Users/d/Documents/Swp391/SWP391/web/Views/ReportState.jsp</file>
             <file>file:/C:/Users/d/Documents/Swp391/SWP391/web/Views/SaleReport.jsp</file>
             <file>file:/C:/Users/d/Documents/Swp391/SWP391/web/Views/AdminSidebar.jsp</file>
             <file>file:/C:/Users/d/Documents/Swp391/SWP391/web/Views/Admin.jsp</file>
+<<<<<<< HEAD
+>>>>>>> parent of 1dd1db6 (update order)
+=======
 >>>>>>> parent of 1dd1db6 (update order)
         </group>
     </open-files>
