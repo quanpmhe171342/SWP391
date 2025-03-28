@@ -33,6 +33,7 @@ public class SalesReport extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+<<<<<<< HEAD:src/java/Controller/SalesReport.java
         String startDateParam = request.getParameter("startDate");
         String endDateParam = request.getParameter("endDate");
         Date startDate = (startDateParam != null) ? Date.valueOf(startDateParam) : Date.valueOf(LocalDate.now());
@@ -40,6 +41,16 @@ public class SalesReport extends HttpServlet {
         var dailyReports = daoOrder.getRevenueByDate(startDate, endDate);
         request.setAttribute("dailyReports", dailyReports);
         request.getRequestDispatcher("../Views/SaleReport.jsp").forward(request, response);
+=======
+        HttpSession session = request.getSession(false); 
+        
+        if (session != null) {
+            session.invalidate(); 
+        }
+
+//        chuyển hướng
+        response.sendRedirect(request.getContextPath() + "/login");
+>>>>>>> 612670468b8e97480829caa20b45e30aafe3dc05:src/java/UserController/LogoutController.java
     }
 
     /**

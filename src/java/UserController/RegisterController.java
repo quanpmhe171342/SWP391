@@ -12,9 +12,14 @@ import java.util.Date;
 import java.util.Random;
 import Model.User;
 import DAO.UserDAO;
+import static Utils.Email.sendEmail;
+import java.time.LocalDate;
+
+<<<<<<< HEAD
 
 
-
+=======
+>>>>>>> 612670468b8e97480829caa20b45e30aafe3dc05
 public class RegisterController extends HttpServlet {
 
     private UserDAO userDAO;
@@ -37,6 +42,13 @@ public class RegisterController extends HttpServlet {
     
     // Handles the HTTP POST method for registering a new user
     @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // Forward to the login JSP page
+        request.getRequestDispatcher("/auth/register.jsp").forward(request, response);
+    }
+
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Get parameters from the registration form
@@ -50,6 +62,7 @@ public class RegisterController extends HttpServlet {
 
         // Check if the username already exists
         if (userDAO.checkExistUser(username)) {
+<<<<<<< HEAD
             request.setAttribute("errorMessage", "Username already exists. Please choose a different one.");
             request.getRequestDispatcher("/auth/login.jsp").forward(request, response);
             return;
@@ -58,6 +71,17 @@ public class RegisterController extends HttpServlet {
         // Create a new User object
 //        User user = new User(0, firstName, lastName, phone, email, username, password, generateRandomDob(), true, phone, email, 0, true, phone, firstName);
 //        User user = new User();
+=======
+            request.setAttribute("errorMessage", "Tên đăng nhập đã tồn tại. Vui lòng chọn tên khác!");
+            request.getRequestDispatcher("/auth/register.jsp").forward(request, response);
+            return;
+        }
+
+        // Tạo token xác minh
+        String token = UserDAO.generateToken();
+
+        // Tạo user mới
+>>>>>>> 612670468b8e97480829caa20b45e30aafe3dc05
         User user = new User();
         user.setUsername(username);
         user.setEmail(email);
@@ -65,16 +89,22 @@ public class RegisterController extends HttpServlet {
         user.setPhone(phone);
         user.setFirstName(firstName);
         user.setLastName(lastName);
+<<<<<<< HEAD
         user.setDob(generateRandomDob());
         user.setRoleId(3);  // Default role
+=======
+        user.setDob(autoDOB()); // Set ngày sinh mặc định
+        user.setRoleId(3);
+>>>>>>> 612670468b8e97480829caa20b45e30aafe3dc05
         user.setIsActive(false);
-        user.setToken(null);
+        user.setToken(token);
         user.setExpiredToken(null);
         
         // Generate a random date of birth (between 1970 and 2000)
         Date randomDob = generateRandomDob();
         user.setDob(randomDob);
 
+<<<<<<< HEAD
         // Insert user into the database
         userDAO.createUser(user);
 
@@ -108,6 +138,43 @@ public class RegisterController extends HttpServlet {
 
         // Return the random date
         return calendar.getTime();
+=======
+        // Thêm vào database
+        boolean success = userDAO.createUser(user);
+        if (success) {
+//            request.setAttribute("successMessage", "Đăng ký tài khoản thành công!");
+
+            userDAO.saveVerificationToken(email, token);
+
+            // **Tạo đường link xác minh**
+            String verifyLink = "http://localhost:8080/SWP391/verify?token=" + token;
+
+            // **Hiển thị link trên trang web**
+//            request.setAttribute("successMessage", "Đăng ký thành công! Dùng link sau để kích hoạt tài khoản: <br><a href='" + verifyLink + "'>" + verifyLink + "</a>");
+            request.setAttribute("successMessage", "Đăng ký thành công! Hãy kiểm tra email để kích hoạt tài khoản.");
+            
+            String subject = "Đăng ký thành công!";
+            String content = "Chào bạn đến với cửa hàng Male Fashion." +",<br><br>"
+                    + "Cảm ơn bạn đã đăng ký tài khoản trên hệ thống.<br>"
+                    + "Vui lòng bấm vào link sau để xác minh tài khoản của bạn:<br>"
+                    + "<a href='" + verifyLink + "'>" + verifyLink + "</a><br><br>"
+                    + "Nếu bạn không thực hiện yêu cầu này, vui lòng bỏ qua email này.<br><br>"
+                    + "Trân trọng!";
+
+            sendEmail(email, subject, content);
+
+        } else {
+            request.setAttribute("errorMessage", "Đã xảy ra lỗi. Vui lòng thử lại!");
+        }
+
+        // Quay về trang đăng ký mà không chuyển hướng
+        request.getRequestDispatcher("/auth/register.jsp").forward(request, response);
+    }
+
+    // lấy ngày tạo tài khoản
+    private Date autoDOB() {
+        return java.sql.Date.valueOf(LocalDate.now());
+>>>>>>> 612670468b8e97480829caa20b45e30aafe3dc05
     }
 
     @Override

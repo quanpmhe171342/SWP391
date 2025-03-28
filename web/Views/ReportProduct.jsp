@@ -9,7 +9,12 @@
         <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     </head>
+<<<<<<< HEAD
     <body>
+=======
+    <body style="margin-top: 100px;">
+        <jsp:include page="staffDashboard.jsp"></jsp:include>
+>>>>>>> 612670468b8e97480829caa20b45e30aafe3dc05
         <div class="container mt-4">
             <!-- Form lọc thời gian -->
             <div class="card mb-4">
@@ -50,7 +55,11 @@
                                 <tr>
                                     <th>Ngày</th>
                                     <th>Tên sản phẩm</th>
+<<<<<<< HEAD
                                     <th>Số lượng bán</th>
+=======
+                                    <th>Số lượng sản phẩm bán ra</th>
+>>>>>>> 612670468b8e97480829caa20b45e30aafe3dc05
                                     <th>Doanh thu</th>
                                 </tr>
                             </thead>
@@ -60,7 +69,11 @@
                                         <td><fmt:formatDate value="${report.period}" pattern="dd/MM/yyyy"/></td>
                                         <td>${report.productName}</td>
                                         <td>${report.totalSold}</td>
+<<<<<<< HEAD
                                         <td><fmt:formatNumber value="${report.revenue}" type="currency"/></td>
+=======
+                                        <td><fmt:formatNumber value="${report.revenue}"/> VND</td>
+>>>>>>> 612670468b8e97480829caa20b45e30aafe3dc05
                                     </tr>
                                 </c:forEach>
                             </tbody>
@@ -92,7 +105,11 @@
             const data = [{
                 x: dates,
                 y: totalSold,
+<<<<<<< HEAD
                 name: 'Số lượng bán',
+=======
+                name: 'Số lượng sản phẩm bán ra',
+>>>>>>> 612670468b8e97480829caa20b45e30aafe3dc05
                 type: "bar",
                 marker: {
                     color: "rgba(75, 192, 192, 0.6)",
@@ -120,7 +137,11 @@
                     tickangle: -45
                 },
                 yaxis: {
+<<<<<<< HEAD
                     title: "Số lượng bán",
+=======
+                    title: "Số lượng sản phẩm bán ra",
+>>>>>>> 612670468b8e97480829caa20b45e30aafe3dc05
                     titlefont: {color: 'rgb(75, 192, 192)'},
                     tickfont: {color: 'rgb(75, 192, 192)'}
                 },

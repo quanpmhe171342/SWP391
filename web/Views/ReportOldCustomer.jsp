@@ -9,7 +9,12 @@
         <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     </head>
+<<<<<<< HEAD
     <body>
+=======
+    <body style="margin-top: 100px;">
+        <jsp:include page="staffDashboard.jsp"></jsp:include>
+>>>>>>> 612670468b8e97480829caa20b45e30aafe3dc05
         <div class="container mt-4">
             <!-- Form lọc thời gian -->
             <div class="card mb-4">
@@ -49,7 +54,11 @@
                             <thead>
                                 <tr>
                                     <th>Ngày</th>
+<<<<<<< HEAD
                                     <th>Số khách hàng mới</th>
+=======
+                                    <th>Số khách hàng quay lại</th>
+>>>>>>> 612670468b8e97480829caa20b45e30aafe3dc05
                                 </tr>
                             </thead>
                             <tbody>
@@ -94,7 +103,11 @@
             }];
 
             const layout = {
+<<<<<<< HEAD
                 title: "Thống kê khách hàng mới theo ngày",
+=======
+                title: "Thống kê khách hàng quay lại",
+>>>>>>> 612670468b8e97480829caa20b45e30aafe3dc05
                 xaxis: {
                     title: "Số lượng khách hàng",
                     tickmode: "linear",

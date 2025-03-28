@@ -5,7 +5,11 @@
 
 package Controller;
 
+<<<<<<< HEAD
 import DAO.OrderDAO;
+=======
+import DAO.DashboarDAO;
+>>>>>>> 612670468b8e97480829caa20b45e30aafe3dc05
 import DTO.ReportCustomerDTO;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -23,7 +27,11 @@ import java.util.Map;
 
 /**
  *
+<<<<<<< HEAD
  * @author d
+=======
+ * @author NV200
+>>>>>>> 612670468b8e97480829caa20b45e30aafe3dc05
  */
 public class ReportOldCustomer extends HttpServlet {
    
@@ -36,7 +44,11 @@ public class ReportOldCustomer extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+<<<<<<< HEAD
     private final OrderDAO daoOrder = new OrderDAO();
+=======
+    private final DashboarDAO daDAO = new DashboarDAO();
+>>>>>>> 612670468b8e97480829caa20b45e30aafe3dc05
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
@@ -44,7 +56,11 @@ public class ReportOldCustomer extends HttpServlet {
         String endDateParam = request.getParameter("endDate");
         Date startDate = (startDateParam != null) ? Date.valueOf(startDateParam) : Date.valueOf(LocalDate.now());
         Date endDate = (endDateParam != null) ? Date.valueOf(endDateParam) : Date.valueOf(LocalDate.now());
+<<<<<<< HEAD
         List<ReportCustomerDTO> userReport = daoOrder.getOldCustomer(startDate, endDate);
+=======
+        List<ReportCustomerDTO> userReport = daDAO.getOldCustomer(startDate, endDate);
+>>>>>>> 612670468b8e97480829caa20b45e30aafe3dc05
         Map<String, Integer> dailyStats = new HashMap<>();
         userReport.forEach(stat -> {
             String dateStr = new SimpleDateFormat("dd/MM/yyyy").format(stat.getPeriod());

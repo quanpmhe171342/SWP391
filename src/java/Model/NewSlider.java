@@ -2,36 +2,28 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package DAO;
+package Model;
 
 /**
  *
- * @author Admin
+ * @author NV200
  */
-public class Slider {
-    int sliderID;
-    String title;
-    String image;
-    int status;
-    String description;
+public class NewSlider {
+    private String title;
+    private String image;
+    private int status;
+    private String description;
+    private int productVariantId;
 
-    public Slider() {
+    public NewSlider() {
     }
 
-    public Slider(int sliderID, String title, String image, int status, String description) {
-        this.sliderID = sliderID;
+    public NewSlider(String title, String image, int status, String description, int productVariantId) {
         this.title = title;
         this.image = image;
         this.status = status;
         this.description = description;
-    }
-
-    public int getSliderID() {
-        return sliderID;
-    }
-
-    public void setSliderID(int sliderID) {
-        this.sliderID = sliderID;
+        this.productVariantId = productVariantId;
     }
 
     public String getTitle() {
@@ -66,10 +58,17 @@ public class Slider {
         this.description = description;
     }
 
+    public int getProductVariantId() {
+        return productVariantId;
+    }
+
+    public void setProductVariantId(int productVariantId) {
+        this.productVariantId = productVariantId;
+    }
+
     @Override
     public String toString() {
-        return "Slider{" + "sliderID=" + sliderID + ", title=" + title + ", image=" + image + ", status=" + status + ", description=" + description + '}';
+        return "NewSlider{" + "title=" + title + ", image=" + image + ", status=" + status + ", description=" + description + ", productVariantId=" + productVariantId + '}';
     }
-    
     
 }

@@ -31,6 +31,7 @@ public class LoginController extends HttpServlet {
             throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+<<<<<<< HEAD
         // Kiểm tra xem username và password có hợp lệ không
         User user = userDAO.getUserByUsername(username);
         if (user != null) {
@@ -48,7 +49,38 @@ public class LoginController extends HttpServlet {
                 request.getRequestDispatcher("/auth/login.jsp").forward(request, response);
             }
         } else {
+=======
+
+        // Kiểm tra username có tồn tại không
+        User user = userDAO.getUserByUsername(username);
+
+        if (user == null) {
+>>>>>>> 612670468b8e97480829caa20b45e30aafe3dc05
             request.setAttribute("errorMessage", "Tài khoản không tồn tại. Vui lòng thử lại.");
+            request.getRequestDispatcher("/auth/login.jsp").forward(request, response);
+            return;
+        }
+
+        // Kiểm tra nếu tài khoản chưa kích hoạt
+        if (!user.isIsActive()) {
+            request.setAttribute("errorMessage", "Tài khoản chưa được kích hoạt. Vui lòng kiểm tra email để kích hoạt.");
+            request.getRequestDispatcher("/auth/login.jsp").forward(request, response);
+            return;
+        }
+
+        // Kiểm tra mật khẩu (tránh lỗi NullPointerException)
+        if (user.getPassword() == null || !user.getPassword().equals(password)) {
+            request.setAttribute("errorMessage", "Sai mật khẩu. Vui lòng thử lại.");
+            request.getRequestDispatcher("/auth/login.jsp").forward(request, response);
+            return;
+        }
+
+        // Kiểm tra quyền truy cập
+        if (user.getRoleId() == 3) {
+            request.getSession().setAttribute("user", user);
+            response.sendRedirect(request.getContextPath() + "/HomePage");
+        } else {
+            request.setAttribute("errorMessage", "Tài khoản không có quyền truy cập.");
             request.getRequestDispatcher("/auth/login.jsp").forward(request, response);
         }
     }

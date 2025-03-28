@@ -11,6 +11,7 @@
         <meta name="keywords" content="Male_Fashion, unica, creative, html">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
+<<<<<<< HEAD
         <title>Male-Fashion | Template</title>
 
         <!-- Google Font -->
@@ -35,6 +36,9 @@
             <div class="loader"></div>
         </div>
 
+=======
+     <title>Thời trang nam-Fashion | Template</title>
+>>>>>>> 612670468b8e97480829caa20b45e30aafe3dc05
     
 
         <!-- Header Section Begin -->
@@ -43,6 +47,7 @@
 
         <!-- Hero Section Begin -->
         <section class="hero">
+<<<<<<< HEAD
             <div class="hero__slider owl-carousel">
                 <c:forEach items="${slider}" var="lisst">
                     <div class="hero__items set-bg" data-setbg="${lisst.image}">
@@ -60,11 +65,185 @@
                                             <a href="#"><i class="fa fa-pinterest"></i></a>
                                             <a href="#"><i class="fa fa-instagram"></i></a>
                                         </div>
+=======
+              <div class="hero__slider owl-carousel">
+            <c:forEach items="${slider}" var="lisst">
+                <div class="hero__items set-bg" data-setbg="${lisst.image}">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xl-5 col-lg-7 col-md-8">
+                                <div class="hero__text">
+                                   
+                                    <h2>${lisst.productVariantID.product.product_name}</h2>
+                                   
+                                    <a href="ProductDetails?pid=${lisst.productVariantID.product.product_ID}" class="primary-btn">Shop now <span class="arrow_right"></span></a>
+                                    <div class="hero__social">
+                                        <a href="#"><i class="fa fa-facebook"></i></a>
+                                        <a href="#"><i class="fa fa-twitter"></i></a>
+                                        <a href="#"><i class="fa fa-pinterest"></i></a>
+                                        <a href="#"><i class="fa fa-instagram"></i></a>
+>>>>>>> 612670468b8e97480829caa20b45e30aafe3dc05
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+<<<<<<< HEAD
+=======
+                </div>
+            </c:forEach>
+
+        </div>    </section>
+    <!-- Hero Section End -->
+
+
+    <!-- Product Section Begin -->
+    <section style="margin-top: 50px;" class="product spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="filter__controls">
+                        <li class="active" data-filter="*">SẢN PHẨM MỚI</li>
+
+                    </ul>
+                </div>
+            </div>
+            <div class="row product__filter">
+                <c:forEach var="list" items="${listNewArrivals}">
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix bestseller">
+                        <!-- Product item for Best Sellers -->
+                        <div class="product__item">
+                            <div class="product__item__pic set-bg" data-setbg="${list.image}">                         
+                                <ul class="product__hover">
+                                    <li><a href="ProductDetails?pid=${list.product.product.product_ID}"><img src="img/icon/search.png" alt=""><span>Tìm kiếm</span></a></li>
+                                </ul>
+                            </div>
+                            <div class="product__item__text">
+                                <h6>${list.product.product.product_name}</h6>
+                                <a href="#" class="add-cart">+ Thêm vào giỏ hàng</a>
+                                <div class="rating">
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                </div>
+                                
+
+                                <h5>
+                                        <c:choose>
+                                            <c:when test="${list.product.product.sale_price > 0}">
+                                                ${list.product.product.sale_price} VND <br> 
+                                                <del>${list.product.product.original_Price} VND</del>
+                                            </c:when>
+                                            <c:otherwise>
+                                                ${list.product.product.original_Price} VND
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </h5>
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
+        </div>
+    </section>
+
+    <section style="margin-top: 80px;" class="product spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="filter__controls">
+                        <li class="active" data-filter="*">SẢN PHẨM KHUYẾN MÃI</li>
+
+                    </ul>
+                </div>
+            </div>
+            <div class="row product__filter">
+                <c:forEach var="list" items="${listBestSellers}">
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix bestseller">
+                        <!-- Product item for Best Sellers -->
+                        <div class="product__item">
+                            <div class="product__item__pic set-bg" data-setbg="${list.image}">                         
+                                <ul class="product__hover">
+
+                                    <li><a href="ProductDetails?pid=${list.product.product_ID}"><img src="img/icon/search.png" alt=""><span>Tìm kiếm</span></a></li>
+                                </ul>
+                            </div>
+                            <div class="product__item__text">
+                                <h6>${list.product.product_name}</h6>
+                                <a href="#" class="add-cart">+ Thêm vào giỏ hàng</a>
+                                <div class="rating">
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                </div>
+                                <h5>${list.product.sale_price} VND <br> <del>${list.product.original_Price} VND</del></h5>
+
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Section End -->
+
+
+
+    <!-- Instagram Section Begin -->
+    <section class="instagram spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="instagram__pic">
+                        <div class="instagram__pic__item set-bg" data-setbg="img/instagram/instagram-1.jpg"></div>
+                        <div class="instagram__pic__item set-bg" data-setbg="img/instagram/instagram-2.jpg"></div>
+                        <div class="instagram__pic__item set-bg" data-setbg="img/instagram/instagram-3.jpg"></div>
+                        <div class="instagram__pic__item set-bg" data-setbg="img/instagram/instagram-4.jpg"></div>
+                        <div class="instagram__pic__item set-bg" data-setbg="img/instagram/instagram-5.jpg"></div>
+                        <div class="instagram__pic__item set-bg" data-setbg="img/instagram/instagram-6.jpg"></div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="instagram__text">
+                        <h2>Instagram</h2>
+                        <p>Khám phá những sản phẩm tuyệt vời, giá trị thực sự, mang đến cho bạn trải nghiệm mua sắm tuyệt vời và tiết kiệm hơn bao giờ hết!</p>
+                        <h3>#Male_Fashion</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Instagram Section End -->
+
+    <!-- Latest Blog Section Begin -->
+    <section class="latest spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <span>Top News</span>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <c:forEach var="listBlog" items="${blog}">
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="blog__item">
+                            <div class="blog__item__pic set-bg" data-setbg="${listBlog.image}"></div>
+                            <div class="blog__item__text">
+                                <span><img src="img/icon/calendar.png" alt=""> ${listBlog.createdAt}</span>
+                                <h5>${listBlog.title}</h5>
+                                <a href="BlogDetail?blogID=${listBlog.blogID}">Chi tiết</a>
+                            </div>
+                        </div>
+                    </div>
+>>>>>>> 612670468b8e97480829caa20b45e30aafe3dc05
                 </c:forEach>
 
             </div>

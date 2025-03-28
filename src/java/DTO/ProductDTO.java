@@ -11,11 +11,17 @@ import java.util.List;
 
 /**
  *
+<<<<<<< HEAD
  * @author d
  */
 public class ProductDTO {
 
     private int cartId;
+=======
+ * @author NV200
+ */
+public class ProductDTO {
+>>>>>>> 612670468b8e97480829caa20b45e30aafe3dc05
     private int productId;
     private String productName;
     private Double originalPrice;
@@ -26,12 +32,19 @@ public class ProductDTO {
     private int quantity;
     private List<Size> sizes = new ArrayList<>();
     private List<Color> colors = new ArrayList<>();
+<<<<<<< HEAD
 
     public ProductDTO() {
     }
 
     public ProductDTO(int cartId, int productId, String productName, Double originalPrice, Double salePrice, String productDescription, String briefInformation, String imageUrl, int quantity) {
         this.cartId = cartId;
+=======
+    public ProductDTO() {
+    }
+
+    public ProductDTO(int productId, String productName, Double originalPrice, Double salePrice, String productDescription, String briefInformation, String imageUrl, int quantity) {
+>>>>>>> 612670468b8e97480829caa20b45e30aafe3dc05
         this.productId = productId;
         this.productName = productName;
         this.originalPrice = originalPrice;
@@ -42,6 +55,7 @@ public class ProductDTO {
         this.quantity = quantity;
     }
 
+<<<<<<< HEAD
     public int getCartId() {
         return cartId;
     }
@@ -50,6 +64,8 @@ public class ProductDTO {
         this.cartId = cartId;
     }
 
+=======
+>>>>>>> 612670468b8e97480829caa20b45e30aafe3dc05
     public int getProductId() {
         return productId;
     }
@@ -132,6 +148,14 @@ public class ProductDTO {
 
     @Override
     public String toString() {
+<<<<<<< HEAD
         return "ProductDTO{" + "cartId=" + cartId + ", productId=" + productId + ", productName=" + productName + ", originalPrice=" + originalPrice + ", salePrice=" + salePrice + ", productDescription=" + productDescription + ", briefInformation=" + briefInformation + ", imageUrl=" + imageUrl + ", quantity=" + quantity + ", sizes=" + sizes + ", colors=" + colors + '}';
     }
+=======
+        return "ProductDTO{" + "productId=" + productId + ", productName=" + productName + ", originalPrice=" + originalPrice + ", salePrice=" + salePrice + ", productDescription=" + productDescription + ", briefInformation=" + briefInformation + ", imageUrl=" + imageUrl + ", quantity=" + quantity + ", sizes=" + sizes + ", colors=" + colors + '}';
+    }
+
+    
+
+>>>>>>> 612670468b8e97480829caa20b45e30aafe3dc05
 }

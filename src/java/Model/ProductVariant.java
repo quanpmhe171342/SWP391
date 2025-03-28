@@ -1,15 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Model;
 
-/**
- *
- * @author phuan
- */
 public class ProductVariant {
+    private int variantID;
+    private Product product;
+    private Size size;
+    private Color color;
+    private int stock;
+    private String imageURL;
 
+<<<<<<< HEAD
     int VariantID;
     Product product;
     Size size;
@@ -22,19 +21,32 @@ public class ProductVariant {
 
     public ProductVariant(int VariantID, Product product, Size size, Color color, int stock, String image) {
         this.VariantID = VariantID;
+=======
+    public ProductVariant() {}
+
+    public ProductVariant(int variantID, Product product, Size size, Color color, int stock, String imageURL) {
+        this.variantID = variantID;
+>>>>>>> 612670468b8e97480829caa20b45e30aafe3dc05
         this.product = product;
         this.size = size;
         this.color = color;
         this.stock = stock;
-        this.image = image;
+        this.imageURL = imageURL;
+    }
+    public ProductVariant(Product product, Size size, Color color, int stock, String imageURL) {
+        this.product = product;
+        this.size = size;
+        this.color = color;
+        this.stock = stock;
+        this.imageURL = imageURL;
     }
 
     public int getVariantID() {
-        return VariantID;
+        return variantID;
     }
 
-    public void setVariantID(int VariantID) {
-        this.VariantID = VariantID;
+    public void setVariantID(int variantID) {
+        this.variantID = variantID;
     }
 
     public Product getProduct() {
@@ -69,17 +81,20 @@ public class ProductVariant {
         this.stock = stock;
     }
 
-    public String getImage() {
-        return image;
+    public String getImageURL() {
+        return imageURL;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
+<<<<<<< HEAD
 
     @Override
     public String toString() {
         return "ProductVariant{" + "VariantID=" + VariantID + ", product=" + product + ", size=" + size + ", color=" + color + ", stock=" + stock + ", image=" + image + '}';
     }
 
+=======
+>>>>>>> 612670468b8e97480829caa20b45e30aafe3dc05
 }

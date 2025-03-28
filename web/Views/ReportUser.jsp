@@ -9,7 +9,12 @@
         <title>Thống kê khách hàng</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     </head>
+<<<<<<< HEAD
     <body>
+=======
+    <body style="margin-top: 100px;">
+        <jsp:include page="staffDashboard.jsp"></jsp:include>
+>>>>>>> 612670468b8e97480829caa20b45e30aafe3dc05
         <div class="container mt-4">
             <!-- Form lọc thời gian -->
             <div class="card mb-4">

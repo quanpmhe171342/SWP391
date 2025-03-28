@@ -9,6 +9,7 @@ import Model.Color;
 import Model.Product;
 import Model.ProductVariant;
 import Model.Size;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,28 +20,58 @@ import java.util.List;
  *
  * @author phuan
  */
-public class DaoCategoryProduct extends DBContext{
-    public List<CategoryProduct> getCateProduct() {
-        List<CategoryProduct> cateproduct = new ArrayList();
-        try {
-            String query = "Select  cp.CategoryID,cp.category_name,cp.category_description,cp.image   \n"
-                    + "					from CategoryProduct cp \n";
+public class DaoCategoryProduct extends DBContext {
 
-            PreparedStatement stm = conn.prepareStatement(query);
-            ResultSet rs = stm.executeQuery();
+    private final DBContext dbContext;
+    private final Connection connection;
+
+    public DaoCategoryProduct() {
+
+        dbContext = new DBContext();
+        connection = dbContext.conn;
+    }
+
+    public List<CategoryProduct> getCateProduct() {
+        List<CategoryProduct> categoryProducts = new ArrayList<>();
+        String query = "SELECT cp.CategoryID, cp.category_name, cp.category_description, cp.image FROM CategoryProduct cp";
+        try (PreparedStatement stm = conn.prepareStatement(query); ResultSet rs = stm.executeQuery()) {
             while (rs.next()) {
-                CategoryProduct cp = new CategoryProduct(rs.getInt("CategoryID"),
-                        rs.getString("category_name"), rs.getString("category_description"), rs.getString("image"));
-               
-                cateproduct.add(cp);
+                CategoryProduct cp = new CategoryProduct(
+                        rs.getInt("CategoryID"),
+                        rs.getString("category_name"),
+                        rs.getString("category_description"),
+                        rs.getString("image")
+                );
+                categoryProducts.add(cp);
             }
         } catch (SQLException e) {
-            System.out.print(e);
+            e.printStackTrace();
         }
-        return cateproduct;
+        return categoryProducts;
     }
+
+    public CategoryProduct getCategoryById(int categoryId) {
+        String query = "SELECT CategoryID, category_name, category_description, image FROM CategoryProduct WHERE CategoryID = ?";
+        try (PreparedStatement stm = conn.prepareStatement(query)) {
+            stm.setInt(1, categoryId);
+            try (ResultSet rs = stm.executeQuery()) {
+                if (rs.next()) {
+                    return new CategoryProduct(
+                            rs.getInt("CategoryID"),
+                            rs.getString("category_name"),
+                            rs.getString("category_description"),
+                            rs.getString("image")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public static void main(String[] args) {
-        DaoCategoryProduct db = new DaoCategoryProduct();
-        System.out.println(db.getCateProduct());
+        DaoCategoryProduct dao = new DaoCategoryProduct();
+        System.out.println(dao.getCateProduct());
     }
 }
