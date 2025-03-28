@@ -1,8 +1,10 @@
 package Model;
 
 import java.sql.Date;
+import java.util.List;
 
 public class Product {
+
     private int product_ID;
     private String product_name;
     private Double original_price;
@@ -13,12 +15,24 @@ public class Product {
     private Date createDate;
     private Double import_price;
     private boolean status;
+    private String imageURL;
+    private int Stock;
+
+    private List<ProductVariant> variants;  // 
+
+    public List<ProductVariant> getVariants() {
+        return variants;
+    }
+
+    public void setVariants(List<ProductVariant> variants) {
+        this.variants = variants;
+    }
 
     public Product() {
     }
 
     public Product(int product_ID, String product_name, Double original_price, Double sale_price, String product_description,
-                   String brief_information, CategoryProduct category, Date createDate, Double import_price, boolean status) {
+            String brief_information, CategoryProduct category, Date createDate, Double import_price, boolean status) {
         this.product_ID = product_ID;
         this.product_name = product_name;
         this.original_price = original_price;
@@ -30,9 +44,9 @@ public class Product {
         this.import_price = import_price;
         this.status = status;
     }
-    
+
     public Product(int product_ID, String product_name, Double original_price, Double sale_price, String product_description,
-                   String brief_information, CategoryProduct category) {
+            String brief_information, CategoryProduct category) {
         this.product_ID = product_ID;
         this.product_name = product_name;
         this.original_price = original_price;
@@ -40,7 +54,42 @@ public class Product {
         this.product_description = product_description;
         this.brief_information = brief_information;
         this.category = category;
-        
+
+    }
+
+    public Product(int product_ID, String product_name, Double original_price, Double import_price,String product_description,
+            String brief_information, CategoryProduct category,  boolean status, int Stock) {
+        this.product_ID = product_ID;
+        this.product_name = product_name;
+        this.original_price = original_price;
+        this.import_price = import_price;
+        this.product_description = product_description;
+        this.brief_information = brief_information;
+        this.category = category;
+        this.status = status;
+        this.Stock = Stock;
+    }
+
+    
+
+    public void setImport_price(double import_price) {
+        this.import_price = import_price;
+    }
+
+    public int getStock() {
+        return Stock;
+    }
+
+    public void setStock(int Stock) {
+        this.Stock = Stock;
+    }
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 
     public int getProduct_ID() {
@@ -125,17 +174,21 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product{" +
-                "product_ID=" + product_ID +
-                ", product_name='" + product_name + '\'' +
-                ", original_price=" + original_price +
-                ", sale_price=" + sale_price +
-                ", product_description='" + product_description + '\'' +
-                ", brief_information='" + brief_information + '\'' +
-                ", category=" + category +
-                ", createDate=" + createDate +
-                ", import_price=" + import_price +
-                ", status=" + status +
-                '}';
+        return "Product{"
+                + "product_ID=" + product_ID
+                + ", product_name='" + product_name + '\''
+                + ", original_price=" + original_price
+                + ", sale_price=" + sale_price
+                + ", product_description='" + product_description + '\''
+                + ", brief_information='" + brief_information + '\''
+                + ", category=" + category
+                + ", createDate=" + createDate
+                + ", import_price=" + import_price
+                + ", status=" + status
+                + '}';
+    }
+
+    public void put(String imageURL, String string) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

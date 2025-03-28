@@ -5,7 +5,16 @@
         <title>Chỉnh Sửa Người Dùng</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     </head>
-    <body>
+    <body class="bg-light">
+        
+            <div class="container-fluid">
+                <div class="row">
+                    <!-- Include Sidebar -->
+                    <div class="col-md-3">
+                        <jsp:include page="sidebar.jsp" />
+                    </div>
+                    
+                     <div class="col-md-9">
         <div class="container mt-5">
             <h2 class="text-center">Chỉnh Sửa Người Dùng</h2>
 

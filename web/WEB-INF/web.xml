@@ -144,6 +144,14 @@
         <servlet-name>UpdateProductController</servlet-name>
         <servlet-class>UserController.UpdateProductController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ListProductController</servlet-name>
+        <servlet-class>UserController.ListProductController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteProductController</servlet-name>
+        <servlet-class>UserController.DeleteProductController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProductList</servlet-name>
         <url-pattern>/ProductList</url-pattern>
@@ -279,6 +287,14 @@
     <servlet-mapping>
         <servlet-name>UpdateProductController</servlet-name>
         <url-pattern>/updateproduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListProductController</servlet-name>
+        <url-pattern>/listproduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteProductController</servlet-name>
+        <url-pattern>/deleteproduct</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>
