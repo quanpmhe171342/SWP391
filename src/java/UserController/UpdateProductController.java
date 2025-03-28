@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package UserController;
 
 import DAO.DaoCategoryProduct;
@@ -10,19 +6,19 @@ import DAO.DaoProduct;
 import DAO.DaoSize;
 import Model.CategoryProduct;
 import Model.Color;
+import Model.Product;
+import Model.ProductVariant;
 import Model.Size;
 import jakarta.servlet.RequestDispatcher;
-import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 /**
- *
- * @author hieum
+ * Servlet xử lý cập nhật sản phẩm
  */
 public class UpdateProductController extends HttpServlet {
 
@@ -31,28 +27,43 @@ public class UpdateProductController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
 
-        int productId = Integer.parseInt(request.getParameter("productId"));
+        String productIdStr = request.getParameter("product_ID");
+        if (productIdStr == null || productIdStr.isEmpty()) {
+            request.setAttribute("error", "Thiếu mã sản phẩm.");
+            forwardToUpdatePage(request, response);
+            return;
+        }
 
-        DaoProduct productDAO = new DaoProduct();
-        var product = productDAO.getProductByProductId(productId);
-        var variants = productDAO.getProductVariantsByProductId(productId);
+        try {
+            int productId = Integer.parseInt(productIdStr);
+            DaoProduct productDAO = new DaoProduct();
+            Product product = productDAO.getProductByProductId(productId);
 
-        DaoCategoryProduct categoryDAO = new DaoCategoryProduct();
-        List<CategoryProduct> categoryProducts = categoryDAO.getCateProduct();
+            // Lấy biến thể sản phẩm (chỉ lấy 1 biến thể)
+            List<ProductVariant> variants = productDAO.getProductVariantsByProductId(productId);
+            ProductVariant variant = (variants != null && !variants.isEmpty()) ? variants.get(0) : null;
 
-        DaoSize sizeDAO = new DaoSize();
-        List<Size> sizes = sizeDAO.getSize(1);
+            if (product == null) {
+                request.setAttribute("error", "Không tìm thấy sản phẩm.");
+            }
 
-        DaoColor colorDAO = new DaoColor();
-        List<Color> colors = colorDAO.getColor();
+            DaoCategoryProduct categoryDAO = new DaoCategoryProduct();
+            DaoSize sizeDAO = new DaoSize();
+            DaoColor colorDAO = new DaoColor();
+            int categoryId = product.getCategory().getCategory_productID();
 
-        request.setAttribute("product", product);
-        request.setAttribute("variants", variants);
-        request.setAttribute("categories", categoryProducts);
-        request.setAttribute("sizes", sizes);
-        request.setAttribute("colors", colors);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/auth/updateproduct.jsp");
-        dispatcher.forward(request, response);
+            request.setAttribute("product", product);
+            request.setAttribute("productVariant", variant);  // Truyền variant vào JSP
+            request.setAttribute("categories", categoryDAO.getCateProduct());
+            request.setAttribute("sizes", sizeDAO.getSize(categoryId));
+            request.setAttribute("colors", colorDAO.getColor());
+
+        } catch (NumberFormatException e) {
+            request.setAttribute("error", "Mã sản phẩm không hợp lệ.");
+        }
+
+        forwardToUpdatePage(request, response);
+        System.out.println("Product ID from request: " + productIdStr);
     }
 
     @Override
@@ -60,46 +71,76 @@ public class UpdateProductController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
 
-        int productId = Integer.parseInt(request.getParameter("productId"));
-        String productName = request.getParameter("product_name");
-        double originalPrice = Double.parseDouble(request.getParameter("original_price"));
-        String productDescription = request.getParameter("description");
-        String briefInformation = request.getParameter("information");
-        int categoryId = Integer.parseInt(request.getParameter("category_id"));
-        double importPrice = Double.parseDouble(request.getParameter("import_price"));
-        boolean status = Integer.parseInt(request.getParameter("status")) == 1;
+        try {
+            // Lấy thông tin từ form
+            String productIdStr = request.getParameter("product_ID");
+            if (productIdStr == null || productIdStr.isEmpty()) {
+                request.setAttribute("error", "Mã sản phẩm không hợp lệ.");
+                forwardToUpdatePage(request, response);
+                return;
+            }
 
-        DaoProduct productDAO = new DaoProduct();
+            int productId = Integer.parseInt(productIdStr);
+            String productName = request.getParameter("product_name");
+            double originalPrice = Double.parseDouble(request.getParameter("original_price"));
+            String productDescription = request.getParameter("product_description") != null ? request.getParameter("product_description").trim() : "";
+            String briefInformation = request.getParameter("brief_information") != null ? request.getParameter("brief_information").trim() : "";
+            int categoryId = Integer.parseInt(request.getParameter("category_id"));
+            double importPrice = Double.parseDouble(request.getParameter("import_price"));
+            boolean status = Integer.parseInt(request.getParameter("status")) == 1;
 
-        // Update product info
-        boolean updated = productDAO.updateProduct(productId, productName, originalPrice, productDescription, briefInformation, categoryId, importPrice, status);
+            int newSizeId = Integer.parseInt(request.getParameter("size"));
+            int newColorId = Integer.parseInt(request.getParameter("color"));
+            int stock = Integer.parseInt(request.getParameter("stock"));
+            String imageURL = request.getParameter("imageURL") != null ? request.getParameter("imageURL").trim() : "";
 
-        if (updated) {
-            // Delete old variants
-            productDAO.deleteProductVariantsByProductId(productId);
+            DaoProduct productDAO = new DaoProduct();
 
-            // Add new variants
-            String[] sizes = request.getParameterValues("size");
-            String[] colors = request.getParameterValues("color");
-            String[] stocks = request.getParameterValues("stock");
-            String[] imageURLs = request.getParameterValues("imageURL");
+            // Kiểm tra các trường không hợp lệ
+            if (productName == null || productName.trim().isEmpty() || originalPrice <= 0 || importPrice <= 0 || stock < 0) {
+                request.setAttribute("error", "Các trường không hợp lệ. Vui lòng kiểm tra lại.");
+                forwardToUpdatePage(request, response);
+                return;
+            }
 
-            if (sizes != null && colors != null && stocks != null && imageURLs != null) {
-                for (int i = 0; i < sizes.length; i++) {
-                    int sizeId = Integer.parseInt(sizes[i]);
-                    int colorId = Integer.parseInt(colors[i]);
-                    int stock = Integer.parseInt(stocks[i]);
-                    String imageURL = imageURLs[i].trim();
-                    productDAO.addProductVariant(productId, sizeId, colorId, stock, imageURL);
+            // Cập nhật sản phẩm
+            boolean updatedProduct = productDAO.updateProduct(
+                    productId, productName.trim(), originalPrice, productDescription, briefInformation, categoryId, importPrice, status
+            );
+
+            // Xử lý biến thể sản phẩm
+            List<ProductVariant> variants = productDAO.getProductVariantsByProductId(productId);
+            if (!variants.isEmpty()) {
+                ProductVariant oldVariant = variants.get(0);
+
+                int oldSizeId = oldVariant.getSize().getSizeID();
+                int oldColorId = oldVariant.getColor().getColorID();
+
+                if (oldSizeId != newSizeId || oldColorId != newColorId) {
+                    productDAO.deleteProductVariant(productId, oldSizeId, oldColorId);
                 }
             }
 
-            request.setAttribute("success", "Sản phẩm đã được cập nhật thành công!");
-        } else {
-            request.setAttribute("error", "Có lỗi xảy ra khi cập nhật sản phẩm.");
+            // Cập nhật hoặc thêm mới biến thể sản phẩm
+            boolean updatedVariant = productDAO.updateOrInsertProductVariant(productId, newSizeId, newColorId, stock, imageURL);
+
+            // Kiểm tra kết quả
+            if (updatedProduct && updatedVariant) {
+                request.setAttribute("success", "Sản phẩm và biến thể đã được cập nhật thành công!");
+            } else {
+                request.setAttribute("error", "Có lỗi xảy ra khi cập nhật sản phẩm hoặc biến thể.");
+            }
+
+        } catch (NumberFormatException e) {
+            request.setAttribute("error", "Dữ liệu nhập không hợp lệ.");
         }
 
-        // Load lại dữ liệu để hiển thị
+        // Quay lại trang cập nhật sản phẩm
         doGet(request, response);
+    }
+
+    private void forwardToUpdatePage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/auth/updateproduct.jsp");
+        dispatcher.forward(request, response);
     }
 }

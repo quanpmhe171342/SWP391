@@ -1,10 +1,12 @@
 package Model;
 
 public class Color {
+
     private int colorID;
     private String colorName;
 
-    public Color() {}
+    public Color() {
+    }
 
     public Color(int colorID, String colorName) {
         this.colorID = colorID;
@@ -25,5 +27,10 @@ public class Color {
 
     public void setColorName(String colorName) {
         this.colorName = colorName;
+    }
+
+    @Override
+    public String toString() {
+        return colorName; 
     }
 }

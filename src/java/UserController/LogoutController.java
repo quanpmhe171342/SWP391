@@ -63,7 +63,7 @@ public class LogoutController extends HttpServlet {
         }
 
 //        chuyển hướng
-        response.sendRedirect("");
+        response.sendRedirect(request.getContextPath() + "/login");
     }
 
     /**

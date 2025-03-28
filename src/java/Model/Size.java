@@ -15,6 +15,11 @@ public class Size {
         this.categoryID = categoryID;
     }
 
+    public Size(int sizeID, String sizeName) {
+        this.sizeID = sizeID;
+        this.sizeName = sizeName;
+    }
+
     public int getSizeID() {
         return sizeID;
     }
@@ -37,5 +42,10 @@ public class Size {
 
     public void setSizeName(String sizeName) {
         this.sizeName = sizeName;
+    }
+
+    @Override
+    public String toString() {
+        return sizeName;  
     }
 }
