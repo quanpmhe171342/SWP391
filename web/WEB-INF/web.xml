@@ -176,6 +176,14 @@
         <servlet-name>DeleteProductController</servlet-name>
         <servlet-class>UserController.DeleteProductController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProductStatisticsDAO</servlet-name>
+        <servlet-class>DAO.ProductStatisticsDAO</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProductStatisticController</servlet-name>
+        <servlet-class>UserController.ProductStatisticController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProductList</servlet-name>
         <url-pattern>/ProductList</url-pattern>
@@ -343,6 +351,14 @@
     <servlet-mapping>
         <servlet-name>DeleteProductController</servlet-name>
         <url-pattern>/deleteproduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductStatisticsDAO</servlet-name>
+        <url-pattern>/productstatistics</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductStatisticController</servlet-name>
+        <url-pattern>/productstatistic</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

@@ -37,31 +37,31 @@
                             <div class="mb-3">
                                 <label for="product_name" class="form-label">Tên Sản Phẩm</label>
                                 <input type="text" class="form-control" name="product_name" id="product_name" value="${product.product_name}" required>
-                                <span class="error text-danger" id="errorName"></span>
+                                <small id="productNameError" class="text-danger"></small>
                             </div>
 
                             <div class="mb-3">
                                 <label for="original_price" class="form-label">Giá Bán</label>
                                 <input type="number" class="form-control" name="original_price" id="original_price" step="0.01" value="${product.original_price}" required>
-                                <span class="error text-danger" id="errorOriginalPrice"></span>
+                                <small id="originalPriceError" class="text-danger"></small>
                             </div>
 
                             <div class="mb-3">
                                 <label for="import_price" class="form-label">Giá Nhập</label>
                                 <input type="number" class="form-control" name="import_price" id="import_price" step="0.01" value="${product.import_price}" required>
-                                <span class="error text-danger" id="errorImportPrice"></span>
+                                <small id="importPriceError" class="text-danger"></small>
                             </div>
 
                             <div class="mb-3">
-                                <<label for="product_description" class="form-label">Mô Tả</label>
+                                <label for="product_description" class="form-label">Mô Tả</label>
                                 <textarea class="form-control" name="product_description">${product.product_description}</textarea>
-                                <span class="error text-danger" id="errorDescription"></span>
+                                <small id="descriptionError" class="text-danger"></small>
                             </div>
 
                             <div class="mb-3">
                                 <label for="brief_information" class="form-label">Thông Tin</label>
                                 <textarea class="form-control" name="brief_information" id="brief_information">${product.brief_information}</textarea>
-                                <span class="error text-danger" id="errorInformation"></span>
+                                <small id="informationError" class="text-danger"></small>
                             </div>
 
                             <div class="mb-3">
@@ -118,79 +118,71 @@
                                     <div class="col-md-2">
                                         <label for="stock" class="form-label">Số Lượng</label>
                                         <input type="number" class="form-control" name="stock" id="stock" value="${productVariant.stock}" required>
-                                        <span class="error text-danger" id="errorStock"></span>
+                                        <small id="stockError" class="text-danger"></small>
                                     </div>
 
                                     <div class="col-md-4">
                                         <label for="imageURL" class="form-label">Ảnh Sản Phẩm</label>
                                         <input type="text" class="form-control" name="imageURL" id="imageURL" value="${productVariant.imageURL}" required>
-                                        <span class="error text-danger" id="errorImage"></span>
+                                        <small id="imageURLError" class="text-danger"></small>
                                     </div>
                                 </div>
                             </c:if>
 
-                            <button type="submit" class="btn btn-primary">Cập nhật</button>
+                            <button type="submit" class="btn btn-primary mt-3">Cập nhật sản phẩm</button>
                         </form>
                     </div>
-                    <script>
-                        function validateForm() {
-                            let isValid = true;
 
-                            
-                            let product_name = document.getElementById("product_name").value.trim();
-                            let product_description = document.getElementById("product_description").value.trim();
-                            let brief_information = document.getElementById("brief_information").value.trim();
-                            let imageURL = document.getElementById("imageURL").value.trim();
-                            let import_price = parseFloat(document.getElementById("import_price").value);
-                            let original_price = parseFloat(document.getElementById("original_price").value);
-                            let stock = parseInt(document.getElementById("stock").value);
-
-                            // Xóa lỗi cũ
-                            document.querySelectorAll(".error").forEach(e => e.innerText = "");
-
-                            // Kiểm tra các trường không được để trống
-                            if (!product_name) {
-                                document.getElementById("errorName").innerText = "Vui lòng nhập tên sản phẩm.";
-                                isValid = false;
-                            }
-                            if (!product_description) {
-                                document.getElementById("errorDescription").innerText = "Vui lòng nhập mô tả.";
-                                isValid = false;
-                            }
-                            if (!brief_information) {
-                                document.getElementById("errorInformation").innerText = "Vui lòng nhập thông tin ngắn.";
-                                isValid = false;
-                            }
-                            if (!imageURL) {
-                                document.getElementById("errorImage").innerText = "Vui lòng nhập đường dẫn ảnh.";
-                                isValid = false;
-                            }
-
-                            // Kiểm tra số phải là số dương
-                            if (isNaN(import_price) || import_price <= 0) {
-                                document.getElementById("errorImportPrice").innerText = "Giá nhập phải là số dương.";
-                                isValid = false;
-                            }
-                            if (isNaN(original_price) || original_price <= 0) {
-                                document.getElementById("errorOriginalPrice").innerText = "Giá bán phải là số dương.";
-                                isValid = false;
-                            }
-                            if (!isNaN(import_price) && !isNaN(original_price) && import_price >= original_price) {
-                                document.getElementById("errorOriginalPrice").innerText = "Giá bán phải lớn hơn giá nhập.";
-                                isValid = false;
-                            }
-                            if (isNaN(stock) || stock < 0) {
-                                document.getElementById("errorStock").innerText = "Số lượng phải là số dương.";
-                                isValid = false;
-                            }
-
-                            if (!isValid) {
-                                event.preventDefault();
-                            }
-                        }
-                    </script>
                 </div>
             </div>
         </div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const form = document.getElementById("updateProductForm");
+
+                form.addEventListener("submit", function (event) {
+                    let isValid = true;
+
+                    const productName = document.getElementById("product_name").value.trim();
+                    const description = document.getElementById("product_description").value.trim();
+                    const information = document.getElementById("brief_information").value.trim();
+                    const imageURL = document.getElementById("imageURL").value.trim();
+                    const importPrice = document.getElementById("import_price").value.trim();
+                    const originalPrice = document.getElementById("original_price").value.trim();
+                    const stock = document.getElementById("stock").value.trim();
+
+                    const productNameError = document.getElementById("productNameError");
+                    const descriptionError = document.getElementById("descriptionError");
+                    const informationError = document.getElementById("informationError");
+                    const imageURLError = document.getElementById("imageURLError");
+                    const importPriceError = document.getElementById("importPriceError");
+                    const originalPriceError = document.getElementById("originalPriceError");
+                    const stockError = document.getElementById("stockError");
+
+                    const urlRegex = /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|webp))$/;
+                    const priceRegex = /^\d+(\.\d{1,2})?$/; // Chấp nhận số thập phân 2 chữ số sau dấu chấm
+                    const stockRegex = /^\d+$/; // Chỉ chấp nhận số nguyên
+
+                    productNameError.textContent = productName.length > 0 ? "" : "Tên sản phẩm không được để trống!";
+                    descriptionError.textContent = description.length > 0 ? "" : "Mô tả sản phẩm không được để trống!";
+                    informationError.textContent = information.length > 0 ? "" : "Thông tin thêm không được để trống!";
+                    imageURLError.textContent = urlRegex.test(imageURL) ? "" : "URL hình ảnh phải hợp lệ!";
+                    importPriceError.textContent = priceRegex.test(importPrice) ? "" : "Giá nhập phải hợp lệ!";
+                    originalPriceError.textContent = priceRegex.test(originalPrice) ? "" : "Giá gốc phải hợp lệ!";
+                    stockError.textContent = stockRegex.test(stock) ? "" : "Số lượng tồn kho phải là số nguyên!";
+
+                    isValid = productNameError.textContent === "" &&
+                            descriptionError.textContent === "" &&
+                            informationError.textContent === "" &&
+                            imageURLError.textContent === "" &&
+                            importPriceError.textContent === "" &&
+                            originalPriceError.textContent === "" &&
+                            stockError.textContent === "";
+
+                    if (!isValid)
+                        event.preventDefault();
+                });
+            });
+        </script>
     </body>
 </html>

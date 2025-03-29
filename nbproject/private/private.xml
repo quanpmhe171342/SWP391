@@ -3,17 +3,23 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
+
+            <file>file:/D:/FPT%20University/SE.7/SWP391/Project/Group1/SWP391/src/java/UserController/ProductStatisticController.java</file>
+
             <file>file:/C:/Users/d/Documents/Swp391/SWP391/src/java/Controller/ProductCart.java</file>
             <file>file:/C:/Users/d/Documents/Swp391/SWP391/src/java/DAO/DaoCart.java</file>
             <file>file:/C:/Users/d/Documents/Swp391/SWP391/src/java/Controller/UserReport.java</file>
             <file>file:/C:/Users/d/Documents/Swp391/SWP391/src/java/DAO/DaoProduct.java</file>
             <file>file:/C:/Users/d/Documents/Swp391/SWP391/src/java/Controller/CartController.java</file>
-=======
+
             <file>file:/D:/FPT%20University/SE.7/SWP391/Project/Group1/SWP391/src/java/DAO/DaoProduct.java</file>
+            <file>file:/D:/FPT%20University/SE.7/SWP391/Project/Group1/SWP391/web/auth/sidebar.jsp</file>
+            <file>file:/D:/FPT%20University/SE.7/SWP391/Project/Group1/SWP391/src/java/DAO/ProductStatisticsDAO.java</file>
             <file>file:/D:/FPT%20University/SE.7/SWP391/Project/Group1/SWP391/web/auth/addproduct.jsp</file>
+            <file>file:/D:/FPT%20University/SE.7/SWP391/Project/Group1/SWP391/web/auth/register.jsp</file>
+            <file>file:/D:/FPT%20University/SE.7/SWP391/Project/Group1/SWP391/web/auth/productstatistic.jsp</file>
             <file>file:/D:/FPT%20University/SE.7/SWP391/Project/Group1/SWP391/web/auth/updateproduct.jsp</file>
->>>>>>> 612670468b8e97480829caa20b45e30aafe3dc05
+
         </group>
     </open-files>
 </project-private>

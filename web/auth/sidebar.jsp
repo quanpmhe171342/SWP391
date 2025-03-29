@@ -32,7 +32,7 @@
                 <a href="<%= request.getContextPath() %>/listproduct" class="nav-link text-white">📦 Quản lý Sản Phẩm</a>
             </li>
             <li>
-                <a href="<%= request.getContextPath() %>/productStats" class="nav-link text-white">📊 Thống Kê Sản Phẩm</a>
+                <a href="<%= request.getContextPath() %>/productstatistic" class="nav-link text-white">📊 Thống Kê Sản Phẩm</a>
             </li>
         <% } else if (roleID == 2) { %>
             <li>
@@ -42,7 +42,7 @@
                 <a href="<%= request.getContextPath() %>/listproduct" class="nav-link text-white">📦 Quản lý Sản Phẩm</a>
             </li>
             <li>
-                <a href="<%= request.getContextPath() %>/productStats" class="nav-link text-white">📊 Thống Kê Sản Phẩm</a>
+                <a href="<%= request.getContextPath() %>/productstatistic" class="nav-link text-white">📊 Thống Kê Sản Phẩm</a>
             </li>
             <li>
                 <a href="<%= request.getContextPath() %>/viewprofile" class="nav-link text-white">🧑 Xem Thông Tin Cá Nhân</a>
