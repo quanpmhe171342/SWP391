@@ -528,6 +528,74 @@ public class DaoProduct extends DBContext {
         return products;
     }
 
+    public int getTotalSoldByDay(String date) {
+        int totalSold = 0;
+        String sql = "SELECT SUM(od.Quantity) FROM OrderDetails od "
+                + "JOIN [Order] o ON od.OrderID = o.OrderID "
+                + "WHERE o.OrderDate = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, date);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                totalSold = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return totalSold;
+    }
+
+    public double getTotalRevenueByDay(String date) {
+        double totalRevenue = 0;
+        String sql = "SELECT SUM(od.Quantity * od.Price) FROM OrderDetails od "
+                + "JOIN [Order] o ON od.OrderID = o.OrderID "
+                + "WHERE o.OrderDate = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, date);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                totalRevenue = rs.getDouble(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return totalRevenue;
+    }
+
+    public int getTotalSoldByMonth(String month) {
+        int totalSold = 0;
+        String sql = "SELECT SUM(od.Quantity) FROM OrderDetails od "
+                + "JOIN [Order] o ON od.OrderID = o.OrderID "
+                + "WHERE FORMAT(o.OrderDate, 'yyyy-MM') = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, month);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                totalSold = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return totalSold;
+    }
+
+    public double getTotalRevenueByMonth(String month) {
+        double totalRevenue = 0;
+        String sql = "SELECT SUM(od.Quantity * od.Price) FROM OrderDetails od "
+                + "JOIN [Order] o ON od.OrderID = o.OrderID "
+                + "WHERE FORMAT(o.OrderDate, 'yyyy-MM') = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, month);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                totalRevenue = rs.getDouble(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return totalRevenue;
+    }
+
     public int addProductReturnId(String productName, double originalPrice, String productDescription, String briefInformation, int categoryId, double importPrice, boolean status) {
         String query = "INSERT INTO product (ProductName, original_price, product_description, brief_information, CategoryProductID, CreateDate, import_price, status) "
                 + "VALUES (?, ?, ?, ?, ?, GETDATE(), ?, ?)";
