@@ -73,12 +73,7 @@ public class UserDAO {
 
     public static void main(String[] args) {
         UserDAO u = new UserDAO();
-        User us = new User();
-        us.setUsername("hieu");
-        us.setPassword("1");
-        us.setRoleId(3);
-        us.setDob(generateRandomDob());
-        u.createUser(us);
+        System.out.println(u.getUserByUsername("mra123"));
     }
 
     private static java.util.Date generateRandomDob() {
@@ -247,12 +242,14 @@ public class UserDAO {
                 rs.getBoolean("gender"),
                 rs.getString("address"),
                 rs.getString("avatar"),
-                rs.getInt("roleId"),
-                rs.getBoolean("isActive"),
-                rs.getString("token"),
-                rs.getString("expired_token")
+                rs.getInt("RoleID")
+                ,true,"",""
         );
     }
+<<<<<<< HEAD
+    
+}
+=======
 
     public List<User> getUsersByRole(int roleID) {
         List<User> userList = new ArrayList<>();
@@ -403,3 +400,4 @@ public class UserDAO {
     }
 
 }
+>>>>>>> 612670468b8e97480829caa20b45e30aafe3dc05

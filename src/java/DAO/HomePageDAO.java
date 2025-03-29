@@ -9,8 +9,6 @@ import Model.CategoryBlog;
 import Model.CategoryProduct;
 import Model.Color;
 import Model.Product;
-import Model.NewProduct;
-import Model.NewProductVariant;
 import Model.ProductVariant;
 import Model.Size;
 import Model.Slider;
@@ -175,6 +173,38 @@ public class HomePageDAO extends DBContext {
         return list;
     }
 
+<<<<<<< HEAD
+    return list;
+    }
+    
+    
+    
+    
+    public List<ProductVariant> NewProduct() {
+   
+    List<ProductVariant> newProduct = new ArrayList<>();
+    String query = """
+            SELECT TOP 4 
+                            p.[ProductID],
+                            p.[ProductName],
+                            p.[original_price],
+                            p.[sale_price],
+                            p.[product_description],
+                            p.[brief_information],
+                            pv.[VariantID],
+                            pv.[SizeID],
+                            pv.[ColorID],
+                            pv.[Stock],
+                            pv.[ImageURL],
+                            cp.CategoryID,
+                            cp.category_name,
+                            cp.category_description,
+                            cp.image
+                        FROM [Product] p
+                        JOIN [ProductVariant] pv ON p.[ProductID] = pv.[ProductID]
+                        JOIN [CategoryProduct] cp ON p.[CategoryProductID] = cp.[CategoryID]
+                        ORDER BY p.ProductID DESC;
+=======
     public List<NewProductVariant> NewProduct() {
 
         List<NewProductVariant> newProduct = new ArrayList<>();
@@ -201,18 +231,29 @@ public class HomePageDAO extends DBContext {
                                                 JOIN [CategoryProduct] cp ON p.[CategoryProductID] = cp.[CategoryID]
                                                 WHERE cp.[CategoryID] = 1 and pv.[Stock] > 0
                                                 ORDER BY p.CreateDate DESC ;
+>>>>>>> 612670468b8e97480829caa20b45e30aafe3dc05
     """;
 
         try {
             PreparedStatement ps = conn.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
 
+<<<<<<< HEAD
+            Product product = new Product(productID, productName, originalPrice, salePrice, productDescription, briefInformation, categoryProduct);
+
+            int variantID = rs.getInt("VariantID");
+            int stock = rs.getInt("Stock");
+            String imageUrl = rs.getString("ImageURL");
+
+            ProductVariant productVariant = new ProductVariant(variantID, product, size, color, stock, imageUrl);
+=======
             while (rs.next()) {
 
                 int categoryID = rs.getInt("CategoryID");
                 String categoryName = rs.getString("category_name");
                 String categoryDescription = rs.getString("category_description");
                 String categoryImage = rs.getString("image");
+>>>>>>> 612670468b8e97480829caa20b45e30aafe3dc05
 
                 CategoryProduct categoryProduct = new CategoryProduct(categoryID, categoryName, categoryDescription, categoryImage);
 

@@ -37,16 +37,40 @@
         <servlet-class>UserController.LoginController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AdminLoginController</servlet-name>
-        <servlet-class>UserController.AdminLoginController</servlet-class>
+        <servlet-name>CartController</servlet-name>
+        <servlet-class>Controller.CartController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>LogoutController</servlet-name>
-        <servlet-class>UserController.LogoutController</servlet-class>
+        <servlet-name>ProductCart</servlet-name>
+        <servlet-class>Controller.ProductCart</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AddStaffController</servlet-name>
-        <servlet-class>UserController.AddStaffController</servlet-class>
+        <servlet-name>PaymentController</servlet-name>
+        <servlet-class>Controller.PaymentController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SalesReport</servlet-name>
+        <servlet-class>Controller.SalesReport</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserReport</servlet-name>
+        <servlet-class>Controller.UserReport</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReportOldCustomer</servlet-name>
+        <servlet-class>Controller.ReportOldCustomer</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReportState</servlet-name>
+        <servlet-class>Controller.ReportState</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReportProduct</servlet-name>
+        <servlet-class>Controller.ReportProduct</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReportLessProduct</servlet-name>
+        <servlet-class>Controller.ReportLessProduct</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ViewProfile</servlet-name>
@@ -197,16 +221,40 @@
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AdminLoginController</servlet-name>
-        <url-pattern>/adminlogin</url-pattern>
+        <servlet-name>CartController</servlet-name>
+        <url-pattern>/product/cart</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>LogoutController</servlet-name>
-        <url-pattern>/logout</url-pattern>
+        <servlet-name>ProductCart</servlet-name>
+        <url-pattern>/ProductList/Cart</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AddStaffController</servlet-name>
-        <url-pattern>/addstaff</url-pattern>
+        <servlet-name>PaymentController</servlet-name>
+        <url-pattern>/payment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SalesReport</servlet-name>
+        <url-pattern>/sales/report</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserReport</servlet-name>
+        <url-pattern>/user/report</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReportOldCustomer</servlet-name>
+        <url-pattern>/report/old/customer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReportState</servlet-name>
+        <url-pattern>/report/state</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReportProduct</servlet-name>
+        <url-pattern>/report/product</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReportLessProduct</servlet-name>
+        <url-pattern>/report/less/product</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ViewProfile</servlet-name>

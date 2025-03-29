@@ -1,5 +1,24 @@
 package Model;
 
+<<<<<<< HEAD
+import java.util.List;
+
+/**
+ *
+ * @author phuan
+ */
+public class Product {
+
+    int product_ID;
+    String product_name;
+    Double original_Price;
+    Double sale_price;
+    String product_description;
+    String brief_information;
+    CategoryProduct ct;
+      public Product(){
+      };
+=======
 import java.sql.Date;
 import java.util.List;
 
@@ -19,6 +38,7 @@ public class Product {
     private int Stock;
 
     private List<ProductVariant> variants;  // 
+>>>>>>> 612670468b8e97480829caa20b45e30aafe3dc05
 
     public List<ProductVariant> getVariants() {
         return variants;

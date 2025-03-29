@@ -70,50 +70,50 @@
         <!-- Offcanvas Menu End -->
 
         <!-- Header Section Begin -->
-                <jsp:include page="header_1.jsp"></jsp:include>
+        <jsp:include page="header_1.jsp"></jsp:include>
 
-        <!-- Header Section End -->
+            <!-- Header Section End -->
 
-        <!-- Breadcrumb Section Begin -->
-        <section class="breadcrumb-option">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="breadcrumb__text">
-                            <h4>Shop</h4>
-                            <div class="breadcrumb__links">
-                                <a href="./index.html">Home</a>
-                                <span>Shop</span>
+            <!-- Breadcrumb Section Begin -->
+            <section class="breadcrumb-option">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="breadcrumb__text">
+                                <h4>Shop</h4>
+                                <div class="breadcrumb__links">
+                                    <a href="./index.html">Home</a>
+                                    <span>Shop</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
-        <!-- Breadcrumb Section End -->
+            </section>
+            <!-- Breadcrumb Section End -->
 
-        <!-- Shop Section Begin -->
-        <section class="shop spad">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-3">
-                        <div class="shop__sidebar">
-                            <div class="shop__sidebar__search">
-                                <!--                                <form method="GET" action="ProductList">
-                                                                    <input type="text" name="s" placeholder="Tìm Kiếm ...">
-                                                                    <button type="submit"><span class="icon_search"></span></button>
-                                                                </form>-->
-                            </div>
-                            <div class="shop__sidebar__accordion">
-                                <div class="accordion" id="accordionExample">
-                                    <div class="card">
-                                        <div class="card-heading">
-                                            <a data-toggle="collapse" data-target="#collapseOne">Categories</a>
-                                        </div>
-                                        <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
-                                            <div class="card-body">
-                                                <div class="shop__sidebar__categories">
-                                                    <ul class="nice-scroll">
+            <!-- Shop Section Begin -->
+            <section class="shop spad">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="shop__sidebar">
+                                <div class="shop__sidebar__search">
+                                    <!--                                <form method="GET" action="ProductList">
+                                                                        <input type="text" name="s" placeholder="Tìm Kiếm ...">
+                                                                        <button type="submit"><span class="icon_search"></span></button>
+                                                                    </form>-->
+                                </div>
+                                <div class="shop__sidebar__accordion">
+                                    <div class="accordion" id="accordionExample">
+                                        <div class="card">
+                                            <div class="card-heading">
+                                                <a data-toggle="collapse" data-target="#collapseOne">Categories</a>
+                                            </div>
+                                            <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
+                                                <div class="card-body">
+                                                    <div class="shop__sidebar__categories">
+                                                        <ul class="nice-scroll">
                                                         <c:forEach items="${cateproduct}" var="cp">
                                                             <li><a href="ProductList?cate=${cp.category_productID}">${cp.category_name}</a></li>
                                                             </c:forEach>
@@ -215,8 +215,8 @@
                                             </ul>
                                         </div>
                                         <div class="product__item__text">
-                                            <h6>${p.product.product_name}</h6>
-                                            <a href="#" class="add-cart">+ Add To Cart</a>
+                                            <h6>${p.product.product_name}</h6>                                           
+                                            <a href="product/cart?pid=${p.product.product_ID}" class="add-cart">+ Add To Cart</a>
                                             <div class="rating">
                                                 <i class="fa fa-star-o"></i>
                                                 <i class="fa fa-star-o"></i>

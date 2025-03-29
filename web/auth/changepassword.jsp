@@ -65,7 +65,7 @@
                     </form>
 
                     <div class="text-center mt-3">
-                        <p>Quay lại trang <a href="../SWP391/login" class="fw-bold">đăng nhập</a>.</p>
+                        <p>Quay lại trang <a href="../login" class="fw-bold">đăng nhập</a>.</p>
                     </div>
                 </div>
             </div>

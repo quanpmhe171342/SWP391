@@ -8,10 +8,25 @@ public class ProductVariant {
     private int stock;
     private String imageURL;
 
+<<<<<<< HEAD
+    int VariantID;
+    Product product;
+    Size size;
+    Color color;
+    int stock;
+    String image;
+
+    public ProductVariant() {
+    };
+
+    public ProductVariant(int VariantID, Product product, Size size, Color color, int stock, String image) {
+        this.VariantID = VariantID;
+=======
     public ProductVariant() {}
 
     public ProductVariant(int variantID, Product product, Size size, Color color, int stock, String imageURL) {
         this.variantID = variantID;
+>>>>>>> 612670468b8e97480829caa20b45e30aafe3dc05
         this.product = product;
         this.size = size;
         this.color = color;
@@ -73,4 +88,13 @@ public class ProductVariant {
     public void setImageURL(String imageURL) {
         this.imageURL = imageURL;
     }
+<<<<<<< HEAD
+
+    @Override
+    public String toString() {
+        return "ProductVariant{" + "VariantID=" + VariantID + ", product=" + product + ", size=" + size + ", color=" + color + ", stock=" + stock + ", image=" + image + '}';
+    }
+
+=======
+>>>>>>> 612670468b8e97480829caa20b45e30aafe3dc05
 }

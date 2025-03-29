@@ -8,7 +8,11 @@ import java.sql.Date;
 
 /**
  *
+<<<<<<< HEAD
+ * @author d
+=======
  * @author NV200
+>>>>>>> 612670468b8e97480829caa20b45e30aafe3dc05
  */
 public class ReportCustomerDTO {
     private Date period;

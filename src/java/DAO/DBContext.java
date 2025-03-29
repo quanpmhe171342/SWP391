@@ -37,7 +37,11 @@ public class DBContext {
     }
 
     public DBContext() {
+<<<<<<< HEAD
+        this("jdbc:sqlserver://localhost:1433;databaseName=SWP391", "sa", "buiductrong050103");
+=======
         this("jdbc:sqlserver://localhost:1433;databaseName=SWP0403", "sa", "123");
+>>>>>>> 612670468b8e97480829caa20b45e30aafe3dc05
     }
 
     //public for all class

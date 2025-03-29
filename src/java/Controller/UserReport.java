@@ -2,14 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
 package Controller;
 
-<<<<<<< HEAD
 import DAO.OrderDAO;
-=======
-import DAO.DashboarDAO;
->>>>>>> 612670468b8e97480829caa20b45e30aafe3dc05
 import DTO.ReportCustomerDTO;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -27,40 +22,29 @@ import java.util.Map;
 
 /**
  *
-<<<<<<< HEAD
  * @author d
-=======
- * @author NV200
->>>>>>> 612670468b8e97480829caa20b45e30aafe3dc05
  */
-public class ReportOldCustomer extends HttpServlet {
-   
-    
+public class UserReport extends HttpServlet {
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
+    /**
      * Handles the HTTP <code>GET</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-<<<<<<< HEAD
     private final OrderDAO daoOrder = new OrderDAO();
-=======
-    private final DashboarDAO daDAO = new DashboarDAO();
->>>>>>> 612670468b8e97480829caa20b45e30aafe3dc05
-    @Override
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
+        // start date
         String startDateParam = request.getParameter("startDate");
         String endDateParam = request.getParameter("endDate");
         Date startDate = (startDateParam != null) ? Date.valueOf(startDateParam) : Date.valueOf(LocalDate.now());
         Date endDate = (endDateParam != null) ? Date.valueOf(endDateParam) : Date.valueOf(LocalDate.now());
-<<<<<<< HEAD
-        List<ReportCustomerDTO> userReport = daoOrder.getOldCustomer(startDate, endDate);
-=======
-        List<ReportCustomerDTO> userReport = daDAO.getOldCustomer(startDate, endDate);
->>>>>>> 612670468b8e97480829caa20b45e30aafe3dc05
+        List<ReportCustomerDTO> userReport = daoOrder.getNewCustomerStats(startDate, endDate);
         Map<String, Integer> dailyStats = new HashMap<>();
         userReport.forEach(stat -> {
             String dateStr = new SimpleDateFormat("dd/MM/yyyy").format(stat.getPeriod());
@@ -80,11 +64,12 @@ public class ReportOldCustomer extends HttpServlet {
         request.setAttribute("customers", allCustomers);
         request.setAttribute("startDate", startDate);
         request.setAttribute("endDate", endDate);
-        request.getRequestDispatcher("../../Views/ReportOldCustomer.jsp").forward(request, response);
-    } 
+        request.getRequestDispatcher("../Views/ReportUser.jsp").forward(request, response);
+    }
 
-    /** 
+    /**
      * Handles the HTTP <code>POST</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -92,12 +77,13 @@ public class ReportOldCustomer extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        
+            throws ServletException, IOException {
+
     }
 
-    /** 
+    /**
      * Returns a short description of the servlet.
+     *
      * @return a String containing servlet description
      */
     @Override

@@ -3,10 +3,10 @@ package UserController;
 import DAO.UserDAO;
 import Model.User;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class LoginController extends HttpServlet {
@@ -31,11 +31,31 @@ public class LoginController extends HttpServlet {
             throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+<<<<<<< HEAD
+        // Kiểm tra xem username và password có hợp lệ không
+        User user = userDAO.getUserByUsername(username);
+        if (user != null) {
+            if (user.getPassword().equals(password)) {
+                if (user.getRoleId() == 1) {
+                    HttpSession session = request.getSession(false);
+                    session.setAttribute("user", user);
+                    response.sendRedirect(request.getContextPath() + "/ProductList");
+                } else {
+                    request.setAttribute("errorMessage", "Tài khoản không thể truy cập.");
+                    request.getRequestDispatcher("/auth/login.jsp").forward(request, response);
+                }
+            } else {
+                request.setAttribute("errorMessage", "Sai mật khẩu. Vui lòng thử lại.");
+                request.getRequestDispatcher("/auth/login.jsp").forward(request, response);
+            }
+        } else {
+=======
 
         // Kiểm tra username có tồn tại không
         User user = userDAO.getUserByUsername(username);
 
         if (user == null) {
+>>>>>>> 612670468b8e97480829caa20b45e30aafe3dc05
             request.setAttribute("errorMessage", "Tài khoản không tồn tại. Vui lòng thử lại.");
             request.getRequestDispatcher("/auth/login.jsp").forward(request, response);
             return;

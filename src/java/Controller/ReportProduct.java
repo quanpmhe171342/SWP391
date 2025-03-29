@@ -4,7 +4,11 @@
  */
 package Controller;
 
+<<<<<<< HEAD
+import DAO.OrderDAO;
+=======
 import DAO.DashboarDAO;
+>>>>>>> 612670468b8e97480829caa20b45e30aafe3dc05
 import DTO.ReportProductDTO;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -42,7 +46,11 @@ public class ReportProduct extends HttpServlet {
         String endDateParam = request.getParameter("endDate");
         Date startDate = (startDateParam != null) ? Date.valueOf(startDateParam) : Date.valueOf(LocalDate.now());
         Date endDate = (endDateParam != null) ? Date.valueOf(endDateParam) : Date.valueOf(LocalDate.now());
+<<<<<<< HEAD
+        List<ReportProductDTO> reports = daoOrder.getReportProduct(startDate, endDate);
+=======
         List<ReportProductDTO> reports = daDAO.getReportProduct(startDate, endDate);
+>>>>>>> 612670468b8e97480829caa20b45e30aafe3dc05
         Map<String, Map<String, Object>> dailyStats = new HashMap<>();
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         reports.forEach(report -> {
@@ -62,7 +70,10 @@ public class ReportProduct extends HttpServlet {
         for (LocalDate date = start; !date.isAfter(end); date = date.plusDays(1)) {
             String dateStr = date.format(dtFormatter);
             allDates.add(dateStr);
+<<<<<<< HEAD
+=======
 
+>>>>>>> 612670468b8e97480829caa20b45e30aafe3dc05
             Map<String, Object> dayStats = dailyStats.getOrDefault(dateStr, new HashMap<>());
             allTotalSold.add((Integer) dayStats.getOrDefault("totalSold", 0));
             allRevenue.add((Double) dayStats.getOrDefault("revenue", 0.0));
@@ -86,7 +97,11 @@ public class ReportProduct extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+<<<<<<< HEAD
+    private final OrderDAO daoOrder = new OrderDAO();
+=======
     private final DashboarDAO daDAO = new DashboarDAO();
+>>>>>>> 612670468b8e97480829caa20b45e30aafe3dc05
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
